@@ -1,33 +1,47 @@
 <!DOCTYPE html>
+<!-- The 'lang' attribute will be dynamically set by JavaScript -->
 <html lang="id">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TrackEco – Reduce, Recycle, Transform Plastic Waste in Surabaya</title>
-    <meta name="description"
-        content="TrackEco channels sorted plastic waste to craft microindustries in Surabaya. Lower quality materials go to Bank Sampah Induk Surabaya recycling. Join our mission today.">
+
+    <!-- Meta tags will be dynamically updated based on language -->
+    <title data-translate-key="meta_title">TrackEco: Daur Ulang & Pengelolaan Sampah Plastik di Surabaya</title>
+    <meta name="description" data-translate-key="meta_description"
+        content="TrackEco mengubah sampah plastik di Surabaya menjadi kerajinan tangan melalui kerjasama dengan Bank Sampah Induk Surabaya. Bergabunglah dengan kami untuk mengurangi sampah plastik.">
     <meta name="keywords"
-        content="plastic recycling, Surabaya, eco-friendly, waste management, Bank Sampah Induk Surabaya, craft microindustries, environmental sustainability">
+        content="daur ulang plastik Surabaya, pengelolaan sampah Surabaya, Bank Sampah Induk Surabaya, kerajinan daur ulang, ekonomi sirkular, lingkungan hidup Surabaya, plastic recycling Surabaya, waste management Surabaya">
     <meta name="author" content="TrackEco">
     <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.trackeco.org">
+
+    <!-- Hreflang tags for multilingual SEO -->
+    <link rel="alternate" hreflang="id" href="https://www.trackeco.org">
+    <link rel="alternate" hreflang="en" href="https://www.trackeco.org">
+    <link rel="alternate" hreflang="x-default" href="https://www.trackeco.org">
 
     <!-- Open Graph / Social Media Meta Tags -->
-    <meta property="og:title" content="TrackEco – Reduce, Recycle, Transform Plastic Waste in Surabaya">
-    <meta property="og:description"
-        content="Channeling sorted plastic waste to craft microindustries in Surabaya with Bank Sampah Induk Surabaya">
+    <meta property="og:title" data-translate-key="og_title"
+        content="TrackEco: Daur Ulang & Pengelolaan Sampah Plastik di Surabaya">
+    <meta property="og:description" data-translate-key="og_description"
+        content="TrackEco memberdayakan masyarakat Surabaya untuk mendaur ulang sampah plastik menjadi produk bernilai, bekerja sama dengan Bank Sampah Induk Surabaya.">
     <meta property="og:image" content="{{ url_for('static', filename='images/og-image.jpg') }}">
     <meta property="og:url" content="https://www.trackeco.org">
     <meta property="og:type" content="website">
+    <meta property="og:locale" content="id_ID">
+    <meta property="og:locale:alternate" content="en_US">
+
 
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="TrackEco – Reduce, Recycle, Transform Plastic Waste in Surabaya">
-    <meta name="twitter:description"
-        content="Channeling sorted plastic waste to craft microindustries in Surabaya with Bank Sampah Induk Surabaya">
+    <meta name="twitter:title" data-translate-key="twitter_title"
+        content="TrackEco: Daur Ulang & Pengelolaan Sampah Plastik di Surabaya">
+    <meta name="twitter:description" data-translate-key="twitter_description"
+        content="TrackEco memberdayakan masyarakat Surabaya untuk mendaur ulang sampah plastik menjadi produk bernilai, bekerja sama dengan Bank Sampah Induk Surabaya.">
     <meta name="twitter:image" content="{{ url_for('static', filename='images/twitter-image.jpg') }}">
 
-    <!-- Structured Data -->
+    <!-- Structured Data (Static, as it's for the entity) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -35,16 +49,15 @@
       "name": "TrackEco",
       "url": "https://www.trackeco.org",
       "logo": "{{ url_for('static', filename='images/logo.jpg') }}",
-      "description": "Channeling sorted plastic waste to craft microindustries in Surabaya",
+      "description": "TrackEco is a non-profit organization in Surabaya focused on plastic waste management and recycling. We partner with Bank Sampah Induk Surabaya to channel quality plastic waste to micro-craft industries and process the rest responsibly.",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Surabaya",
         "addressCountry": "ID"
       },
-      "partner": {
-        "@type": "Organization",
-        "name": "Bank Sampah Induk Surabaya"
-      }
+      "sameAs": [
+        "https://www.instagram.com/trackeco_org"
+      ]
     }
     </script>
 
@@ -54,8 +67,6 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='images/favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='images/favicon-16x16.png') }}">
     <link rel="manifest" href="/site.webmanifest">
-
-    <!-- XML Sitemap (for search engines) -->
     <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 
     <script>
@@ -76,6 +87,7 @@
             }
         }
     </script>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
@@ -112,7 +124,6 @@
             }
         }
 
-        /* --- Process Flow Styles --- */
         .process-flow {
             display: flex;
             justify-content: center;
@@ -157,7 +168,6 @@
             color: #2e7d32;
         }
 
-        /* --- DYNAMIC Organizational Chart Styles --- */
         .org-chart-container {
             display: flex;
             justify-content: center;
@@ -284,7 +294,11 @@
             border-left: 2px solid #F2C14E;
         }
 
-        /* Accessibility improvements */
+        a:focus,
+        button:focus {
+            outline: none;
+        }
+
         .focus\:ring-accent:focus {
             box-shadow: 0 0 0 3px rgba(242, 193, 78, 0.5);
         }
@@ -305,23 +319,36 @@
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <a href="#home" class="flex items-center focus:outline-none focus:ring-2 focus:ring-accent rounded">
                 <img src="{{ url_for('static', filename='images/logo.jpg') }}"
-                    alt="TrackEco Logo - Sustainable waste management in Surabaya" class="h-12 mr-3">
+                    alt="Logo TrackEco - Inisiatif daur ulang plastik di Surabaya" class="h-12 mr-3">
                 <span class="font-bold text-xl">TrackEco</span>
             </a>
             <div class="hidden md:flex space-x-8 items-center">
                 <a href="#home"
-                    class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-2 py-1">Home</a>
+                    class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-2 py-1"
+                    data-translate-key="nav_home">Beranda</a>
                 <a href="#mission"
-                    class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-2 py-1">Mission</a>
+                    class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-2 py-1"
+                    data-translate-key="nav_mission">Misi</a>
                 <a href="#process"
-                    class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-2 py-1">Our
-                    Process</a>
+                    class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-2 py-1"
+                    data-translate-key="nav_process">Proses Kami</a>
                 <a href="#impact"
-                    class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-2 py-1">Impact</a>
+                    class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-2 py-1"
+                    data-translate-key="nav_impact">Dampak</a>
                 <a href="#team"
-                    class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-2 py-1">Team</a>
+                    class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-2 py-1"
+                    data-translate-key="nav_team">Tim</a>
                 <a href="#contact"
-                    class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-2 py-1">Contact</a>
+                    class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-2 py-1"
+                    data-translate-key="nav_contact">Kontak</a>
+                <!-- Language Switcher -->
+                <div class="flex items-center space-x-2 border-l border-gray-600 ml-4 pl-4">
+                    <button id="lang-en"
+                        class="font-bold hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-1">EN</button>
+                    <span>|</span>
+                    <button id="lang-id"
+                        class="font-bold hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-1">ID</button>
+                </div>
             </div>
             <button class="md:hidden text-white focus:outline-none focus:ring-2 focus:ring-accent rounded z-20"
                 id="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
@@ -330,435 +357,472 @@
             <div id="mobile-menu"
                 class="mobile-menu md:hidden absolute top-full left-0 w-full bg-primary p-5 space-y-4">
                 <a href="#home"
-                    class="block text-center text-lg hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded py-2">Home</a>
+                    class="block text-center text-lg hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded py-2"
+                    data-translate-key="nav_home_mobile">Beranda</a>
                 <a href="#mission"
-                    class="block text-center text-lg hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded py-2">Mission</a>
+                    class="block text-center text-lg hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded py-2"
+                    data-translate-key="nav_mission_mobile">Misi</a>
                 <a href="#process"
-                    class="block text-center text-lg hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded py-2">Our
-                    Process</a>
+                    class="block text-center text-lg hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded py-2"
+                    data-translate-key="nav_process_mobile">Proses Kami</a>
                 <a href="#impact"
-                    class="block text-center text-lg hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded py-2">Impact</a>
+                    class="block text-center text-lg hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded py-2"
+                    data-translate-key="nav_impact_mobile">Dampak</a>
                 <a href="#team"
-                    class="block text-center text-lg hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded py-2">Team</a>
+                    class="block text-center text-lg hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded py-2"
+                    data-translate-key="nav_team_mobile">Tim</a>
                 <a href="#contact"
-                    class="block text-center text-lg hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded py-2">Contact</a>
+                    class="block text-center text-lg hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded py-2"
+                    data-translate-key="nav_contact_mobile">Kontak</a>
+                <div class="flex justify-center items-center space-x-4 pt-4 border-t border-gray-700">
+                    <button id="lang-en-mobile" class="font-bold text-lg hover:text-accent">EN</button>
+                    <span class="text-lg">|</span>
+                    <button id="lang-id-mobile" class="font-bold text-lg hover:text-accent">ID</button>
+                </div>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <!-- Hero Section -->
-    <section id="home" class="relative h-screen flex items-center justify-center pt-20">
+    <header id="home" class="relative h-screen flex items-center justify-center pt-20">
         <div class="absolute inset-0 bg-gray-900 overflow-hidden">
             <div class="relative w-full h-full">
-                <!-- Corrected Image Tags with Unique IDs -->
                 <img src="{{ url_for('static', filename='images/Beach2.jpg') }}"
-                    alt="TrackEco volunteers conducting beach cleanup in Surabaya"
+                    alt="Relawan TrackEco membersihkan pantai di Surabaya"
                     class="w-full h-full object-cover absolute inset-0 opacity-100 transition-opacity duration-1000"
                     id="hero-bg-1">
                 <img src="{{ url_for('static', filename='images/Beach1.jpg') }}"
-                    alt="TrackEco volunteers conducting beach cleanup in Surabaya"
+                    alt="Aksi bersih pantai oleh TrackEco di Surabaya"
                     class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000"
                     id="hero-bg-2">
-                <img src="{{ url_for('static', filename='images/UBS1.jpg') }}" alt="TrackEco visits UBS Gold"
+                <img src="{{ url_for('static', filename='images/UBS1.jpg') }}" alt="Kunjungan TrackEco ke UBS Gold"
                     class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000"
                     id="hero-bg-3">
-                <img src="{{ url_for('static', filename='images/Ubs2.jpg') }}" alt="TrackEco visits UBS Gold"
+                <img src="{{ url_for('static', filename='images/Ubs2.jpg') }}" alt="Diskusi TrackEco di UBS Gold"
                     class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000"
                     id="hero-bg-4">
-                <img src="{{ url_for('static', filename='images/FirstBackground.jpg') }}" alt="TrackEco meets Panji"
+                <img src="{{ url_for('static', filename='images/FirstBackground.jpg') }}"
+                    alt="Pertemuan TrackEco dengan Panji"
                     class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000"
                     id="hero-bg-5">
-                <img src="{{ url_for('static', filename='images/background2.jpg') }}" alt="TrackEco meets Panji"
+                <img src="{{ url_for('static', filename='images/background2.jpg') }}"
+                    alt="Kolaborasi TrackEco dan Panji"
                     class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000"
                     id="hero-bg-6">
-                <img src="{{ url_for('static', filename='images/background3.jpg') }}" alt="TrackEco meets Panji"
+                <img src="{{ url_for('static', filename='images/background3.jpg') }}" alt="Sesi diskusi TrackEco"
                     class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000"
                     id="hero-bg-7">
-                <img src="{{ url_for('static', filename='images/Background4.jpg') }}" alt="TrackEco collaboration"
+                <img src="{{ url_for('static', filename='images/Background4.jpg') }}"
+                    alt="Kerjasama TrackEco dengan mitra"
                     class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000"
                     id="hero-bg-8">
-                <img src="{{ url_for('static', filename='images/background5.jpg') }}" alt="TrackEco collaboration"
+                <img src="{{ url_for('static', filename='images/background5.jpg') }}" alt="Kegiatan kolaborasi TrackEco"
                     class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000"
                     id="hero-bg-9">
-                <img src="{{ url_for('static', filename='images/background6.jpg') }}" alt="TrackEco collaboration"
+                <img src="{{ url_for('static', filename='images/background6.jpg') }}" alt="Presentasi oleh tim TrackEco"
                     class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000"
                     id="hero-bg-10">
             </div>
         </div>
         <div class="absolute inset-0 hero-overlay z-10"></div>
         <div class="relative z-20 text-center px-4 md:px-0 max-w-4xl mx-auto">
-            <h1 class="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight"> Empowering Surabaya to Recycle &
-                Thrive </h1>
-            <h2 class="text-xl md:text-2xl text-white mb-4"> Join <span id="memberCounter"
-                    class="text-accent font-bold">74</span> members turning plastic waste into community benefit. </h2>
+            <h1 class="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight" data-translate-key="hero_title">
+                Memberdayakan Surabaya Melalui Daur Ulang</h1>
+
+            <!-- ** FIX for Member Counter ** -->
+            <h2 class="text-xl md:text-2xl text-white mb-4">
+                <span data-translate-key="hero_subtitle_prefix">Bergabunglah dengan</span>
+                <span id="memberCounter" class="text-accent font-bold">74</span>
+                <span data-translate-key="hero_subtitle_suffix">anggota untuk mengubah sampah plastik menjadi manfaat
+                    bagi masyarakat.</span>
+            </h2>
+            <!-- ** End of Fix ** -->
+
             <div class="flex flex-wrap justify-center gap-4 md:gap-8 mb-6">
                 <div class="text-white text-center">
                     <div class="text-2xl md:text-3xl font-bold text-accent"><span id="bottleCounter">200,000</span>+
                     </div>
-                    <div class="text-sm md:text-base">Plastic Bottles Collected</div>
+                    <div class="text-sm md:text-base" data-translate-key="hero_bottles_collected">Botol Plastik
+                        Terkumpul</div>
                 </div>
                 <div class="text-white text-center">
                     <div class="text-2xl md:text-3xl font-bold text-accent"><span id="partnerCounter">30</span>+</div>
-                    <div class="text-sm md:text-base">Local SME Partners</div>
+                    <div class="text-sm md:text-base" data-translate-key="hero_sme_partners">Mitra UKM Lokal</div>
                 </div>
             </div>
             <div class="flex justify-center items-center space-x-4 mb-8">
-                <span class="text-white">Collaborating with:</span>
-                <a href="https://www.launchpd.org" target="_blank" class="hover:opacity-80 transition"
-                    aria-label="Launchpad (opens in new tab)">
-                    <img src="{{ url_for('static', filename='images/launchpad.webp') }}" alt="Launchpad" class="h-10">
+                <span class="text-white" data-translate-key="hero_collaborating">Bekerja sama dengan:</span>
+                <a href="https://www.launchpd.org" target="_blank" rel="noopener noreferrer"
+                    class="hover:opacity-80 transition" aria-label="Launchpad (opens in new tab)">
+                    <img src="{{ url_for('static', filename='images/launchpad.webp') }}" alt="Logo Launchpad"
+                        class="h-10">
                 </a>
                 <a href="#" class="hover:opacity-80 transition" aria-label="Bank Sampah Induk Surabaya">
                     <img src="{{ url_for('static', filename='images/BankSampah.jpg') }}"
-                        alt="Bank Sampah Induk Surabaya" class="h-10">
+                        alt="Logo Bank Sampah Induk Surabaya" class="h-10">
                 </a>
             </div>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
                 <a href="#mission"
-                    class="bg-transparent border-2 border-white text-white px-8 py-3 rounded-full font-bold hover:bg-white hover:text-primary transition text-lg focus:outline-none focus:ring-2 focus:ring-accent">
-                    Learn More </a>
+                    class="bg-transparent border-2 border-white text-white px-8 py-3 rounded-full font-bold hover:bg-white hover:text-primary transition text-lg focus:outline-none focus:ring-2 focus:ring-accent"
+                    data-translate-key="hero_learn_more">
+                    Pelajari Lebih Lanjut</a>
                 <a href="#contact"
-                    class="bg-accent border-2 border-accent text-primary px-8 py-3 rounded-full font-bold hover:bg-accent-dark hover:border-accent-dark transition text-lg focus:outline-none focus:ring-2 focus:ring-white">
-                    Get Involved </a>
+                    class="bg-accent border-2 border-accent text-primary px-8 py-3 rounded-full font-bold hover:bg-accent-dark hover:border-accent-dark transition text-lg focus:outline-none focus:ring-2 focus:ring-white"
+                    data-translate-key="hero_get_involved">
+                    Bergabung</a>
             </div>
-            <!-- Corrected Navigation Dots -->
+            <!-- Navigation Dots -->
             <div class="flex justify-center mt-8 space-x-2">
                 <button
                     class="dot w-1.5 h-1.5 rounded-full bg-white bg-opacity-20 hover:bg-opacity-100 transition focus:outline-none focus:ring-2 focus:ring-accent"
-                    data-index="0" aria-label="Show slide 1"></button>
+                    data-index="0" aria-label="Tampilkan slide 1"></button>
                 <button
                     class="dot w-1.5 h-1.5 rounded-full bg-white bg-opacity-20 hover:bg-opacity-100 transition focus:outline-none focus:ring-2 focus:ring-accent"
-                    data-index="1" aria-label="Show slide 2"></button>
+                    data-index="1" aria-label="Tampilkan slide 2"></button>
                 <button
                     class="dot w-1.5 h-1.5 rounded-full bg-white bg-opacity-20 hover:bg-opacity-100 transition focus:outline-none focus:ring-2 focus:ring-accent"
-                    data-index="2" aria-label="Show slide 3"></button>
+                    data-index="2" aria-label="Tampilkan slide 3"></button>
                 <button
                     class="dot w-1.5 h-1.5 rounded-full bg-white bg-opacity-20 hover:bg-opacity-100 transition focus:outline-none focus:ring-2 focus:ring-accent"
-                    data-index="3" aria-label="Show slide 4"></button>
+                    data-index="3" aria-label="Tampilkan slide 4"></button>
                 <button
                     class="dot w-1.5 h-1.5 rounded-full bg-white bg-opacity-20 hover:bg-opacity-100 transition focus:outline-none focus:ring-2 focus:ring-accent"
-                    data-index="4" aria-label="Show slide 5"></button>
+                    data-index="4" aria-label="Tampilkan slide 5"></button>
                 <button
                     class="dot w-1.5 h-1.5 rounded-full bg-white bg-opacity-20 hover:bg-opacity-100 transition focus:outline-none focus:ring-2 focus:ring-accent"
-                    data-index="5" aria-label="Show slide 6"></button>
+                    data-index="5" aria-label="Tampilkan slide 6"></button>
                 <button
                     class="dot w-1.5 h-1.5 rounded-full bg-white bg-opacity-20 hover:bg-opacity-100 transition focus:outline-none focus:ring-2 focus:ring-accent"
-                    data-index="6" aria-label="Show slide 7"></button>
+                    data-index="6" aria-label="Tampilkan slide 7"></button>
                 <button
                     class="dot w-1.5 h-1.5 rounded-full bg-white bg-opacity-20 hover:bg-opacity-100 transition focus:outline-none focus:ring-2 focus:ring-accent"
-                    data-index="7" aria-label="Show slide 8"></button>
+                    data-index="7" aria-label="Tampilkan slide 8"></button>
                 <button
                     class="dot w-1.5 h-1.5 rounded-full bg-white bg-opacity-20 hover:bg-opacity-100 transition focus:outline-none focus:ring-2 focus:ring-accent"
-                    data-index="8" aria-label="Show slide 9"></button>
+                    data-index="8" aria-label="Tampilkan slide 9"></button>
                 <button
                     class="dot w-1.5 h-1.5 rounded-full bg-white bg-opacity-20 hover:bg-opacity-100 transition focus:outline-none focus:ring-2 focus:ring-accent"
-                    data-index="9" aria-label="Show slide 10"></button>
+                    data-index="9" aria-label="Tampilkan slide 10"></button>
             </div>
         </div>
         <div class="absolute bottom-10 left-0 right-0 flex flex-col items-center z-20">
             <a href="#mission"
                 class="text-white animate-bounce focus:outline-none focus:ring-2 focus:ring-accent rounded"
-                aria-label="Scroll to next section">
+                aria-label="Gulir ke bagian berikutnya">
                 <i class="fas fa-chevron-down text-3xl"></i>
             </a>
         </div>
-    </section>
+    </header>
 
-    <!-- Mission Section -->
-    <section id="mission" class="py-20 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">Our Mission to Transform Surabaya</h2>
-                <div class="w-20 h-1 bg-accent mx-auto"></div>
-            </div>
-            <div class="flex flex-col md:flex-row gap-12 items-center">
-                <div class="md:w-1/2">
-                    <h3 class="text-2xl font-bold text-primary mb-6">Indonesia's Plastic Crisis</h3>
-                    <p class="mb-4 text-lg">Did you know Indonesia is one of the world's largest contributors to ocean
-                        plastic waste, generating over <span class="font-bold text-secondary">3.2 million tons</span>
-                        annually?</p>
-                    <p class="mb-4 text-lg">In Surabaya alone, plastic waste accounts for <span
-                            class="font-bold text-secondary">15-20%</span> of total waste, yet less than <span
-                            class="font-bold text-secondary">10%</span> gets recycled. Where does the rest go?</p>
-                    <ul class="space-y-3 mb-6">
-                        <li class="flex items-start"><i
-                                class="fas fa-check-circle text-accent mt-1 mr-2"></i><span>Clogging our rivers and
-                                beaches</span></li>
-                        <li class="flex items-start"><i
-                                class="fas fa-check-circle text-accent mt-1 mr-2"></i><span>Endangering marine
-                                life</span></li>
-                        <li class="flex items-start"><i
-                                class="fas fa-check-circle text-accent mt-1 mr-2"></i><span>Creating health hazards for
-                                communities</span></li>
-                    </ul>
-                    <p class="text-lg">We believe this crisis is also an opportunity — to build a circular economy that
-                        benefits everyone.</p>
+    <main>
+        <!-- Mission Section -->
+        <section id="mission" class="py-20 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4" data-translate-key="mission_title">Misi
+                        Kami untuk Mengubah Surabaya</h2>
+                    <div class="w-20 h-1 bg-accent mx-auto"></div>
                 </div>
-                <div class="md:w-1/2 bg-gray-50 p-8 rounded-xl shadow-lg">
-                    <div class="text-center mb-8">
-                        <h3 class="text-2xl font-bold text-primary">Our Two-Step Process</h3>
-                    </div>
-                    <div class="space-y-8">
-                        <div class="flex items-start">
-                            <div class="bg-accent bg-opacity-20 p-3 rounded-full mr-4"><i
-                                    class="fas fa-minus-circle text-accent text-2xl"></i></div>
-                            <div>
-                                <h4 class="font-bold text-lg mb-2">Reduce</h4>
-                                <p class="text-gray-700">Educate communities on waste prevention and sustainable
-                                    alternatives to single-use plastics.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start">
-                            <div class="bg-accent bg-opacity-20 p-3 rounded-full mr-4"><i
-                                    class="fas fa-recycle text-accent text-2xl"></i></div>
-                            <div>
-                                <h4 class="font-bold text-lg mb-2">Recycle</h4>
-                                <p class="text-gray-700">Create accessible collection points and partner with recycling
-                                    facilities to process materials properly.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Process Section -->
-    <section id="process" class="py-16 bg-ecoGreen bg-opacity-10">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">Our Sustainable Process</h2>
-                <p class="text-lg max-w-3xl mx-auto">In partnership with <strong>Bank Sampah Induk Surabaya</strong>,
-                    we've developed an innovative approach to plastic waste management that benefits local craft
-                    microindustries and the environment.</p>
-            </div>
-
-            <div class="process-flow">
-                <div class="process-step">
-                    <div class="process-icon">
-                        <i class="fas fa-hand-holding-medical"></i>
-                    </div>
-                    <h3 class="font-bold text-lg mb-2">Collection</h3>
-                    <p class="text-sm">Plastic waste is collected from communities across Surabaya</p>
-                </div>
-
-                <div class="process-step">
-                    <div class="process-icon">
-                        <i class="fas fa-sort"></i>
-                    </div>
-                    <h3 class="font-bold text-lg mb-2">Sorting</h3>
-                    <p class="text-sm">Expert sorting by <strong>Bank Sampah Induk Surabaya</strong> identifies quality
-                        materials</p>
-                </div>
-
-                <div class="process-step">
-                    <div class="process-icon">
-                        <i class="fas fa-hands-helping"></i>
-                    </div>
-                    <h3 class="font-bold text-lg mb-2">Distribution</h3>
-                    <p class="text-sm">High-quality plastics are channeled to craft microindustries</p>
-                </div>
-
-                <div class="process-step">
-                    <div class="process-icon">
-                        <i class="fas fa-recycle"></i>
-                    </div>
-                    <h3 class="font-bold text-lg mb-2">Recycling</h3>
-                    <p class="text-sm">Lower quality materials are sent to recycling facilities</p>
-                </div>
-            </div>
-
-            <div class="mt-12 bg-white p-8 rounded-xl shadow-lg">
-                <div class="flex flex-col md:flex-row gap-8 items-center">
-                    <div class="md:w-1/3 flex justify-center">
-                        <img src="{{ url_for('static', filename='images/BankSampah.jpg') }}"
-                            alt="Bank Sampah Induk Surabaya - Our Sorting Partner"
-                            class="rounded-lg shadow-md max-w-full h-auto">
-                    </div>
-                    <div class="md:w-2/3">
-                        <h3 class="text-2xl font-bold text-primary mb-4">Partnership with Bank Sampah Induk Surabaya
-                        </h3>
-                        <p class="mb-4">We're proud to collaborate with <strong>Bank Sampah Induk Surabaya</strong>, who
-                            provides expert sorting of all collected plastic materials. Their expertise ensures that:
+                <div class="flex flex-col md:flex-row gap-12 items-center">
+                    <div class="md:w-1/2">
+                        <h3 class="text-2xl font-bold text-primary mb-6" data-translate-key="mission_crisis_title">
+                            Krisis Plastik di Indonesia</h3>
+                        <p class="mb-4 text-lg" data-translate-key="mission_crisis_p1">Tahukah Anda bahwa Indonesia
+                            adalah salah satu penyumbang sampah plastik laut terbesar di dunia, menghasilkan lebih dari
+                            <span class="font-bold text-secondary">3,2 juta ton</span> setiap tahunnya?
                         </p>
+                        <p class="mb-4 text-lg" data-translate-key="mission_crisis_p2">Di Surabaya sendiri, sampah
+                            plastik mencapai <span class="font-bold text-secondary">15-20%</span> dari total sampah,
+                            namun kurang dari <span class="font-bold text-secondary">10%</span> yang didaur ulang. Ke
+                            mana sisanya?</p>
                         <ul class="space-y-3 mb-6">
-                            <li class="flex items-start"><i
-                                    class="fas fa-check-circle text-ecoGreen mt-1 mr-2"></i><span>High-quality plastics
-                                    are identified and channeled to local craft microindustries</span></li>
-                            <li class="flex items-start"><i
-                                    class="fas fa-check-circle text-ecoGreen mt-1 mr-2"></i><span>Lower quality
-                                    materials are properly processed through recycling facilities</span></li>
-                            <li class="flex items-start"><i
-                                    class="fas fa-check-circle text-ecoGreen mt-1 mr-2"></i><span>Waste pickers receive
-                                    fair compensation for their important work</span></li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-accent mt-1 mr-2"></i><span
+                                    data-translate-key="mission_crisis_l1">Menyumbat sungai dan pantai kita</span></li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-accent mt-1 mr-2"></i><span
+                                    data-translate-key="mission_crisis_l2">Membahayakan biota laut</span></li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-accent mt-1 mr-2"></i><span
+                                    data-translate-key="mission_crisis_l3">Menciptakan bahaya kesehatan bagi
+                                    masyarakat</span></li>
                         </ul>
-                        <p>This partnership creates a sustainable circular economy that benefits local artisans, reduces
-                            waste, and creates economic opportunities throughout Surabaya.</p>
+                        <p class="text-lg" data-translate-key="mission_crisis_p3">Kami percaya krisis ini juga merupakan
+                            peluang — untuk membangun ekonomi sirkular yang bermanfaat bagi semua.</p>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Impact Section -->
-    <section id="impact" class="py-16 bg-accent text-primary">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Impact in Numbers</h2>
-                <p class="text-lg max-w-2xl mx-auto">Since our founding in 2024, TrackEco has made measurable progress
-                    in Surabaya's waste management ecosystem.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div
-                    class="bg-white bg-opacity-90 p-8 rounded-xl shadow-lg flex flex-col items-center text-center h-full">
-                    <div class="text-5xl font-bold text-primary mb-4">30+</div>
-                    <div class="text-xl font-semibold mb-4">Local SME Partners</div>
-                    <div class="flex justify-center space-x-4 mt-auto">
-                        <img src="{{ url_for('static', filename='images/AquaLogo.png') }}" alt="Aqua Logo"
-                            class="h-10 object-contain">
-                        <img src="{{ url_for('static', filename='images/Panji.jpg') }}" alt="Panji Logo"
-                            class="h-10 object-contain">
-                        <img src="{{ url_for('static', filename='images/BankSampah.jpg') }}"
-                            alt="Bank Sampah Induk Surabaya Logo" class="h-10 object-contain">
-                    </div>
-                </div>
-                <div
-                    class="bg-white bg-opacity-90 p-8 rounded-xl shadow-lg flex flex-col items-center text-center h-full">
-                    <div class="text-5xl font-bold text-primary mb-4"><span id="impactBottleCounter">1400+</span>kg
-                    </div>
-                    <div class="flex flex-col justify-center h-full">
-                        <div class="text-xl font-semibold mb-2">Plastic Collected</div>
-                        <p class="text-gray-600">From urban areas</p>
-                    </div>
-                </div>
-                <div
-                    class="bg-white bg-opacity-90 p-8 rounded-xl shadow-lg flex flex-col items-center text-center h-full">
-                    <div class="text-5xl font-bold text-primary mb-4">74</div>
-                    <div class="flex flex-col justify-center h-full">
-                        <div class="text-xl font-semibold mb-2">Active Members</div>
-                        <p class="text-gray-600">Leading community recycling efforts</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-12 bg-white bg-opacity-90 p-8 rounded-xl shadow-lg">
-                <h3 class="text-2xl font-bold text-center text-primary mb-6">Environmental Impact</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="flex items-start">
-                        <div class="bg-ecoGreen bg-opacity-20 p-3 rounded-full mr-4"><i
-                                class="fas fa-tree text-ecoGreen text-2xl"></i></div>
-                        <div>
-                            <h4 class="font-bold text-lg mb-2">Carbon Emission Reduction</h4>
-                            <p class="text-gray-700">Our recycling efforts have prevented an estimated <strong>42
-                                    tons</strong> of CO2 emissions.</p>
+                    <div class="md:w-1/2 bg-gray-50 p-8 rounded-xl shadow-lg">
+                        <div class="text-center mb-8">
+                            <h3 class="text-2xl font-bold text-primary" data-translate-key="mission_process_title">
+                                Proses Dua Langkah Kami</h3>
                         </div>
-                    </div>
-                    <div class="flex items-start">
-                        <div class="bg-ecoGreen bg-opacity-20 p-3 rounded-full mr-4"><i
-                                class="fas fa-water text-ecoBlue text-2xl"></i></div>
-                        <div>
-                            <h4 class="font-bold text-lg mb-2">Ocean Protection</h4>
-                            <p class="text-gray-700">We've prevented <strong>1,200 kg</strong> of plastic from entering
-                                oceans and waterways.</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start">
-                        <div class="bg-ecoGreen bg-opacity-20 p-3 rounded-full mr-4"><i
-                                class="fas fa-industry text-secondary text-2xl"></i></div>
-                        <div>
-                            <h4 class="font-bold text-lg mb-2">Craft Industry Support</h4>
-                            <p class="text-gray-700"><strong>85%</strong> of high-quality plastic supports local craft
-                                microindustries.</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start">
-                        <div class="bg-ecoGreen bg-opacity-20 p-3 rounded-full mr-4"><i
-                                class="fas fa-users text-accent text-2xl"></i></div>
-                        <div>
-                            <h4 class="font-bold text-lg mb-2">Community Engagement</h4>
-                            <p class="text-gray-700">We've educated <strong>500+</strong> community members on proper
-                                waste management.</p>
+                        <div class="space-y-8">
+                            <div class="flex items-start">
+                                <div class="bg-accent bg-opacity-20 p-3 rounded-full mr-4"><i
+                                        class="fas fa-minus-circle text-accent text-2xl"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-lg mb-2" data-translate-key="mission_process_reduce">
+                                        Mengurangi</h4>
+                                    <p class="text-gray-700" data-translate-key="mission_process_reduce_desc">Mendidik
+                                        masyarakat tentang pencegahan sampah dan alternatif berkelanjutan untuk plastik
+                                        sekali pakai.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-accent bg-opacity-20 p-3 rounded-full mr-4"><i
+                                        class="fas fa-recycle text-accent text-2xl"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-lg mb-2" data-translate-key="mission_process_recycle">
+                                        Mendaur Ulang</h4>
+                                    <p class="text-gray-700" data-translate-key="mission_process_recycle_desc">
+                                        Menciptakan titik pengumpulan yang mudah diakses dan bermitra dengan fasilitas
+                                        daur ulang untuk memproses bahan dengan benar.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Team Section -->
-    <section id="team" class="py-20 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">Meet Our Team</h2>
-                <p class="text-lg max-w-2xl mx-auto">Hover over a leader to see their team.</p>
-            </div>
-            <div class="org-chart-container">
-                <div class="org-chart">
-                    <ul id="leaders-container">
-                        <!-- LEADER CARDS WILL BE DYNAMICALLY INSERTED HERE BY JAVASCRIPT -->
-                    </ul>
+        <!-- Process Section -->
+        <section id="process" class="py-16 bg-ecoGreen bg-opacity-10">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4" data-translate-key="process_title">
+                        Proses Berkelanjutan Kami</h2>
+                    <p class="text-lg max-w-3xl mx-auto" data-translate-key="process_subtitle">Bermitra dengan
+                        <strong>Bank Sampah Induk Surabaya</strong>, kami telah mengembangkan pendekatan inovatif untuk
+                        pengelolaan sampah plastik yang bermanfaat bagi industri mikro kerajinan lokal dan lingkungan.
+                    </p>
+                </div>
+                <div class="process-flow">
+                    <div class="process-step">
+                        <div class="process-icon"><i class="fas fa-hand-holding-medical"></i></div>
+                        <h3 class="font-bold text-lg mb-2" data-translate-key="process_step1_title">Pengumpulan</h3>
+                        <p class="text-sm" data-translate-key="process_step1_desc">Sampah plastik dikumpulkan dari
+                            masyarakat di seluruh Surabaya</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="process-icon"><i class="fas fa-sort"></i></div>
+                        <h3 class="font-bold text-lg mb-2" data-translate-key="process_step2_title">Pemilahan</h3>
+                        <p class="text-sm" data-translate-key="process_step2_desc">Pemilahan oleh ahli dari <strong>Bank
+                                Sampah Induk Surabaya</strong> mengidentifikasi bahan berkualitas</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="process-icon"><i class="fas fa-hands-helping"></i></div>
+                        <h3 class="font-bold text-lg mb-2" data-translate-key="process_step3_title">Distribusi</h3>
+                        <p class="text-sm" data-translate-key="process_step3_desc">Plastik berkualitas tinggi disalurkan
+                            ke industri mikro kerajinan</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="process-icon"><i class="fas fa-recycle"></i></div>
+                        <h3 class="font-bold text-lg mb-2" data-translate-key="process_step4_title">Daur Ulang</h3>
+                        <p class="text-sm" data-translate-key="process_step4_desc">Bahan berkualitas lebih rendah
+                            dikirim ke fasilitas daur ulang</p>
+                    </div>
+                </div>
+                <div class="mt-12 bg-white p-8 rounded-xl shadow-lg">
+                    <div class="flex flex-col md:flex-row gap-8 items-center">
+                        <div class="md:w-1/3 flex justify-center">
+                            <img src="{{ url_for('static', filename='images/BankSampah.jpg') }}"
+                                alt="Bank Sampah Induk Surabaya - Mitra pemilahan kami"
+                                class="rounded-lg shadow-md max-w-full h-auto">
+                        </div>
+                        <div class="md:w-2/3">
+                            <h3 class="text-2xl font-bold text-primary mb-4" data-translate-key="process_partner_title">
+                                Kemitraan dengan Bank Sampah Induk Surabaya</h3>
+                            <p class="mb-4" data-translate-key="process_partner_p1">Kami bangga berkolaborasi dengan
+                                <strong>Bank Sampah Induk Surabaya</strong>, yang menyediakan pemilahan ahli untuk semua
+                                bahan plastik yang terkumpul. Keahlian mereka memastikan bahwa:
+                            </p>
+                            <ul class="space-y-3 mb-6">
+                                <li class="flex items-start"><i
+                                        class="fas fa-check-circle text-ecoGreen mt-1 mr-2"></i><span
+                                        data-translate-key="process_partner_l1">Plastik berkualitas tinggi
+                                        diidentifikasi dan disalurkan ke industri mikro kerajinan lokal</span></li>
+                                <li class="flex items-start"><i
+                                        class="fas fa-check-circle text-ecoGreen mt-1 mr-2"></i><span
+                                        data-translate-key="process_partner_l2">Bahan berkualitas lebih rendah diproses
+                                        dengan benar melalui fasilitas daur ulang</span></li>
+                                <li class="flex items-start"><i
+                                        class="fas fa-check-circle text-ecoGreen mt-1 mr-2"></i><span
+                                        data-translate-key="process_partner_l3">Pemulung menerima kompensasi yang adil
+                                        atas pekerjaan penting mereka</span></li>
+                            </ul>
+                            <p data-translate-key="process_partner_p2">Kemitraan ini menciptakan ekonomi sirkular yang
+                                berkelanjutan yang bermanfaat bagi pengrajin lokal, mengurangi sampah, dan menciptakan
+                                peluang ekonomi di seluruh Surabaya.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Contact & Footer -->
+        <!-- Impact Section -->
+        <section id="impact" class="py-16 bg-accent text-primary">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4" data-translate-key="impact_title">Dampak Kami dalam
+                        Angka</h2>
+                    <p class="text-lg max-w-2xl mx-auto" data-translate-key="impact_subtitle">Sejak didirikan pada tahun
+                        2024, TrackEco telah membuat kemajuan yang terukur dalam ekosistem pengelolaan sampah di
+                        Surabaya.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div
+                        class="bg-white bg-opacity-90 p-8 rounded-xl shadow-lg flex flex-col items-center text-center h-full">
+                        <div class="text-5xl font-bold text-primary mb-4">30+</div>
+                        <div class="text-xl font-semibold mb-4" data-translate-key="impact_card1_title">Mitra UKM Lokal
+                        </div>
+                        <div class="flex justify-center space-x-4 mt-auto">
+                            <img src="{{ url_for('static', filename='images/AquaLogo.png') }}" alt="Logo Aqua"
+                                class="h-10 object-contain">
+                            <img src="{{ url_for('static', filename='images/Panji.jpg') }}" alt="Logo Panji"
+                                class="h-10 object-contain">
+                            <img src="{{ url_for('static', filename='images/BankSampah.jpg') }}"
+                                alt="Logo Bank Sampah Induk Surabaya" class="h-10 object-contain">
+                        </div>
+                    </div>
+                    <div
+                        class="bg-white bg-opacity-90 p-8 rounded-xl shadow-lg flex flex-col items-center text-center h-full">
+                        <div class="text-5xl font-bold text-primary mb-4"><span id="impactBottleCounter">1400</span>+ kg
+                        </div>
+                        <div class="flex flex-col justify-center h-full">
+                            <div class="text-xl font-semibold mb-2" data-translate-key="impact_card2_title">Plastik
+                                Terkumpul</div>
+                            <p class="text-gray-600" data-translate-key="impact_card2_desc">Dari wilayah perkotaan</p>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-white bg-opacity-90 p-8 rounded-xl shadow-lg flex flex-col items-center text-center h-full">
+                        <div class="text-5xl font-bold text-primary mb-4">74</div>
+                        <div class="flex flex-col justify-center h-full">
+                            <div class="text-xl font-semibold mb-2" data-translate-key="impact_card3_title">Anggota
+                                Aktif</div>
+                            <p class="text-gray-600" data-translate-key="impact_card3_desc">Memimpin upaya daur ulang
+                                komunitas</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-12 bg-white bg-opacity-90 p-8 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-bold text-center text-primary mb-6" data-translate-key="impact_env_title">
+                        Dampak Lingkungan</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="flex items-start">
+                            <div class="bg-ecoGreen bg-opacity-20 p-3 rounded-full mr-4"><i
+                                    class="fas fa-tree text-ecoGreen text-2xl"></i></div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-2" data-translate-key="impact_env1_title">Pengurangan
+                                    Emisi Karbon</h4>
+                                <p class="text-gray-700" data-translate-key="impact_env1_desc">Upaya daur ulang kami
+                                    telah mencegah sekitar <strong>42 ton</strong> emisi CO2.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-ecoGreen bg-opacity-20 p-3 rounded-full mr-4"><i
+                                    class="fas fa-water text-ecoBlue text-2xl"></i></div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-2" data-translate-key="impact_env2_title">Perlindungan
+                                    Laut</h4>
+                                <p class="text-gray-700" data-translate-key="impact_env2_desc">Kami telah mencegah
+                                    <strong>1.200 kg</strong> plastik masuk ke laut dan saluran air.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-ecoGreen bg-opacity-20 p-3 rounded-full mr-4"><i
+                                    class="fas fa-industry text-secondary text-2xl"></i></div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-2" data-translate-key="impact_env3_title">Dukungan
+                                    Industri Kerajinan</h4>
+                                <p class="text-gray-700" data-translate-key="impact_env3_desc"><strong>85%</strong>
+                                    plastik berkualitas tinggi mendukung industri mikro kerajinan lokal.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-ecoGreen bg-opacity-20 p-3 rounded-full mr-4"><i
+                                    class="fas fa-users text-accent text-2xl"></i></div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-2" data-translate-key="impact_env4_title">Keterlibatan
+                                    Masyarakat</h4>
+                                <p class="text-gray-700" data-translate-key="impact_env4_desc">Kami telah mengedukasi
+                                    <strong>500+</strong> anggota masyarakat tentang pengelolaan sampah yang benar.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section id="team" class="py-20 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4" data-translate-key="team_title">Temui
+                        Tim Kami</h2>
+                    <p class="text-lg max-w-2xl mx-auto" data-translate-key="team_subtitle">Arahkan kursor ke seorang
+                        pemimpin untuk melihat tim mereka.</p>
+                </div>
+                <div class="org-chart-container">
+                    <div class="org-chart">
+                        <ul id="leaders-container">
+                            <!-- Team cards are dynamically generated by JavaScript -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
     <footer id="contact" class="bg-primary text-white pt-16 pb-8">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
                 <div class="md:col-span-1">
-                    <div class="flex items-center mb-4">
-                        <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="TrackEco Logo"
-                            class="h-10 mr-3">
-                        <span class="font-bold text-xl">TrackEco</span>
-                    </div>
-                    <p class="mb-4">Empowering Surabaya to reduce waste and thrive through community recycling programs.
-                    </p>
-                    <p class="text-sm text-gray-400">In partnership with Bank Sampah Induk Surabaya</p>
+                    <div class="flex items-center mb-4"><img src="{{ url_for('static', filename='images/logo.jpg') }}"
+                            alt="TrackEco Logo" class="h-10 mr-3"><span class="font-bold text-xl">TrackEco</span></div>
+                    <p class="mb-4" data-translate-key="footer_desc">Memberdayakan Surabaya untuk mengurangi sampah dan
+                        berkembang melalui program daur ulang komunitas.</p>
+                    <p class="text-sm text-gray-400" data-translate-key="footer_partner">Bekerja sama dengan Bank Sampah
+                        Induk Surabaya</p>
                 </div>
                 <div>
-                    <h3 class="font-bold text-lg mb-4">Quick Links</h3>
+                    <h3 class="font-bold text-lg mb-4" data-translate-key="footer_links_title">Tautan Cepat</h3>
                     <ul class="space-y-2">
                         <li><a href="#home"
-                                class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-1">Home</a>
-                        </li>
+                                class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-1"
+                                data-translate-key="footer_link_home">Beranda</a></li>
                         <li><a href="#mission"
-                                class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-1">Our
-                                Mission</a></li>
+                                class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-1"
+                                data-translate-key="footer_link_mission">Misi Kami</a></li>
                         <li><a href="#process"
-                                class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-1">Our
-                                Process</a></li>
+                                class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-1"
+                                data-translate-key="footer_link_process">Proses Kami</a></li>
                         <li><a href="#impact"
-                                class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-1">Impact</a>
-                        </li>
+                                class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-1"
+                                data-translate-key="footer_link_impact">Dampak</a></li>
                         <li><a href="#team"
-                                class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-1">Our
-                                Team</a></li>
+                                class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-1"
+                                data-translate-key="footer_link_team">Tim Kami</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="font-bold text-lg mb-4">Contact Us</h3>
+                    <h3 class="font-bold text-lg mb-4" data-translate-key="footer_contact_title">Hubungi Kami</h3>
                     <ul class="space-y-2">
-                        <li class="flex items-start">
-                            <i class="fas fa-envelope mt-1 mr-3 text-accent"></i>
-                            <a href="mailto:hello@trackeco.org"
-                                class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-1">hello@trackeco.org</a>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fab fa-instagram mt-1 mr-3 text-accent"></i>
-                            <a href="https://www.instagram.com/trackeco_org"
-                                class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-1">@trackeco_org</a>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-accent"></i>
-                            <span>Surabaya, Indonesia</span>
+                        <li class="flex items-start"><i class="fas fa-envelope mt-1 mr-3 text-accent"></i><a
+                                href="mailto:hello@trackeco.org"
+                                class="hover:text-accent transition">hello@trackeco.org</a></li>
+                        <li class="flex items-start"><i class="fab fa-instagram mt-1 mr-3 text-accent"></i><a
+                                href="https://www.instagram.com/trackeco_org" target="_blank" rel="noopener noreferrer"
+                                class="hover:text-accent transition">@trackeco_org</a></li>
+                        <li class="flex items-start"><i
+                                class="fas fa-map-marker-alt mt-1 mr-3 text-accent"></i><span>Surabaya, Indonesia</span>
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="border-t border-gray-700 pt-8 text-center text-gray-400">
-                <p>© 2024 TrackEco. All rights reserved.</p>
+                <p>© 2024 TrackEco. <span data-translate-key="footer_rights">Hak cipta dilindungi undang-undang.</span>
+                </p>
             </div>
         </div>
     </footer>
@@ -766,236 +830,291 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
 
-            // --- DYNAMIC TEAM DATA ---
-            // TO EDIT THE TEAM, MODIFY THIS ARRAY OF OBJECTS.
-            // Use a valid image path for the 'image' property.
-            const teamData = [
-                {
-                    name: 'Stanley Cahyono',
-                    title: 'Executive Director of Business & Logistics',
-                    role: 'Chairman',
-                    image: `{{ url_for('static', filename='images/Stanley2.jpg') }}`,
-                    quote: 'Progress begins with what we throw away—or choose not to.',
-                    team: [
-                        { name: 'Jessica Hakiki', role: 'Head of Social Media' },
-                        { name: 'Jayden Emery', role: 'Head of Logistics' },
-                        { name: 'Thomas Alexander', role: 'Field Operations Team Leader' }
-                    ]
+            const translations = {
+                en: {
+                    // Meta Tags
+                    meta_title: "TrackEco: Plastic Recycling & Waste Management in Surabaya",
+                    meta_description: "TrackEco transforms plastic waste in Surabaya into crafts through collaboration with Bank Sampah Induk Surabaya. Join us to reduce plastic waste.",
+                    og_title: "TrackEco: Plastic Recycling & Waste Management in Surabaya",
+                    og_description: "TrackEco empowers the Surabaya community to recycle plastic waste into valuable products, in partnership with Bank Sampah Induk Surabaya.",
+                    twitter_title: "TrackEco: Plastic Recycling & Waste Management in Surabaya",
+                    twitter_description: "TrackEco empowers the Surabaya community to recycle plastic waste into valuable products.",
+                    // Navigation
+                    nav_home: "Home", nav_mission: "Mission", nav_process: "Our Process", nav_impact: "Impact", nav_team: "Team", nav_contact: "Contact",
+                    nav_home_mobile: "Home", nav_mission_mobile: "Mission", nav_process_mobile: "Our Process", nav_impact_mobile: "Impact", nav_team_mobile: "Team", nav_contact_mobile: "Contact",
+                    // Hero
+                    hero_title: "Empowering Surabaya Through Recycling",
+                    hero_subtitle_prefix: "Join",
+                    hero_subtitle_suffix: "members turning plastic waste into community benefit.",
+                    hero_bottles_collected: "Plastic Bottles Collected",
+                    hero_sme_partners: "Local SME Partners",
+                    hero_collaborating: "Collaborating with:",
+                    hero_learn_more: "Learn More",
+                    hero_get_involved: "Get Involved",
+                    // Mission
+                    mission_title: "Our Mission to Transform Surabaya",
+                    mission_crisis_title: "Indonesia's Plastic Crisis",
+                    mission_crisis_p1: "Did you know Indonesia is one of the world's largest contributors to ocean plastic waste, generating over <span class='font-bold text-secondary'>3.2 million tons</span> annually?",
+                    mission_crisis_p2: "In Surabaya alone, plastic waste accounts for <span class='font-bold text-secondary'>15-20%</span> of total waste, yet less than <span class='font-bold text-secondary'>10%</span> gets recycled. Where does the rest go?",
+                    mission_crisis_l1: "Clogging our rivers and beaches",
+                    mission_crisis_l2: "Endangering marine life",
+                    mission_crisis_l3: "Creating health hazards for communities",
+                    mission_crisis_p3: "We believe this crisis is also an opportunity — to build a circular economy that benefits everyone.",
+                    mission_process_title: "Our Two-Step Process",
+                    mission_process_reduce: "Reduce",
+                    mission_process_reduce_desc: "Educate communities on waste prevention and sustainable alternatives to single-use plastics.",
+                    mission_process_recycle: "Recycle",
+                    mission_process_recycle_desc: "Create accessible collection points and partner with recycling facilities to process materials properly.",
+                    // Process
+                    process_title: "Our Sustainable Process",
+                    process_subtitle: "In partnership with <strong>Bank Sampah Induk Surabaya</strong>, we've developed an innovative approach to plastic waste management that benefits local craft microindustries and the environment.",
+                    process_step1_title: "Collection", process_step1_desc: "Plastic waste is collected from communities across Surabaya",
+                    process_step2_title: "Sorting", process_step2_desc: "Expert sorting by <strong>Bank Sampah Induk Surabaya</strong> identifies quality materials",
+                    process_step3_title: "Distribution", process_step3_desc: "High-quality plastics are channeled to craft microindustries",
+                    process_step4_title: "Recycling", process_step4_desc: "Lower quality materials are sent to recycling facilities",
+                    process_partner_title: "Partnership with Bank Sampah Induk Surabaya",
+                    process_partner_p1: "We're proud to collaborate with <strong>Bank Sampah Induk Surabaya</strong>, who provides expert sorting of all collected plastic materials. Their expertise ensures that:",
+                    process_partner_l1: "High-quality plastics are identified and channeled to local craft microindustries",
+                    process_partner_l2: "Lower quality materials are properly processed through recycling facilities",
+                    process_partner_l3: "Waste pickers receive fair compensation for their important work",
+                    process_partner_p2: "This partnership creates a sustainable circular economy that benefits local artisans, reduces waste, and creates economic opportunities throughout Surabaya.",
+                    // Impact
+                    impact_title: "Our Impact in Numbers",
+                    impact_subtitle: "Since our founding in 2024, TrackEco has made measurable progress in Surabaya's waste management ecosystem.",
+                    impact_card1_title: "Local SME Partners",
+                    impact_card2_title: "Plastic Collected", impact_card2_desc: "From urban areas",
+                    impact_card3_title: "Active Members", impact_card3_desc: "Leading community recycling efforts",
+                    impact_env_title: "Environmental Impact",
+                    impact_env1_title: "Carbon Emission Reduction", impact_env1_desc: "Our recycling efforts have prevented an estimated <strong>42 tons</strong> of CO2 emissions.",
+                    impact_env2_title: "Ocean Protection", impact_env2_desc: "We've prevented <strong>1,200 kg</strong> of plastic from entering oceans and waterways.",
+                    impact_env3_title: "Craft Industry Support", impact_env3_desc: "<strong>85%</strong> of high-quality plastic supports local craft microindustries.",
+                    impact_env4_title: "Community Engagement", impact_env4_desc: "We've educated <strong>500+</strong> community members on proper waste management.",
+                    // Team
+                    team_title: "Meet Our Team",
+                    team_subtitle: "Hover over a leader to see their team.",
+                    team_stanley_quote: 'Progress begins with what we throw away—or choose not to.',
+                    team_max_quote: 'Every piece of plastic is a small step for systemic change in the world.',
+                    team_javier_quote: 'Recycling isn\'t a cost—it\'s an investment in tomorrow\'s possibilities.',
+                    // Footer
+                    footer_desc: "Empowering Surabaya to reduce waste and thrive through community recycling programs.",
+                    footer_partner: "In partnership with Bank Sampah Induk Surabaya",
+                    footer_links_title: "Quick Links",
+                    footer_link_home: "Home", footer_link_mission: "Our Mission", footer_link_process: "Our Process", footer_link_impact: "Impact", footer_link_team: "Our Team",
+                    footer_contact_title: "Contact Us",
+                    footer_rights: "All rights reserved."
                 },
-                {
-                    name: 'Maximillian Eugene',
-                    title: 'Executive Director of Eng. & Tech',
-                    role: 'Vice Chairman',
-                    image: `{{ url_for('static', filename='images/Max.jpg') }}`,
-                    quote: 'Every piece of plastic is a small step for systemic change in the world.',
-                    team: [
-                        { name: 'Ashton Suwandi', role: 'Vice Director of Eng. & Tech' },
-                        { name: 'Eucharist Suhargo', role: 'Head of Research & Education' },
-                        { name: 'Louis Gerrard', role: 'Head of Sustainable Planning' }
-
-                    ]
-                },
-                {
-                    name: 'Javier Ongko',
-                    title: 'Executive Director of Financing & Partnerships',
-                    image: `{{ url_for('static', filename='images/JavierOngko.jpg') }}`,
-                    quote: 'Recycling isn\'t a cost—it\'s an investment in tomorrow\'s possibilities.',
-                    team: [
-                        { name: 'Serafine Susilo', role: 'Head of Strategic Partnerships' },
-                        { name: 'Joseph Dylan', role: 'Head of Sponsorships and Treasury' },
-                        { name: 'Dylan Archer', role: 'Head of Legal & Compliance' },
-                        { name: 'Justin Armando', role: 'Head of Human Resources' },
-                    ]
+                id: {
+                    // Meta Tags
+                    meta_title: "TrackEco: Daur Ulang & Pengelolaan Sampah Plastik di Surabaya",
+                    meta_description: "TrackEco mengubah sampah plastik di Surabaya menjadi kerajinan tangan melalui kerjasama dengan Bank Sampah Induk Surabaya. Bergabunglah dengan kami untuk mengurangi sampah plastik.",
+                    og_title: "TrackEco: Daur Ulang & Pengelolaan Sampah Plastik di Surabaya",
+                    og_description: "TrackEco memberdayakan masyarakat Surabaya untuk mendaur ulang sampah plastik menjadi produk bernilai, bekerja sama dengan Bank Sampah Induk Surabaya.",
+                    twitter_title: "TrackEco: Daur Ulang & Pengelolaan Sampah Plastik di Surabaya",
+                    twitter_description: "TrackEco memberdayakan masyarakat Surabaya untuk mendaur ulang sampah plastik menjadi produk bernilai.",
+                    // Navigation
+                    nav_home: "Beranda", nav_mission: "Misi", nav_process: "Proses Kami", nav_impact: "Dampak", nav_team: "Tim", nav_contact: "Kontak",
+                    nav_home_mobile: "Beranda", nav_mission_mobile: "Misi", nav_process_mobile: "Proses Kami", nav_impact_mobile: "Dampak", nav_team_mobile: "Tim", nav_contact_mobile: "Kontak",
+                    // Hero
+                    hero_title: "Memberdayakan Surabaya Melalui Daur Ulang",
+                    hero_subtitle_prefix: "Bergabunglah dengan",
+                    hero_subtitle_suffix: "anggota untuk mengubah sampah plastik menjadi manfaat bagi masyarakat.",
+                    hero_bottles_collected: "Botol Plastik Terkumpul",
+                    hero_sme_partners: "Mitra UKM Lokal",
+                    hero_collaborating: "Bekerja sama dengan:",
+                    hero_learn_more: "Pelajari Lebih Lanjut",
+                    hero_get_involved: "Bergabung",
+                    // Mission
+                    mission_title: "Misi Kami untuk Mengubah Surabaya",
+                    mission_crisis_title: "Krisis Plastik di Indonesia",
+                    mission_crisis_p1: "Tahukah Anda bahwa Indonesia adalah salah satu penyumbang sampah plastik laut terbesar di dunia, menghasilkan lebih dari <span class='font-bold text-secondary'>3,2 juta ton</span> setiap tahunnya?",
+                    mission_crisis_p2: "Di Surabaya sendiri, sampah plastik mencapai <span class='font-bold text-secondary'>15-20%</span> dari total sampah, namun kurang dari <span class='font-bold text-secondary'>10%</span> yang didaur ulang. Ke mana sisanya?",
+                    mission_crisis_l1: "Menyumbat sungai dan pantai kita",
+                    mission_crisis_l2: "Membahayakan biota laut",
+                    mission_crisis_l3: "Menciptakan bahaya kesehatan bagi masyarakat",
+                    mission_crisis_p3: "Kami percaya krisis ini juga merupakan peluang — untuk membangun ekonomi sirkular yang bermanfaat bagi semua.",
+                    mission_process_title: "Proses Dua Langkah Kami",
+                    mission_process_reduce: "Mengurangi",
+                    mission_process_reduce_desc: "Mendidik masyarakat tentang pencegahan sampah dan alternatif berkelanjutan untuk plastik sekali pakai.",
+                    mission_process_recycle: "Mendaur Ulang",
+                    mission_process_recycle_desc: "Menciptakan titik pengumpulan yang mudah diakses dan bermitra dengan fasilitas daur ulang untuk memproses bahan dengan benar.",
+                    // Process
+                    process_title: "Proses Berkelanjutan Kami",
+                    process_subtitle: "Bermitra dengan <strong>Bank Sampah Induk Surabaya</strong>, kami telah mengembangkan pendekatan inovatif untuk pengelolaan sampah plastik yang bermanfaat bagi industri mikro kerajinan lokal dan lingkungan.",
+                    process_step1_title: "Pengumpulan", process_step1_desc: "Sampah plastik dikumpulkan dari masyarakat di seluruh Surabaya",
+                    process_step2_title: "Pemilahan", process_step2_desc: "Pemilahan oleh ahli dari <strong>Bank Sampah Induk Surabaya</strong> mengidentifikasi bahan berkualitas",
+                    process_step3_title: "Distribusi", process_step3_desc: "Plastik berkualitas tinggi disalurkan ke industri mikro kerajinan",
+                    process_step4_title: "Daur Ulang", process_step4_desc: "Bahan berkualitas lebih rendah dikirim ke fasilitas daur ulang",
+                    process_partner_title: "Kemitraan dengan Bank Sampah Induk Surabaya",
+                    process_partner_p1: "Kami bangga berkolaborasi dengan <strong>Bank Sampah Induk Surabaya</strong>, yang menyediakan pemilahan ahli untuk semua bahan plastik yang terkumpul. Keahlian mereka memastikan bahwa:",
+                    process_partner_l1: "Plastik berkualitas tinggi diidentifikasi dan disalurkan ke industri mikro kerajinan lokal",
+                    process_partner_l2: "Bahan berkualitas lebih rendah diproses dengan benar melalui fasilitas daur ulang",
+                    process_partner_l3: "Pemulung menerima kompensasi yang adil atas pekerjaan penting mereka",
+                    process_partner_p2: "Kemitraan ini menciptakan ekonomi sirkular yang berkelanjutan yang bermanfaat bagi pengrajin lokal, mengurangi sampah, dan menciptakan peluang ekonomi di seluruh Surabaya.",
+                    // Impact
+                    impact_title: "Dampak Kami dalam Angka",
+                    impact_subtitle: "Sejak didirikan pada tahun 2024, TrackEco telah membuat kemajuan yang terukur dalam ekosistem pengelolaan sampah di Surabaya.",
+                    impact_card1_title: "Mitra UKM Lokal",
+                    impact_card2_title: "Plastik Terkumpul", impact_card2_desc: "Dari wilayah perkotaan",
+                    impact_card3_title: "Anggota Aktif", impact_card3_desc: "Memimpin upaya daur ulang komunitas",
+                    impact_env_title: "Dampak Lingkungan",
+                    impact_env1_title: "Pengurangan Emisi Karbon", impact_env1_desc: "Upaya daur ulang kami telah mencegah sekitar <strong>42 ton</strong> emisi CO2.",
+                    impact_env2_title: "Perlindungan Laut", impact_env2_desc: "Kami telah mencegah <strong>1.200 kg</strong> plastik masuk ke laut dan saluran air.",
+                    impact_env3_title: "Dukungan Industri Kerajinan", impact_env3_desc: "<strong>85%</strong> plastik berkualitas tinggi mendukung industri mikro kerajinan lokal.",
+                    impact_env4_title: "Keterlibatan Masyarakat", impact_env4_desc: "Kami telah mengedukasi <strong>500+</strong> anggota masyarakat tentang pengelolaan sampah yang benar.",
+                    // Team
+                    team_title: "Temui Tim Kami",
+                    team_subtitle: "Arahkan kursor ke seorang pemimpin untuk melihat tim mereka.",
+                    team_stanley_quote: 'Kemajuan dimulai dari apa yang kita buang—atau pilih untuk tidak dibuang.',
+                    team_max_quote: 'Setiap potongan plastik adalah langkah kecil untuk perubahan sistemik di dunia.',
+                    team_javier_quote: 'Daur ulang bukanlah biaya—ini adalah investasi untuk kemungkinan di hari esok.',
+                    // Footer
+                    footer_desc: "Memberdayakan Surabaya untuk mengurangi sampah dan berkembang melalui program daur ulang komunitas.",
+                    footer_partner: "Bekerja sama dengan Bank Sampah Induk Surabaya",
+                    footer_links_title: "Tautan Cepat",
+                    footer_link_home: "Beranda", footer_link_mission: "Misi Kami", footer_link_process: "Proses Kami", footer_link_impact: "Dampak", footer_link_team: "Tim Kami",
+                    footer_contact_title: "Hubungi Kami",
+                    footer_rights: "Hak cipta dilindungi undang-undang."
                 }
+            };
+
+            const teamData = [
+                { name: 'Stanley Cahyono', title: 'Executive Director of Business & Logistics', role: 'Chairman', image: `{{ url_for('static', filename='images/Stanley2.jpg') }}`, quoteKey: 'team_stanley_quote', team: [{ name: 'Jessica Hakiki', role: 'Head of Social Media' }, { name: 'Jayden Emery', role: 'Head of Logistics' }, { name: 'Thomas Alexander', role: 'Field Operations Team Leader' }] },
+                { name: 'Maximillian Eugene', title: 'Executive Director of Eng. & Tech', role: 'Vice Chairman', image: `{{ url_for('static', filename='images/Max.jpg') }}`, quoteKey: 'team_max_quote', team: [{ name: 'Ashton Suwandi', role: 'Vice Director of Eng. & Tech' }, { name: 'Eucharist Suhargo', role: 'Head of Research & Education' }, { name: 'Louis Gerrard', role: 'Head of Sustainable Planning' }] },
+                { name: 'Javier Ongko', title: 'Executive Director of Financing & Partnerships', image: `{{ url_for('static', filename='images/JavierOngko.jpg') }}`, quoteKey: 'team_javier_quote', team: [{ name: 'Serafine Susilo', role: 'Head of Strategic Partnerships' }, { name: 'Joseph Dylan', role: 'Head of Sponsorships and Treasury' }, { name: 'Dylan Archer', role: 'Head of Legal & Compliance' }, { name: 'Justin Armando', role: 'Head of Human Resources' }] }
             ];
 
-            function renderTeam() {
+            function renderTeam(lang) {
                 const container = document.getElementById('leaders-container');
                 if (!container) return;
-
                 let html = '';
                 teamData.forEach(leader => {
-                    // Build subordinate list HTML first
-                    let subordinatesHtml = '';
-                    leader.team.forEach(member => {
-                        subordinatesHtml += `
-                    <li>
-                        <div class="node subordinate-node">
-                            <h3>${member.name}</h3>
-                            ${member.role ? `<p class="role">${member.role}</p>` : ''}
-                        </div>
-                    </li>
-                `;
-                    });
-
-                    // Build the complete leader card HTML
-                    html += `
-                <li class="leader">
-                    <div class="node leader-node">
-                        <img src="${leader.image}" alt="${leader.name}" class="leader-image">
-                        <div class="text-center">
-                            <h3>${leader.name}</h3>
-                            <p>${leader.title}</p>
-                            ${leader.role ? `<p class="role">${leader.role}</p>` : ''}
-                        </div>
-                        <p class="leader-quote">“${leader.quote}”</p>
-                    </div>
-                    <ul class="subordinates">
-                        ${subordinatesHtml}
-                    </ul>
-                </li>
-            `;
+                    const quote = translations[lang][leader.quoteKey] || '';
+                    let subordinatesHtml = leader.team.map(member => `<li><div class="node subordinate-node"><h3>${member.name}</h3>${member.role ? `<p class="role">${member.role}</p>` : ''}</div></li>`).join('');
+                    html += `<li class="leader"><div class="node leader-node"><img src="${leader.image}" alt="${leader.name}" class="leader-image"><div class="text-center"><h3>${leader.name}</h3><p>${leader.title}</p>${leader.role ? `<p class="role">${leader.role}</p>` : ''}</div><p class="leader-quote">“${quote}”</p></div><ul class="subordinates">${subordinatesHtml}</ul></li>`;
                 });
                 container.innerHTML = html;
             }
-            // Call the function to build the entire team section
-            renderTeam();
 
+            const setLanguage = (lang) => {
+                document.documentElement.lang = lang;
+                localStorage.setItem('language', lang);
+                document.querySelectorAll('[data-translate-key]').forEach(element => {
+                    const key = element.getAttribute('data-translate-key');
+                    if (translations[lang] && translations[lang][key]) {
+                        const translation = translations[lang][key];
+                        if (element.tagName === 'TITLE') {
+                            element.textContent = translation;
+                        } else if (element.tagName === 'META') {
+                            element.setAttribute('content', translation);
+                        } else {
+                            element.innerHTML = translation;
+                        }
+                    }
+                });
+                renderTeam(lang);
+                document.querySelectorAll('#lang-en, #lang-en-mobile').forEach(el => el.classList.toggle('text-accent', lang === 'en'));
+                document.querySelectorAll('#lang-id, #lang-id-mobile').forEach(el => el.classList.toggle('text-accent', lang === 'id'));
+            };
+
+            const getInitialLanguage = () => {
+                const savedLang = localStorage.getItem('language');
+                if (savedLang && ['en', 'id'].includes(savedLang)) return savedLang;
+                const browserLang = navigator.language.split('-')[0];
+                return browserLang === 'en' ? 'en' : 'id';
+            };
+
+            ['lang-en', 'lang-en-mobile'].forEach(id => document.getElementById(id).addEventListener('click', () => setLanguage('en')));
+            ['lang-id', 'lang-id-mobile'].forEach(id => document.getElementById(id).addEventListener('click', () => setLanguage('id')));
+
+            const initialLang = getInitialLanguage();
+            setLanguage(initialLang);
 
             // --- Hero Background Slideshow ---
-            const backgrounds = [];
-            for (let i = 1; i <= 10; i++) {
-                const bg = document.getElementById(`hero-bg-${i}`);
-                if (bg) backgrounds.push(bg);
-            }
+            const backgrounds = Array.from(document.querySelectorAll('[id^="hero-bg-"]'));
             let currentBg = 0;
             const dots = Array.from(document.querySelectorAll('.dot'));
-
-            function updateDots() {
-                dots.forEach((dot, index) => {
-                    dot.classList.toggle('bg-opacity-100', index === currentBg);
-                    dot.classList.toggle('bg-opacity-20', index !== currentBg);
-                });
-            }
-
             function showBackground(index) {
-                if (!backgrounds.length || !backgrounds[currentBg]) return;
-                backgrounds[currentBg].classList.remove('opacity-100');
-                backgrounds[currentBg].classList.add('opacity-0');
-                currentBg = index;
-                backgrounds[currentBg].classList.remove('opacity-0');
-                backgrounds[currentBg].classList.add('opacity-100');
-                updateDots();
-                clearInterval(sliderInterval);
-                sliderInterval = setInterval(cycleBackgrounds, 5000);
-            }
-
-            function cycleBackgrounds() {
                 if (!backgrounds.length) return;
-                showBackground((currentBg + 1) % backgrounds.length);
-            }
-
-            let sliderInterval = setInterval(cycleBackgrounds, 5000);
-
-            dots.forEach(dot => {
-                dot.addEventListener('click', () => {
-                    showBackground(parseInt(dot.dataset.index));
+                backgrounds[currentBg].classList.replace('opacity-100', 'opacity-0');
+                currentBg = index;
+                backgrounds[currentBg].classList.replace('opacity-0', 'opacity-100');
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('bg-opacity-100', i === currentBg);
+                    dot.classList.toggle('bg-opacity-20', i !== currentBg);
                 });
-            });
+            }
+            let sliderInterval = setInterval(() => showBackground((currentBg + 1) % backgrounds.length), 5000);
+            dots.forEach((dot, index) => dot.addEventListener('click', () => {
+                clearInterval(sliderInterval);
+                showBackground(index);
+                sliderInterval = setInterval(() => showBackground((currentBg + 1) % backgrounds.length), 5000);
+            }));
+            if (dots.length > 0) dots[0].classList.add('bg-opacity-100');
 
-            if (dots.length > 0) updateDots();
-
-            // --- Counter Animation ---
-            function animateCounter(element, target, duration, isFloat = false) {
+            // ** FIX: Smooth and Fast Counter Animation **
+            function animateCounter(element, target, duration = 2000) {
                 if (!element) return;
-                const startTime = performance.now();
                 const startValue = 0;
+                let startTime = null;
 
-                function updateCounter(timestamp) {
-                    const elapsed = timestamp - startTime;
-                    const progress = Math.min(elapsed / duration, 1);
-                    const currentValue = startValue + (target - startValue) * progress;
-                    element.textContent = isFloat ? currentValue.toFixed(1) : Math.floor(currentValue).toLocaleString();
+                function animation(currentTime) {
+                    if (startTime === null) startTime = currentTime;
+                    const elapsedTime = currentTime - startTime;
+                    const progress = Math.min(elapsedTime / duration, 1);
+                    const currentValue = Math.floor(progress * (target - startValue) + startValue);
+                    element.textContent = currentValue.toLocaleString();
                     if (progress < 1) {
-                        requestAnimationFrame(updateCounter);
+                        window.requestAnimationFrame(animation);
                     }
                 }
-                requestAnimationFrame(updateCounter);
+                window.requestAnimationFrame(animation);
             }
 
-            animateCounter(document.getElementById('memberCounter'), 74, 1500);
-            animateCounter(document.getElementById('bottleCounter'), 100000, 1500);
-            animateCounter(document.getElementById('partnerCounter'), 30, 1500);
-            animateCounter(document.getElementById('impactBottleCounter'), 3522, 1500);
+            // Call counters after a brief moment to ensure DOM is ready
+            setTimeout(() => {
+                animateCounter(document.getElementById('memberCounter'), 74, 1500);
+                animateCounter(document.getElementById('bottleCounter'), 100000, 2000);
+                animateCounter(document.getElementById('partnerCounter'), 20, 1500);
+                animateCounter(document.getElementById('impactBottleCounter'), 900, 2000);
+            }, 100);
+            // ** End of Fix **
 
             // --- Mobile Menu Toggle ---
             const mobileMenuButton = document.getElementById('mobile-menu-toggle');
             const mobileMenu = document.getElementById('mobile-menu');
             const menuIcon = mobileMenuButton.querySelector('i');
-            const menuLinks = Array.from(document.querySelectorAll('#mobile-menu a'));
-
-            const toggleMenu = (event) => {
-                event.stopPropagation();
-                const isOpen = mobileMenu.classList.toggle('is-open');
-                menuIcon.classList.toggle('fa-bars', !isOpen);
-                menuIcon.classList.toggle('fa-times', isOpen);
-                mobileMenuButton.setAttribute('aria-expanded', isOpen);
-            };
-
             const closeMenu = () => {
                 mobileMenu.classList.remove('is-open');
-                menuIcon.classList.add('fa-bars');
                 menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
                 mobileMenuButton.setAttribute('aria-expanded', 'false');
+            }
+            const toggleMenu = () => {
+                mobileMenu.classList.contains('is-open') ? closeMenu() : (
+                    mobileMenu.classList.add('is-open'),
+                    menuIcon.classList.remove('fa-bars'),
+                    menuIcon.classList.add('fa-times'),
+                    mobileMenuButton.setAttribute('aria-expanded', 'true')
+                );
             };
-
             mobileMenuButton.addEventListener('click', toggleMenu);
-            menuLinks.forEach(link => link.addEventListener('click', closeMenu));
-
-            // Close menu when clicking outside
-            document.addEventListener('click', (event) => {
-                if (mobileMenu.classList.contains('is-open') &&
-                    !mobileMenu.contains(event.target) &&
-                    !mobileMenuButton.contains(event.target)) {
-                    closeMenu();
-                }
-            });
+            document.querySelectorAll('#mobile-menu a, #mobile-menu button').forEach(link => link.addEventListener('click', closeMenu));
 
             // --- Smooth Scrolling ---
-            const handleSmoothScroll = function (e) {
-                const targetId = this.getAttribute('href');
-                if (targetId.startsWith('#')) {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
                     const targetElement = document.querySelector(targetId);
                     if (targetElement) {
-                        e.preventDefault();
-                        const offsetTop = targetElement.offsetTop - 70; // Adjusted for fixed navbar
-                        window.scrollTo({
-                            top: offsetTop,
-                            behavior: 'smooth'
-                        });
-                        // Close mobile menu if open
-                        if (mobileMenu.classList.contains('is-open')) {
-                            closeMenu();
-                        }
+                        const offsetTop = targetElement.offsetTop - 70; // Adjust for fixed navbar
+                        window.scrollTo({ top: offsetTop, behavior: 'smooth' });
                     }
-                }
-            };
-
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', handleSmoothScroll);
+                });
             });
 
-            // Lazy loading for images
-            if ('IntersectionObserver' in window) {
-                const lazyImages = document.querySelectorAll('img');
-
-                const imageObserver = new IntersectionObserver((entries, observer) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const img = entry.target;
-                            img.src = img.src;
-                            imageObserver.unobserve(img);
-                        }
-                    });
-                });
-
-                lazyImages.forEach(img => {
-                    imageObserver.observe(img);
-                });
-            }
         });
     </script>
-
 </body>
 
 </html>

@@ -1,19 +1,9 @@
 from flask import Flask, render_template, request, jsonify, send_from_directory
 
-
-from flask_mail import Mail, Message
 from threading import Thread
 import os
 
 app = Flask(__name__)
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 587
-app.config['MAIL_USE_TLS'] = True
-mail = Mail(app)
-
-def send_async_email(app, msg):
-    with app.app_context():
-        mail.send(msg)
 
 @app.route('/favicon.ico')
 def favicon():

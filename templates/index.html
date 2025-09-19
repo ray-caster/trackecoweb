@@ -1,16 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TrackEco – Reduce, Recycle, Reward in Surabaya</title>
-    <meta name="description" content="Join TrackEco's mission to reduce waste, recycle plastic, and earn rewards in Surabaya, Indonesia. Together we can create a cleaner future.">
+    <title>TrackEco – Reduce, Recycle, Transform Plastic Waste in Surabaya</title>
+    <meta name="description"
+        content="TrackEco channels sorted plastic waste to craft microindustries in Surabaya. Lower quality materials go to Bank Sampah Induk Surabaya recycling. Join our mission today.">
+    <meta name="keywords"
+        content="plastic recycling, Surabaya, eco-friendly, waste management, Bank Sampah Induk Surabaya, craft microindustries, environmental sustainability">
+    <meta name="author" content="TrackEco">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="TrackEco – Reduce, Recycle, Transform Plastic Waste in Surabaya">
+    <meta property="og:description"
+        content="Channeling sorted plastic waste to craft microindustries in Surabaya with Bank Sampah Induk Surabaya">
+    <meta property="og:image" content="{{ url_for('static', filename='images/og-image.jpg') }}">
+    <meta property="og:url" content="https://www.trackeco.org">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="TrackEco – Reduce, Recycle, Transform Plastic Waste in Surabaya">
+    <meta name="twitter:description"
+        content="Channeling sorted plastic waste to craft microindustries in Surabaya with Bank Sampah Induk Surabaya">
+    <meta name="twitter:image" content="{{ url_for('static', filename='images/twitter-image.jpg') }}">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NGO",
+      "name": "TrackEco",
+      "url": "https://www.trackeco.org",
+      "logo": "{{ url_for('static', filename='images/logo.jpg') }}",
+      "description": "Channeling sorted plastic waste to craft microindustries in Surabaya",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Surabaya",
+        "addressCountry": "ID"
+      },
+      "partner": {
+        "@type": "Organization",
+        "name": "Bank Sampah Induk Surabaya"
+      }
+    }
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='images/apple-touch-icon.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='images/favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='images/favicon-16x16.png') }}">
     <link rel="manifest" href="/site.webmanifest">
+
+    <!-- XML Sitemap (for search engines) -->
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+
     <script>
         tailwind.config = {
             theme: {
@@ -19,6 +66,8 @@
                         primary: '#231842',
                         accent: '#F2C14E',
                         secondary: '#E07A5F',
+                        ecoGreen: '#2e7d32',
+                        ecoBlue: '#1565c0',
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -29,10 +78,12 @@
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
         body {
             font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
         }
-    
+
         .hero-overlay {
             background: linear-gradient(to bottom, rgba(35, 24, 66, 0.8) 0%, rgba(35, 24, 66, 0.6) 100%);
             mix-blend-mode: multiply;
@@ -46,7 +97,7 @@
             opacity: 0;
             visibility: hidden;
         }
-    
+
         .mobile-menu.is-open {
             max-height: calc(100vh - 4rem);
             overflow-y: auto;
@@ -61,28 +112,77 @@
             }
         }
 
+        /* --- Process Flow Styles --- */
+        .process-flow {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .process-step {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            width: 220px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .process-step:not(:last-child):after {
+            content: "→";
+            position: absolute;
+            right: -1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            color: #231842;
+        }
+
+        @media (max-width: 768px) {
+            .process-step:not(:last-child):after {
+                content: "↓";
+                right: 50%;
+                top: auto;
+                bottom: -1.2rem;
+                transform: translateX(50%);
+            }
+        }
+
+        .process-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #2e7d32;
+        }
+
         /* --- DYNAMIC Organizational Chart Styles --- */
         .org-chart-container {
             display: flex;
             justify-content: center;
             padding: 2rem 1rem;
         }
+
         .org-chart ul {
             padding: 0;
             margin: 0;
             list-style-type: none;
         }
+
         #leaders-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 2.5rem;
         }
+
         .leader {
             position: relative;
             text-align: center;
             padding-bottom: 20px;
         }
+
         .subordinates {
             position: absolute;
             left: calc(100% - 10px);
@@ -95,33 +195,36 @@
             background: white;
             padding: 1rem;
             border-radius: 0 0.75rem 0.75rem 0.75rem;
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
             border: 1px solid #e2e8f0;
             width: 220px;
             height: 280px;
             overflow-y: auto;
         }
-        .subordinates li { 
+
+        .subordinates li {
             padding: 0.75rem 0;
             white-space: normal;
             border-bottom: 1px solid #f1f5f9;
         }
+
         .subordinates li:last-child {
             border-bottom: none;
         }
-        
+
         .leader:hover .subordinates {
             visibility: visible;
             opacity: 1;
             transform: translateX(0);
         }
-        
+
         .node {
             display: flex;
             flex-direction: column;
             align-items: center;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
+
         .leader-node {
             width: 220px;
             height: 280px;
@@ -130,41 +233,48 @@
             cursor: pointer;
             background-color: #f8fafc;
             border-radius: 0.75rem;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
             border: 1px solid #e2e8f0;
         }
-         .leader-node:hover {
+
+        .leader-node:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
         }
+
         .subordinate-node {
             width: 100%;
             padding: 0;
         }
+
         .leader-image {
             width: 70px;
             height: 70px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid white;
-            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
             margin-bottom: 0.75rem;
         }
+
         .node h3 {
             font-size: 1rem;
             font-weight: 700;
             color: #231842;
         }
+
         .node p {
             color: #E07A5F;
             font-size: 0.8rem;
             margin-top: 0.1rem;
         }
+
         .node .role {
-             color: #6b7280;
-             font-size: 0.7rem;
-             font-style: italic;
+            color: #6b7280;
+            font-size: 0.7rem;
+            font-style: italic;
         }
+
         .leader-quote {
             font-style: italic;
             font-size: 0.75rem;
@@ -173,295 +283,532 @@
             padding: 0 0.5rem;
             border-left: 2px solid #F2C14E;
         }
+
+        /* Accessibility improvements */
+        .focus\:ring-accent:focus {
+            box-shadow: 0 0 0 3px rgba(242, 193, 78, 0.5);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
     </style>
 </head>
+
 <body class="bg-white text-gray-800">
     <!-- Navbar -->
     <nav class="fixed w-full bg-primary text-white shadow-md z-50">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="#home" class="flex items-center">
-                <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="TrackEco Logo" class="h-12 mr-3">
+            <a href="#home" class="flex items-center focus:outline-none focus:ring-2 focus:ring-accent rounded">
+                <img src="{{ url_for('static', filename='images/logo.jpg') }}"
+                    alt="TrackEco Logo - Sustainable waste management in Surabaya" class="h-12 mr-3">
                 <span class="font-bold text-xl">TrackEco</span>
-            </a>  
-        <div class="hidden md:flex space-x-8 items-center">
-            <a href="#home" class="hover:text-accent transition">Home</a>
-            <a href="#mission" class="hover:text-accent transition">Mission</a>
-            <a href="#impact" class="hover:text-accent transition">Impact</a>
-            <a href="#team" class="hover:text-accent transition">Team</a>
-            <a href="#contact" class="hover:text-accent transition">Contact</a>
+            </a>
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#home"
+                    class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-2 py-1">Home</a>
+                <a href="#mission"
+                    class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-2 py-1">Mission</a>
+                <a href="#process"
+                    class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-2 py-1">Our
+                    Process</a>
+                <a href="#impact"
+                    class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-2 py-1">Impact</a>
+                <a href="#team"
+                    class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-2 py-1">Team</a>
+                <a href="#contact"
+                    class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-2 py-1">Contact</a>
+            </div>
+            <button class="md:hidden text-white focus:outline-none focus:ring-2 focus:ring-accent rounded z-20"
+                id="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+            <div id="mobile-menu"
+                class="mobile-menu md:hidden absolute top-full left-0 w-full bg-primary p-5 space-y-4">
+                <a href="#home"
+                    class="block text-center text-lg hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded py-2">Home</a>
+                <a href="#mission"
+                    class="block text-center text-lg hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded py-2">Mission</a>
+                <a href="#process"
+                    class="block text-center text-lg hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded py-2">Our
+                    Process</a>
+                <a href="#impact"
+                    class="block text-center text-lg hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded py-2">Impact</a>
+                <a href="#team"
+                    class="block text-center text-lg hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded py-2">Team</a>
+                <a href="#contact"
+                    class="block text-center text-lg hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded py-2">Contact</a>
+            </div>
         </div>
-        <button class="md:hidden text-white focus:outline-none z-20" id="mobile-menu-toggle">
-            <i class="fas fa-bars text-2xl"></i>
-        </button>
-        <div id="mobile-menu" class="mobile-menu md:hidden absolute top-full left-0 w-full bg-primary p-5 space-y-4">
-            <a href="#home" class="block text-center text-lg hover:text-accent transition">Home</a>
-            <a href="#mission" class="block text-center text-lg hover:text-accent transition">Mission</a>
-            <a href="#impact" class="block text-center text-lg hover:text-accent transition">Impact</a>
-            <a href="#team" class="block text-center text-lg hover:text-accent transition">Team</a>
-            <a href="#contact" class="block text-center text-lg hover:text-accent transition">Contact</a>
-        </div>
-    </div>
-</nav>
+    </nav>
 
-<!-- Hero Section -->
-<section id="home" class="relative h-screen flex items-center justify-center pt-20">
-    <div class="absolute inset-0 bg-gray-900 overflow-hidden">
-        <div class="relative w-full h-full">
-            <img src="{{ url_for('static', filename='images/FirstBackground.jpg') }}" 
-                 alt="TrackEco volunteers conducting beach cleanup in Surabaya" 
-                 class="w-full h-full object-cover absolute inset-0 opacity-100 transition-opacity duration-1000" id="hero-bg-1">
-            <img src="{{ url_for('static', filename='images/background2.jpg') }}" 
-                 alt="TrackEco recycling center in Surabaya" 
-                 class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000" id="hero-bg-2">
-            <img src="{{ url_for('static', filename='images/background3.jpg') }}" 
-                 alt="TrackEco community education program" 
-                 class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000" id="hero-bg-3">
-            <img src="{{ url_for('static', filename='images/Background4.jpg') }}" 
-                 alt="TrackEco recycling facility" 
-                 class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000" id="hero-bg-4">
-            <img src="{{ url_for('static', filename='images/background5.jpg') }}" 
-                 alt="TrackEco volunteer team" 
-                 class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000" id="hero-bg-5">
-            <img src="{{ url_for('static', filename='images/background6.jpg') }}" 
-                 alt="TrackEco community event" 
-                 class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000" id="hero-bg-6">
-        </div>
-    </div>
-    <div class="absolute inset-0 hero-overlay z-10"></div>
-    <div class="relative z-20 text-center px-4 md:px-0 max-w-4xl mx-auto">
-        <h1 class="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
-             Empowering Surabaya to Recycle & Thrive
-        </h1>
-        <h2 class="text-xl md:text-2xl text-white mb-4">
-            Join <span id="memberCounter" class="text-accent font-bold">74</span> members turning plastic waste into community benefit.
-        </h2>
-        <div class="flex flex-wrap justify-center gap-4 md:gap-8 mb-6">
-            <div class="text-white text-center">
-                <div class="text-2xl md:text-3xl font-bold text-accent"><span id="bottleCounter">200,000</span>+</div>
-                <div class="text-sm md:text-base">Plastic Bottles Collected</div>
-            </div>
-            <div class="text-white text-center">
-                <div class="text-2xl md:text-3xl font-bold text-accent"><span id="partnerCounter">30</span>+</div>
-                <div class="text-sm md:text-base">Local SME Partners</div>
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center pt-20">
+        <div class="absolute inset-0 bg-gray-900 overflow-hidden">
+            <div class="relative w-full h-full">
+                <img src="{{ url_for('static', filename='images/Beach2.jpg') }}"
+                    alt="TrackEco volunteers conducting beach cleanup in Surabaya"
+                    class="w-full h-full object-cover absolute inset-0 opacity-100 transition-opacity duration-1000"
+                    id="hero-bg-1">
+                <img src="{{ url_for('static', filename='images/Beach1.jpg') }}"
+                    alt="TrackEco volunteers conducting beach cleanup in Surabaya"
+                    class="w-full h-full object-cover absolute inset-0 opacity-100 transition-opacity duration-1000"
+                    id="hero-bg-1">
+                <img src="{{ url_for('static', filename='images/UBS1.jpg') }}" alt="TrackEco visits UBS Gold"
+                    class="w-full h-full object-cover absolute inset-0 opacity-100 transition-opacity duration-1000"
+                    id="hero-bg-1">
+                <img src="{{ url_for('static', filename='images/Ubs2.jpg') }}" alt="TrackEco visits UBS Gold"
+                    class="w-full h-full object-cover absolute inset-0 opacity-100 transition-opacity duration-1000"
+                    id="hero-bg-1">
+                <img src="{{ url_for('static', filename='images/FirstBackground.jpg') }}" alt="TrackEco meets Panji"
+                    class="w-full h-full object-cover absolute inset-0 opacity-100 transition-opacity duration-1000"
+                    id="hero-bg-1">
+                <img src="{{ url_for('static', filename='images/background2.jpg') }}" alt="TrackEco meets Panji"
+                    class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000"
+                    id="hero-bg-2">
+                <img src="{{ url_for('static', filename='images/background3.jpg') }}" alt="TrackEco meets Panji"
+                    class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000"
+                    id="hero-bg-3">
+                <img src="{{ url_for('static', filename='images/Background4.jpg') }}" alt="TrackEco collaboration"
+                    class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000"
+                    id="hero-bg-4">
+                <img src="{{ url_for('static', filename='images/background5.jpg') }}" alt="TrackEco collaboration"
+                    class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000"
+                    id="hero-bg-5">
+                <img src="{{ url_for('static', filename='images/background6.jpg') }}" alt="TrackEco collaboration"
+                    class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000"
+                    id="hero-bg-6">
             </div>
         </div>
-        <div class="flex justify-center items-center space-x-4 mb-8">
-            <span class="text-white">Collaborating with:</span>
-            <a href="https://www.launchpd.org" target="_blank" class="hover:opacity-80 transition">
-                <img src="{{ url_for('static', filename='images/launchpad.webp') }}" alt="Launchpad" class="h-10">
+        <div class="absolute inset-0 hero-overlay z-10"></div>
+        <div class="relative z-20 text-center px-4 md:px-0 max-w-4xl mx-auto">
+            <h1 class="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
+                Empowering Surabaya to Recycle & Thrive
+            </h1>
+            <h2 class="text-xl md:text-2xl text-white mb-4">
+                Join <span id="memberCounter" class="text-accent font-bold">74</span> members turning plastic waste into
+                community benefit.
+            </h2>
+            <div class="flex flex-wrap justify-center gap-4 md:gap-8 mb-6">
+                <div class="text-white text-center">
+                    <div class="text-2xl md:text-3xl font-bold text-accent"><span id="bottleCounter">200,000</span>+
+                    </div>
+                    <div class="text-sm md:text-base">Plastic Bottles Collected</div>
+                </div>
+                <div class="text-white text-center">
+                    <div class="text-2xl md:text-3xl font-bold text-accent"><span id="partnerCounter">30</span>+</div>
+                    <div class="text-sm md:text-base">Local SME Partners</div>
+                </div>
+            </div>
+            <div class="flex justify-center items-center space-x-4 mb-8">
+                <span class="text-white">Collaborating with:</span>
+                <a href="https://www.launchpd.org" target="_blank" class="hover:opacity-80 transition"
+                    aria-label="Launchpad (opens in new tab)">
+                    <img src="{{ url_for('static', filename='images/launchpad.webp') }}" alt="Launchpad" class="h-10">
+                </a>
+                <a href="#" class="hover:opacity-80 transition" aria-label="Bank Sampah Induk Surabaya">
+                    <img src="{{ url_for('static', filename='images/BankSampah.jpg') }}"
+                        alt="Bank Sampah Induk Surabaya" class="h-10">
+                </a>
+            </div>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#mission"
+                    class="bg-transparent border-2 border-white text-white px-8 py-3 rounded-full font-bold hover:bg-white hover:text-primary transition text-lg focus:outline-none focus:ring-2 focus:ring-accent">
+                    Learn More
+                </a>
+                <a href="#contact"
+                    class="bg-accent border-2 border-accent text-primary px-8 py-3 rounded-full font-bold hover:bg-accent-dark hover:border-accent-dark transition text-lg focus:outline-none focus:ring-2 focus:ring-white">
+                    Get Involved
+                </a>
+            </div>
+            <div class="flex justify-center mt-8 space-x-2">
+                <button
+                    class="dot w-1.5 h-1.5 rounded-full bg-white bg-opacity-20 hover:bg-opacity-100 transition focus:outline-none focus:ring-2 focus:ring-accent"
+                    data-index="0" aria-label="Show slide 1"></button>
+                <button
+                    class="dot w-1.5 h-1.5 rounded-full bg-white bg-opacity-20 hover:bg-opacity-100 transition focus:outline-none focus:ring-2 focus:ring-accent"
+                    data-index="1" aria-label="Show slide 2"></button>
+                <button
+                    class="dot w-1.5 h-1.5 rounded-full bg-white bg-opacity-20 hover:bg-opacity-100 transition focus:outline-none focus:ring-2 focus:ring-accent"
+                    data-index="2" aria-label="Show slide 3"></button>
+                <button
+                    class="dot w-1.5 h-1.5 rounded-full bg-white bg-opacity-20 hover:bg-opacity-100 transition focus:outline-none focus:ring-2 focus:ring-accent"
+                    data-index="3" aria-label="Show slide 4"></button>
+                <button
+                    class="dot w-1.5 h-1.5 rounded-full bg-white bg-opacity-20 hover:bg-opacity-100 transition focus:outline-none focus:ring-2 focus:ring-accent"
+                    data-index="4" aria-label="Show slide 5"></button>
+                <button
+                    class="dot w-1.5 h-1.5 rounded-full bg-white bg-opacity-20 hover:bg-opacity-100 transition focus:outline-none focus:ring-2 focus:ring-accent"
+                    data-index="5" aria-label="Show slide 6"></button>
+            </div>
+        </div>
+        <div class="absolute bottom-10 left-0 right-0 flex flex-col items-center z-20">
+            <a href="#mission"
+                class="text-white animate-bounce focus:outline-none focus:ring-2 focus:ring-accent rounded"
+                aria-label="Scroll to next section">
+                <i class="fas fa-chevron-down text-3xl"></i>
             </a>
         </div>
-        <div class="flex flex-col sm:flex-row justify-center gap-4">
-            <a href="#mission" class="bg-transparent border-2 border-white text-white px-8 py-3 rounded-full font-bold hover:bg-white hover:text-primary transition text-lg">
-                Learn More
-            </a>
-        </div>
-        <div class="flex justify-center mt-8 space-x-2">
-            <button class="dot w-1.5 h-1.5 rounded-full bg-white bg-opacity-20 hover:bg-opacity-100 transition" data-index="0"></button>
-            <button class="dot w-1.5 h-1.5 rounded-full bg-white bg-opacity-20 hover:bg-opacity-100 transition" data-index="1"></button>
-            <button class="dot w-1.5 h-1.5 rounded-full bg-white bg-opacity-20 hover:bg-opacity-100 transition" data-index="2"></button>
-            <button class="dot w-1.5 h-1.5 rounded-full bg-white bg-opacity-20 hover:bg-opacity-100 transition" data-index="3"></button>
-            <button class="dot w-1.5 h-1.5 rounded-full bg-white bg-opacity-20 hover:bg-opacity-100 transition" data-index="4"></button>
-            <button class="dot w-1.5 h-1.5 rounded-full bg-white bg-opacity-20 hover:bg-opacity-100 transition" data-index="5"></button>
-        </div>
-    </div>
-    <div class="absolute bottom-10 left-0 right-0 flex flex-col items-center z-20">
-        <a href="#mission" class="text-white animate-bounce">
-            <i class="fas fa-chevron-down text-3xl"></i>
-        </a>
-    </div>
-</section>
+    </section>
 
-<!-- Mission Section -->
-<section id="mission" class="py-20 bg-white">
-    <div class="container mx-auto px-4">
-        <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">Our Mission to Transform Surabaya</h2>
-            <div class="w-20 h-1 bg-accent mx-auto"></div>
-        </div>
-        <div class="flex flex-col md:flex-row gap-12 items-center">
-            <div class="md:w-1/2">
-                <h3 class="text-2xl font-bold text-primary mb-6">Indonesia's Plastic Crisis</h3>
-                <p class="mb-4 text-lg">Did you know Indonesia is one of the world's largest contributors to ocean plastic waste, generating over <span class="font-bold text-secondary">3.2 million tons</span> annually?</p>
-                <p class="mb-4 text-lg">In Surabaya alone, plastic waste accounts for <span class="font-bold text-secondary">15-20%</span> of total waste, yet less than <span class="font-bold text-secondary">10%</span> gets recycled. Where does the rest go?</p>
-                <ul class="space-y-3 mb-6">
-                    <li class="flex items-start"><i class="fas fa-check-circle text-accent mt-1 mr-2"></i><span>Clogging our rivers and beaches</span></li>
-                    <li class="flex items-start"><i class="fas fa-check-circle text-accent mt-1 mr-2"></i><span>Endangering marine life</span></li>
-                    <li class="flex items-start"><i class="fas fa-check-circle text-accent mt-1 mr-2"></i><span>Creating health hazards for communities</span></li>
-                </ul>
-                <p class="text-lg">We believe this crisis is also an opportunity — to build a circular economy that benefits everyone.</p>
+    <!-- Mission Section -->
+    <section id="mission" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">Our Mission to Transform Surabaya</h2>
+                <div class="w-20 h-1 bg-accent mx-auto"></div>
             </div>
-            <div class="md:w-1/2 bg-gray-50 p-8 rounded-xl shadow-lg">
-                <div class="text-center mb-8"><h3 class="text-2xl font-bold text-primary">Our Two-Step Process</h3></div>
-                <div class="space-y-8">
+            <div class="flex flex-col md:flex-row gap-12 items-center">
+                <div class="md:w-1/2">
+                    <h3 class="text-2xl font-bold text-primary mb-6">Indonesia's Plastic Crisis</h3>
+                    <p class="mb-4 text-lg">Did you know Indonesia is one of the world's largest contributors to ocean
+                        plastic waste, generating over <span class="font-bold text-secondary">3.2 million tons</span>
+                        annually?</p>
+                    <p class="mb-4 text-lg">In Surabaya alone, plastic waste accounts for <span
+                            class="font-bold text-secondary">15-20%</span> of total waste, yet less than <span
+                            class="font-bold text-secondary">10%</span> gets recycled. Where does the rest go?</p>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-start"><i
+                                class="fas fa-check-circle text-accent mt-1 mr-2"></i><span>Clogging our rivers and
+                                beaches</span></li>
+                        <li class="flex items-start"><i
+                                class="fas fa-check-circle text-accent mt-1 mr-2"></i><span>Endangering marine
+                                life</span></li>
+                        <li class="flex items-start"><i
+                                class="fas fa-check-circle text-accent mt-1 mr-2"></i><span>Creating health hazards for
+                                communities</span></li>
+                    </ul>
+                    <p class="text-lg">We believe this crisis is also an opportunity — to build a circular economy that
+                        benefits everyone.</p>
+                </div>
+                <div class="md:w-1/2 bg-gray-50 p-8 rounded-xl shadow-lg">
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-bold text-primary">Our Two-Step Process</h3>
+                    </div>
+                    <div class="space-y-8">
+                        <div class="flex items-start">
+                            <div class="bg-accent bg-opacity-20 p-3 rounded-full mr-4"><i
+                                    class="fas fa-minus-circle text-accent text-2xl"></i></div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-2">Reduce</h4>
+                                <p class="text-gray-700">Educate communities on waste prevention and sustainable
+                                    alternatives to single-use plastics.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-accent bg-opacity-20 p-3 rounded-full mr-4"><i
+                                    class="fas fa-recycle text-accent text-2xl"></i></div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-2">Recycle</h4>
+                                <p class="text-gray-700">Create accessible collection points and partner with recycling
+                                    facilities to process materials properly.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="process" class="py-16 bg-ecoGreen bg-opacity-10">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">Our Sustainable Process</h2>
+                <p class="text-lg max-w-3xl mx-auto">In partnership with <strong>Bank Sampah Induk Surabaya</strong>,
+                    we've developed an innovative approach to plastic waste management that benefits local craft
+                    microindustries and the environment.</p>
+            </div>
+
+            <div class="process-flow">
+                <div class="process-step">
+                    <div class="process-icon">
+                        <i class="fas fa-hand-holding-medical"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Collection</h3>
+                    <p class="text-sm">Plastic waste is collected from communities across Surabaya</p>
+                </div>
+
+                <div class="process-step">
+                    <div class="process-icon">
+                        <i class="fas fa-sort"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Sorting</h3>
+                    <p class="text-sm">Expert sorting by <strong>Bank Sampah Induk Surabaya</strong> identifies quality
+                        materials</p>
+                </div>
+
+                <div class="process-step">
+                    <div class="process-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Distribution</h3>
+                    <p class="text-sm">High-quality plastics are channeled to craft microindustries</p>
+                </div>
+
+                <div class="process-step">
+                    <div class="process-icon">
+                        <i class="fas fa-recycle"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Recycling</h3>
+                    <p class="text-sm">Lower quality materials are sent to recycling facilities</p>
+                </div>
+            </div>
+
+            <div class="mt-12 bg-white p-8 rounded-xl shadow-lg">
+                <div class="flex flex-col md:flex-row gap-8 items-center">
+                    <div class="md:w-1/3 flex justify-center">
+                        <img src="{{ url_for('static', filename='images/BankSampah.jpg') }}"
+                            alt="Bank Sampah Induk Surabaya - Our Sorting Partner"
+                            class="rounded-lg shadow-md max-w-full h-auto">
+                    </div>
+                    <div class="md:w-2/3">
+                        <h3 class="text-2xl font-bold text-primary mb-4">Partnership with Bank Sampah Induk Surabaya
+                        </h3>
+                        <p class="mb-4">We're proud to collaborate with <strong>Bank Sampah Induk Surabaya</strong>, who
+                            provides expert sorting of all collected plastic materials. Their expertise ensures that:
+                        </p>
+                        <ul class="space-y-3 mb-6">
+                            <li class="flex items-start"><i
+                                    class="fas fa-check-circle text-ecoGreen mt-1 mr-2"></i><span>High-quality plastics
+                                    are identified and channeled to local craft microindustries</span></li>
+                            <li class="flex items-start"><i
+                                    class="fas fa-check-circle text-ecoGreen mt-1 mr-2"></i><span>Lower quality
+                                    materials are properly processed through recycling facilities</span></li>
+                            <li class="flex items-start"><i
+                                    class="fas fa-check-circle text-ecoGreen mt-1 mr-2"></i><span>Waste pickers receive
+                                    fair compensation for their important work</span></li>
+                        </ul>
+                        <p>This partnership creates a sustainable circular economy that benefits local artisans, reduces
+                            waste, and creates economic opportunities throughout Surabaya.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section id="impact" class="py-16 bg-accent text-primary">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Impact in Numbers</h2>
+                <p class="text-lg max-w-2xl mx-auto">Since our founding in 2024, TrackEco has made measurable progress
+                    in Surabaya's waste management ecosystem.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div
+                    class="bg-white bg-opacity-90 p-8 rounded-xl shadow-lg flex flex-col items-center text-center h-full">
+                    <div class="text-5xl font-bold text-primary mb-4">30+</div>
+                    <div class="text-xl font-semibold mb-4">Local SME Partners</div>
+                    <div class="flex justify-center space-x-4 mt-auto">
+                        <img src="{{ url_for('static', filename='images/AquaLogo.png') }}" alt="Aqua Logo"
+                            class="h-10 object-contain">
+                        <img src="{{ url_for('static', filename='images/Panji.jpg') }}" alt="Panji Logo"
+                            class="h-10 object-contain">
+                        <img src="{{ url_for('static', filename='images/BankSampah.jpg') }}"
+                            alt="Bank Sampah Induk Surabaya Logo" class="h-10 object-contain">
+                    </div>
+                </div>
+                <div
+                    class="bg-white bg-opacity-90 p-8 rounded-xl shadow-lg flex flex-col items-center text-center h-full">
+                    <div class="text-5xl font-bold text-primary mb-4"><span id="impactBottleCounter">1400+</span>kg
+                    </div>
+                    <div class="flex flex-col justify-center h-full">
+                        <div class="text-xl font-semibold mb-2">Plastic Collected</div>
+                        <p class="text-gray-600">From urban areas</p>
+                    </div>
+                </div>
+                <div
+                    class="bg-white bg-opacity-90 p-8 rounded-xl shadow-lg flex flex-col items-center text-center h-full">
+                    <div class="text-5xl font-bold text-primary mb-4">74</div>
+                    <div class="flex flex-col justify-center h-full">
+                        <div class="text-xl font-semibold mb-2">Active Members</div>
+                        <p class="text-gray-600">Leading community recycling efforts</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 bg-white bg-opacity-90 p-8 rounded-xl shadow-lg">
+                <h3 class="text-2xl font-bold text-center text-primary mb-6">Environmental Impact</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="flex items-start">
-                        <div class="bg-accent bg-opacity-20 p-3 rounded-full mr-4"><i class="fas fa-minus-circle text-accent text-2xl"></i></div>
+                        <div class="bg-ecoGreen bg-opacity-20 p-3 rounded-full mr-4"><i
+                                class="fas fa-tree text-ecoGreen text-2xl"></i></div>
                         <div>
-                            <h4 class="font-bold text-lg mb-2">Reduce</h4>
-                            <p class="text-gray-700">Educate communities on waste prevention and sustainable alternatives to single-use plastics.</p>
+                            <h4 class="font-bold text-lg mb-2">Carbon Emission Reduction</h4>
+                            <p class="text-gray-700">Our recycling efforts have prevented an estimated <strong>42
+                                    tons</strong> of CO2 emissions.</p>
                         </div>
                     </div>
                     <div class="flex items-start">
-                        <div class="bg-accent bg-opacity-20 p-3 rounded-full mr-4"><i class="fas fa-recycle text-accent text-2xl"></i></div>
+                        <div class="bg-ecoGreen bg-opacity-20 p-3 rounded-full mr-4"><i
+                                class="fas fa-water text-ecoBlue text-2xl"></i></div>
                         <div>
-                            <h4 class="font-bold text-lg mb-2">Recycle</h4>
-                            <p class="text-gray-700">Create accessible collection points and partner with recycling facilities to process materials properly.</p>
+                            <h4 class="font-bold text-lg mb-2">Ocean Protection</h4>
+                            <p class="text-gray-700">We've prevented <strong>1,200 kg</strong> of plastic from entering
+                                oceans and waterways.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-ecoGreen bg-opacity-20 p-3 rounded-full mr-4"><i
+                                class="fas fa-industry text-secondary text-2xl"></i></div>
+                        <div>
+                            <h4 class="font-bold text-lg mb-2">Craft Industry Support</h4>
+                            <p class="text-gray-700"><strong>85%</strong> of high-quality plastic supports local craft
+                                microindustries.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-ecoGreen bg-opacity-20 p-3 rounded-full mr-4"><i
+                                class="fas fa-users text-accent text-2xl"></i></div>
+                        <div>
+                            <h4 class="font-bold text-lg mb-2">Community Engagement</h4>
+                            <p class="text-gray-700">We've educated <strong>500+</strong> community members on proper
+                                waste management.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- Impact Section -->
-<section id="impact" class="py-16 bg-accent text-primary">
-    <div class="container mx-auto px-4">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Impact in Numbers</h2>
-            <p class="text-lg max-w-2xl mx-auto">Since our founding in 2024, TrackEco has made measurable progress in Surabaya's waste management ecosystem.</p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="bg-white bg-opacity-90 p-8 rounded-xl shadow-lg flex flex-col items-center text-center h-full">
-                <div class="text-5xl font-bold text-primary mb-4">30+</div>
-                <div class="text-xl font-semibold mb-4">Local SME Partners</div>
-                <div class="flex justify-center space-x-4 mt-auto">
-                    <img src="{{ url_for('static', filename='images/AquaLogo.png') }}" alt="Aqua Logo" class="h-10 object-contain">
-                    <img src="{{ url_for('static', filename='images/Panji.jpg') }}" alt="Panji Logo" class="h-10 object-contain">
-                    <img src="{{ url_for('static', filename='images/BankSampah.jpg') }}" alt="Bank Sampah Logo" class="h-10 object-contain">
-                </div>
+    <!-- Team Section -->
+    <section id="team" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">Meet Our Team</h2>
+                <p class="text-lg max-w-2xl mx-auto">Hover over a leader to see their team.</p>
             </div>
-            <div class="bg-white bg-opacity-90 p-8 rounded-xl shadow-lg flex flex-col items-center text-center h-full">
-                <div class="text-5xl font-bold text-primary mb-4"><span id="impactBottleCounter">1400+</span>kg</div>
-                <div class="flex flex-col justify-center h-full">
-                    <div class="text-xl font-semibold mb-2">Plastic Collected</div>
-                    <p class="text-gray-600">From urban areas</p>
-                </div>
-            </div>
-            <div class="bg-white bg-opacity-90 p-8 rounded-xl shadow-lg flex flex-col items-center text-center h-full">
-                <div class="text-5xl font-bold text-primary mb-4">74</div>
-                <div class="flex flex-col justify-center h-full">
-                    <div class="text-xl font-semibold mb-2">Active Members</div>
-                    <p class="text-gray-600">Leading community recycling efforts</p>
+            <div class="org-chart-container">
+                <div class="org-chart">
+                    <ul id="leaders-container">
+                        <!-- LEADER CARDS WILL BE DYNAMICALLY INSERTED HERE BY JAVASCRIPT -->
+                    </ul>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- Team Section -->
-<section id="team" class="py-20 bg-white">
-    <div class="container mx-auto px-4">
-        <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">Meet Our Team</h2>
-            <p class="text-lg max-w-2xl mx-auto">Hover over a leader to see their team.</p>
-        </div>
-        <div class="org-chart-container">
-            <div class="org-chart">
-                <ul id="leaders-container">
-                    <!-- LEADER CARDS WILL BE DYNAMICALLY INSERTED HERE BY JAVASCRIPT -->
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Contact & Footer -->
-<footer id="contact" class="bg-primary text-white pt-16 pb-8">
-    <div class="container mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-            <div class="md:col-span-1">
-                <div class="flex items-center mb-4">
-                    <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="TrackEco Logo" class="h-10 mr-3">
-                    <span class="font-bold text-xl">TrackEco</span>
+    <!-- Contact & Footer -->
+    <footer id="contact" class="bg-primary text-white pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+                <div class="md:col-span-1">
+                    <div class="flex items-center mb-4">
+                        <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="TrackEco Logo"
+                            class="h-10 mr-3">
+                        <span class="font-bold text-xl">TrackEco</span>
+                    </div>
+                    <p class="mb-4">Empowering Surabaya to reduce waste and thrive through community recycling programs.
+                    </p>
+                    <p class="text-sm text-gray-400">In partnership with Bank Sampah Induk Surabaya</p>
                 </div>
-                <p class="mb-4">Empowering Surabaya to reduce waste and thrive through community recycling programs.</p>
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#home"
+                                class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-1">Home</a>
+                        </li>
+                        <li><a href="#mission"
+                                class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-1">Our
+                                Mission</a></li>
+                        <li><a href="#process"
+                                class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-1">Our
+                                Process</a></li>
+                        <li><a href="#impact"
+                                class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-1">Impact</a>
+                        </li>
+                        <li><a href="#team"
+                                class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-1">Our
+                                Team</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Contact Us</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope mt-1 mr-3 text-accent"></i>
+                            <a href="mailto:hello@trackeco.org"
+                                class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-1">hello@trackeco.org</a>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fab fa-instagram mt-1 mr-3 text-accent"></i>
+                            <a href="https://www.instagram.com/trackeco_org"
+                                class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-1">@trackeco_org</a>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-accent"></i>
+                            <span>Surabaya, Indonesia</span>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div>
-                <h3 class="font-bold text-lg mb-4">Quick Links</h3>
-                <ul class="space-y-2">
-                    <li><a href="#home" class="hover:text-accent transition">Home</a></li>
-                    <li><a href="#mission" class="hover:text-accent transition">Our Mission</a></li>
-                    <li><a href="#impact" class="hover:text-accent transition">Impact</a></li>
-                    <li><a href="#team" class="hover:text-accent transition">Our Team</a></li>
-                </ul>
-            </div>
-            <div>
-                <h3 class="font-bold text-lg mb-4">Contact Us</h3>
-                <ul class="space-y-2">
-                    <li class="flex items-start">
-                        <i class="fas fa-envelope mt-1 mr-3 text-accent"></i>
-                        <a href="mailto:hello@trackeco.org" class="hover:text-accent transition">hello@trackeco.org</a>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fab fa-instagram mt-1 mr-3 text-accent"></i>
-                        <a href="https://www.instagram.com/trackeco_org" class="hover:text-accent transition">@trackeco_org</a>
-                    </li>
-                </ul>
+            <div class="border-t border-gray-700 pt-8 text-center text-gray-400">
+                <p>© 2024 TrackEco. All rights reserved.</p>
             </div>
         </div>
-        <div class="border-t border-gray-700 pt-8 text-center text-gray-400">
-            <p>© 2024 TrackEco. All rights reserved.</p>
-        </div>
-    </div>
-</footer>
+    </footer>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    
-    // --- DYNAMIC TEAM DATA ---
-    // TO EDIT THE TEAM, MODIFY THIS ARRAY OF OBJECTS.
-    // Use a valid image path for the 'image' property.
-    const teamData = [
-        {
-            name: 'Stanley Cahyono',
-            title: 'Executive Director of Business & Logistics',
-            role: 'Chairman',
-            image: `{{ url_for('static', filename='images/Stanley2.jpg') }}`,
-            quote: 'Progress begins with what we throw away—or choose not to.',
-            team: [
-                { name: 'Jessica Hakiki', role: 'Head of Social Media' },
-                { name: 'Jayden Emery', role: 'Head of Logistics' },
-                { name: 'Thomas Alexander', role: 'Field Operations Team Leader' }
-            ]
-        },
-        {
-            name: 'Maximillian Eugene',
-            title: 'Executive Director of Eng. & Tech',
-            role: 'Vice Chairman',
-            image: `{{ url_for('static', filename='images/Max.jpg') }}`,
-            quote: 'Every piece of plastic is a small step for systemic change in the world.',
-            team: [
-                { name: 'Ashton Suwandi', role: 'Vice Director of Eng. & Tech' },
-                { name: 'Eucharist Suhargo', role: 'Head of Research & Education' },
-                { name: 'Louis Gerrard', role: 'Head of Sustainable Planning' }
-                
-            ]
-        },
-        {
-            name: 'Javier Ongko',
-            title: 'Executive Director of Financing & Partnerships',
-            image: `{{ url_for('static', filename='images/JavierOngko.jpg') }}`,
-            quote: 'Recycling isn\'t a cost—it\'s an investment in tomorrow\'s possibilities.',
-            team: [
-                { name: 'Serafine Susilo', role: 'Head of Strategic Partnerships' },
-                { name: 'Joseph Dylan', role: 'Head of Sponsorships and Treasury' },
-                { name: 'Dylan Archer', role: 'Head of Legal & Compliance' },
-                { name: 'Justin Armando', role: 'Head of Human Resources' },
-            ]
-        }
-    ];
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
 
-    function renderTeam() {
-        const container = document.getElementById('leaders-container');
-        if (!container) return;
+            // --- DYNAMIC TEAM DATA ---
+            // TO EDIT THE TEAM, MODIFY THIS ARRAY OF OBJECTS.
+            // Use a valid image path for the 'image' property.
+            const teamData = [
+                {
+                    name: 'Stanley Cahyono',
+                    title: 'Executive Director of Business & Logistics',
+                    role: 'Chairman',
+                    image: `{{ url_for('static', filename='images/Stanley2.jpg') }}`,
+                    quote: 'Progress begins with what we throw away—or choose not to.',
+                    team: [
+                        { name: 'Jessica Hakiki', role: 'Head of Social Media' },
+                        { name: 'Jayden Emery', role: 'Head of Logistics' },
+                        { name: 'Thomas Alexander', role: 'Field Operations Team Leader' }
+                    ]
+                },
+                {
+                    name: 'Maximillian Eugene',
+                    title: 'Executive Director of Eng. & Tech',
+                    role: 'Vice Chairman',
+                    image: `{{ url_for('static', filename='images/Max.jpg') }}`,
+                    quote: 'Every piece of plastic is a small step for systemic change in the world.',
+                    team: [
+                        { name: 'Ashton Suwandi', role: 'Vice Director of Eng. & Tech' },
+                        { name: 'Eucharist Suhargo', role: 'Head of Research & Education' },
+                        { name: 'Louis Gerrard', role: 'Head of Sustainable Planning' }
 
-        let html = '';
-        teamData.forEach(leader => {
-            // Build subordinate list HTML first
-            let subordinatesHtml = '';
-            leader.team.forEach(member => {
-                subordinatesHtml += `
+                    ]
+                },
+                {
+                    name: 'Javier Ongko',
+                    title: 'Executive Director of Financing & Partnerships',
+                    image: `{{ url_for('static', filename='images/JavierOngko.jpg') }}`,
+                    quote: 'Recycling isn\'t a cost—it\'s an investment in tomorrow\'s possibilities.',
+                    team: [
+                        { name: 'Serafine Susilo', role: 'Head of Strategic Partnerships' },
+                        { name: 'Joseph Dylan', role: 'Head of Sponsorships and Treasury' },
+                        { name: 'Dylan Archer', role: 'Head of Legal & Compliance' },
+                        { name: 'Justin Armando', role: 'Head of Human Resources' },
+                    ]
+                }
+            ];
+
+            function renderTeam() {
+                const container = document.getElementById('leaders-container');
+                if (!container) return;
+
+                let html = '';
+                teamData.forEach(leader => {
+                    // Build subordinate list HTML first
+                    let subordinatesHtml = '';
+                    leader.team.forEach(member => {
+                        subordinatesHtml += `
                     <li>
                         <div class="node subordinate-node">
                             <h3>${member.name}</h3>
@@ -469,10 +816,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                     </li>
                 `;
-            });
+                    });
 
-            // Build the complete leader card HTML
-            html += `
+                    // Build the complete leader card HTML
+                    html += `
                 <li class="leader">
                     <div class="node leader-node">
                         <img src="${leader.image}" alt="${leader.name}" class="leader-image">
@@ -488,122 +835,157 @@ document.addEventListener('DOMContentLoaded', function() {
                     </ul>
                 </li>
             `;
-        });
-        container.innerHTML = html;
-    }
-    // Call the function to build the entire team section
-    renderTeam();
-
-
-    // --- Hero Background Slideshow ---
-    const backgrounds = [];
-    for (let i = 1; i <= 6; i++) {
-        const bg = document.getElementById(`hero-bg-${i}`);
-        if(bg) backgrounds.push(bg);
-    }
-    let currentBg = 0;
-    const dots = Array.from(document.querySelectorAll('.dot'));
-    
-    function updateDots() {
-        dots.forEach((dot, index) => {
-            dot.classList.toggle('bg-opacity-100', index === currentBg);
-            dot.classList.toggle('bg-opacity-20', index !== currentBg);
-        });
-    }
-
-    function showBackground(index) {
-        if (!backgrounds.length || !backgrounds[currentBg]) return;
-        backgrounds[currentBg].classList.remove('opacity-100');
-        backgrounds[currentBg].classList.add('opacity-0');
-        currentBg = index;
-        backgrounds[currentBg].classList.remove('opacity-0');
-        backgrounds[currentBg].classList.add('opacity-100');
-        updateDots();
-        clearInterval(sliderInterval);
-        sliderInterval = setInterval(cycleBackgrounds, 5000);
-    }
-
-    function cycleBackgrounds() {
-        if (!backgrounds.length) return;
-        showBackground((currentBg + 1) % backgrounds.length);
-    }
-
-    let sliderInterval = setInterval(cycleBackgrounds, 5000);
-    
-    dots.forEach(dot => {
-        dot.addEventListener('click', () => {
-            showBackground(parseInt(dot.dataset.index));
-        });
-    });
-    
-    if (dots.length > 0) updateDots();
-
-    // --- Counter Animation ---
-    function animateCounter(element, target, duration, isFloat = false) {
-        if (!element) return;
-        const startTime = performance.now();
-        const startValue = 0;
-        
-        function updateCounter(timestamp) {
-            const elapsed = timestamp - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            const currentValue = startValue + (target - startValue) * progress;
-            element.textContent = isFloat ? currentValue.toFixed(1) : Math.floor(currentValue).toLocaleString();
-            if (progress < 1) {
-                requestAnimationFrame(updateCounter);
+                });
+                container.innerHTML = html;
             }
-        }
-        requestAnimationFrame(updateCounter);
-    }
-    
-    animateCounter(document.getElementById('memberCounter'), 74, 1500);
-    animateCounter(document.getElementById('bottleCounter'), 120000, 1500);
-    animateCounter(document.getElementById('partnerCounter'), 30, 1500);
-    animateCounter(document.getElementById('impactBottleCounter'), 3522, 1500);
+            // Call the function to build the entire team section
+            renderTeam();
 
-    // --- Mobile Menu Toggle ---
-    const mobileMenuButton = document.getElementById('mobile-menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const menuIcon = mobileMenuButton.querySelector('i');
-    const menuLinks = Array.from(document.querySelectorAll('#mobile-menu a'));
 
-    const toggleMenu = (event) => {
-        event.stopPropagation();
-        const isOpen = mobileMenu.classList.toggle('is-open');
-        menuIcon.classList.toggle('fa-bars', !isOpen);
-        menuIcon.classList.toggle('fa-times', isOpen);
-    };
+            // --- Hero Background Slideshow ---
+            const backgrounds = [];
+            for (let i = 1; i <= 6; i++) {
+                const bg = document.getElementById(`hero-bg-${i}`);
+                if (bg) backgrounds.push(bg);
+            }
+            let currentBg = 0;
+            const dots = Array.from(document.querySelectorAll('.dot'));
 
-    const closeMenu = () => {
-        mobileMenu.classList.remove('is-open');
-        menuIcon.classList.add('fa-bars');
-        menuIcon.classList.remove('fa-times');
-    };
-
-    mobileMenuButton.addEventListener('click', toggleMenu);
-    menuLinks.forEach(link => link.addEventListener('click', closeMenu));
-
-    // --- Smooth Scrolling ---
-    const handleSmoothScroll = function(e) {
-        const targetId = this.getAttribute('href');
-        if (targetId.startsWith('#')) {
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                e.preventDefault();
-                const offsetTop = targetElement.offsetTop - 70; // Adjusted for fixed navbar
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
+            function updateDots() {
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('bg-opacity-100', index === currentBg);
+                    dot.classList.toggle('bg-opacity-20', index !== currentBg);
                 });
             }
-        }
-    };
 
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', handleSmoothScroll);
-    });
-});
-</script>
+            function showBackground(index) {
+                if (!backgrounds.length || !backgrounds[currentBg]) return;
+                backgrounds[currentBg].classList.remove('opacity-100');
+                backgrounds[currentBg].classList.add('opacity-0');
+                currentBg = index;
+                backgrounds[currentBg].classList.remove('opacity-0');
+                backgrounds[currentBg].classList.add('opacity-100');
+                updateDots();
+                clearInterval(sliderInterval);
+                sliderInterval = setInterval(cycleBackgrounds, 5000);
+            }
+
+            function cycleBackgrounds() {
+                if (!backgrounds.length) return;
+                showBackground((currentBg + 1) % backgrounds.length);
+            }
+
+            let sliderInterval = setInterval(cycleBackgrounds, 5000);
+
+            dots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    showBackground(parseInt(dot.dataset.index));
+                });
+            });
+
+            if (dots.length > 0) updateDots();
+
+            // --- Counter Animation ---
+            function animateCounter(element, target, duration, isFloat = false) {
+                if (!element) return;
+                const startTime = performance.now();
+                const startValue = 0;
+
+                function updateCounter(timestamp) {
+                    const elapsed = timestamp - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const currentValue = startValue + (target - startValue) * progress;
+                    element.textContent = isFloat ? currentValue.toFixed(1) : Math.floor(currentValue).toLocaleString();
+                    if (progress < 1) {
+                        requestAnimationFrame(updateCounter);
+                    }
+                }
+                requestAnimationFrame(updateCounter);
+            }
+
+            animateCounter(document.getElementById('memberCounter'), 74, 1500);
+            animateCounter(document.getElementById('bottleCounter'), 100000, 1500);
+            animateCounter(document.getElementById('partnerCounter'), 30, 1500);
+            animateCounter(document.getElementById('impactBottleCounter'), 3522, 1500);
+
+            // --- Mobile Menu Toggle ---
+            const mobileMenuButton = document.getElementById('mobile-menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIcon = mobileMenuButton.querySelector('i');
+            const menuLinks = Array.from(document.querySelectorAll('#mobile-menu a'));
+
+            const toggleMenu = (event) => {
+                event.stopPropagation();
+                const isOpen = mobileMenu.classList.toggle('is-open');
+                menuIcon.classList.toggle('fa-bars', !isOpen);
+                menuIcon.classList.toggle('fa-times', isOpen);
+                mobileMenuButton.setAttribute('aria-expanded', isOpen);
+            };
+
+            const closeMenu = () => {
+                mobileMenu.classList.remove('is-open');
+                menuIcon.classList.add('fa-bars');
+                menuIcon.classList.remove('fa-times');
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
+            };
+
+            mobileMenuButton.addEventListener('click', toggleMenu);
+            menuLinks.forEach(link => link.addEventListener('click', closeMenu));
+
+            // Close menu when clicking outside
+            document.addEventListener('click', (event) => {
+                if (mobileMenu.classList.contains('is-open') &&
+                    !mobileMenu.contains(event.target) &&
+                    !mobileMenuButton.contains(event.target)) {
+                    closeMenu();
+                }
+            });
+
+            // --- Smooth Scrolling ---
+            const handleSmoothScroll = function (e) {
+                const targetId = this.getAttribute('href');
+                if (targetId.startsWith('#')) {
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        e.preventDefault();
+                        const offsetTop = targetElement.offsetTop - 70; // Adjusted for fixed navbar
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                        // Close mobile menu if open
+                        if (mobileMenu.classList.contains('is-open')) {
+                            closeMenu();
+                        }
+                    }
+                }
+            };
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', handleSmoothScroll);
+            });
+
+            // Lazy loading for images
+            if ('IntersectionObserver' in window) {
+                const lazyImages = document.querySelectorAll('img');
+
+                const imageObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            img.src = img.src;
+                            imageObserver.unobserve(img);
+                        }
+                    });
+                });
+
+                lazyImages.forEach(img => {
+                    imageObserver.observe(img);
+                });
+            }
+        });
+    </script>
 
 </body>
-</html>```
+
+</html>

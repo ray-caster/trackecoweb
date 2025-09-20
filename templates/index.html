@@ -23,7 +23,7 @@
 
     <!-- Security Meta Tags for Best Practices -->
     <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; script-src 'self' https://cdn.tailwindcss.com 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data:; object-src 'none';">
+        content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data:; object-src 'none';">
     <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
     <meta name="cross-origin-opener-policy" content="same-origin">
 
@@ -50,8 +50,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <!-- Preload LCP image and critical CSS for performance -->
+    <!-- Preload LCP image and critical assets for performance -->
     <link rel="preload" as="image" href="./static/images/Beach2.webp">
+    <!-- Asynchronously load Font Awesome for icons -->
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
@@ -89,74 +90,550 @@
     }
     </script>
 
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="apple-touch-icon" sizes="180x180" href="./static/images/apple-touch-icon.webp">
     <link rel="icon" type="image/png" sizes="32x32" href="./static/images/favicon-32x32.webp">
     <link rel="icon" type="image/png" sizes="16x16" href="./static/images/favicon-16x16.webp">
     <link rel="manifest" href="/site.webmanifest">
     <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#231842',
-                        accent: '#F2C14E',
-                        secondary: '#E07A5F',
-                        ecoGreen: '#2e7d32',
-                        ecoBlue: '#1565c0',
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                }
-            }
-        }
-    </script>
-
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
+        /* CSS Variables */
+        :root {
+            --primary-color: #231842;
+            --accent-color: #F2C14E;
+            --secondary-color: #E07A5F;
+            --ecoGreen-color: #2e7d32;
+            --ecoBlue-color: #1565c0;
+            --white-color: #ffffff;
+            --gray-800-color: #1f2937;
+            --gray-700-color: #374151;
+            --gray-400-color: #9ca3af;
+        }
+
+        /* Base and Reset Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
             scroll-behavior: smooth;
         }
 
-        .hero-overlay {
-            background: linear-gradient(to bottom, rgba(35, 24, 66, 0.8) 0%, rgba(35, 24, 66, 0.6) 100%);
-            mix-blend-mode: multiply;
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--white-color);
+            color: var(--gray-800-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .container {
+                max-width: 640px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                max-width: 768px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 1024px;
+            }
+        }
+
+        @media (min-width: 1280px) {
+            .container {
+                max-width: 1280px;
+            }
+        }
+
+        a,
+        button {
+            transition: all 0.3s ease;
+        }
+
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid var(--accent-color);
+            outline-offset: 2px;
+            border-radius: 2px;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            width: 100%;
+            background-color: var(--primary-color);
+            color: var(--white-color);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            z-index: 50;
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+        }
+
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            color: var(--white-color);
+            text-decoration: none;
+        }
+
+        .navbar-logo img {
+            height: 3rem;
+            margin-right: 0.75rem;
+        }
+
+        .navbar-logo span {
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .navbar-desktop-links {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .navbar-desktop-links {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+            }
+        }
+
+        .navbar-desktop-links a,
+        .navbar-lang-switch button {
+            color: var(--white-color);
+            text-decoration: none;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.25rem;
+        }
+
+        .navbar-desktop-links a:hover,
+        .navbar-lang-switch button:hover {
+            color: var(--accent-color);
+        }
+
+        .navbar-lang-switch {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-left: 1px solid #4a5568;
+            margin-left: 1rem;
+            padding-left: 1rem;
+        }
+
+        .navbar-lang-switch button {
+            font-weight: 700;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        #mobile-menu-toggle {
+            display: block;
+            background: none;
+            border: none;
+            color: var(--white-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 60;
+        }
+
+        @media (min-width: 768px) {
+            #mobile-menu-toggle {
+                display: none;
+            }
         }
 
         .mobile-menu {
+            display: block;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: var(--primary-color);
+            padding: 1.25rem;
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.4s ease-in-out;
-            z-index: 40;
+            transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out;
             opacity: 0;
             visibility: hidden;
         }
 
         .mobile-menu.is-open {
             max-height: calc(100vh - 4rem);
-            overflow-y: auto;
             opacity: 1;
             visibility: visible;
         }
 
-        @media (max-width: 767px) {
-            nav {
-                padding-top: 0.75rem;
-                padding-bottom: 0.75rem;
+        .mobile-menu a,
+        .mobile-menu button {
+            display: block;
+            text-align: center;
+            font-size: 1.125rem;
+            color: var(--white-color);
+            text-decoration: none;
+            padding: 0.5rem 0;
+        }
+
+        .mobile-menu .lang-switch-mobile {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #4a5568;
+        }
+
+        .mobile-menu .lang-switch-mobile button {
+            font-weight: 700;
+        }
+
+        /* Hero Section */
+        #home {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 4rem;
+            /* Navbar height */
+        }
+
+        .hero-background-container {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+        }
+
+        .hero-background-container img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .hero-background-container img.active-slide {
+            opacity: 1;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(35, 24, 66, 0.8) 0%, rgba(35, 24, 66, 0.6) 100%);
+            mix-blend-mode: multiply;
+            z-index: 10;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 20;
+            text-align: center;
+            max-width: 56rem;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .hero-content h1 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: var(--white-color);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero-content h2 {
+            font-size: 1.25rem;
+            color: var(--white-color);
+            margin-bottom: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .hero-content h1 {
+                font-size: 3rem;
+            }
+
+            .hero-content h2 {
+                font-size: 1.5rem;
             }
         }
 
-        /* --- FINAL, RELIABLE ARROW & LAYOUT SOLUTION --- */
+        .hero-stats {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-stat .stat-number {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .hero-stat .stat-label {
+            font-size: 0.875rem;
+            color: var(--white-color);
+        }
+
+        .hero-partners {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            color: var(--white-color);
+        }
+
+        .hero-partners img {
+            height: 2.5rem;
+            width: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .hero-buttons {
+                flex-direction: row;
+                justify-content: center;
+            }
+        }
+
+        .button {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: 1.125rem;
+            text-decoration: none;
+            border: 2px solid;
+        }
+
+        .button-outline {
+            background-color: transparent;
+            border-color: var(--white-color);
+            color: var(--white-color);
+        }
+
+        .button-outline:hover {
+            background-color: var(--white-color);
+            color: var(--primary-color);
+        }
+
+        .button-accent {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: var(--primary-color);
+        }
+
+        .button-accent:hover {
+            opacity: 0.9;
+        }
+
+        .hero-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-top: 2rem;
+        }
+
+        .hero-dots .dot {
+            width: 0.75rem;
+            height: 0.75rem;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: none;
+            cursor: pointer;
+        }
+
+        .hero-dots .dot:hover,
+        .hero-dots .dot.active {
+            background-color: rgba(255, 255, 255, 1);
+        }
+
+        .scroll-down-arrow {
+            position: absolute;
+            bottom: 2.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-down-arrow a {
+            color: var(--white-color);
+            font-size: 2rem;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translate(-50%, 0);
+            }
+
+            40% {
+                transform: translate(-50%, -20px);
+            }
+
+            60% {
+                transform: translate(-50%, -10px);
+            }
+        }
+
+        /* General Section Styling */
+        section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .section-title .divider {
+            width: 5rem;
+            height: 4px;
+            background-color: var(--accent-color);
+            margin: 0 auto;
+        }
+
+        /* Mission Section */
+        #mission {
+            background-color: var(--white-color);
+        }
+
+        .mission-grid {
+            display: grid;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .mission-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .mission-grid h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .mission-grid p {
+            margin-bottom: 1rem;
+            font-size: 1.125rem;
+        }
+
+        .mission-grid ul {
+            list-style: none;
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .mission-grid ul li {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .mission-grid .fa-check-circle {
+            color: var(--accent-color);
+            margin-right: 0.5rem;
+            margin-top: 0.25rem;
+        }
+
+        .mission-process-box {
+            background-color: #f9fafb;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .mission-process-box .process-item {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .mission-process-box .process-item:not(:last-child) {
+            margin-bottom: 2rem;
+        }
+
+        .mission-process-box .icon-container {
+            background-color: rgba(242, 193, 78, 0.2);
+            padding: 0.75rem;
+            border-radius: 50%;
+            margin-right: 1rem;
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mission-process-box h4 {
+            font-weight: 700;
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Process Section */
+        #process {
+            background-color: rgba(46, 125, 50, 0.1);
+        }
+
+        .process-subtitle {
+            font-size: 1.125rem;
+            max-width: 48rem;
+            margin: 0 auto;
+        }
 
         .process-flow {
             display: grid;
             justify-content: center;
-            /* Default to 4 columns on PC */
             grid-template-columns: repeat(4, 220px);
-            /* WIDE, CONSISTENT GAPS */
             gap: 2rem 5rem;
             margin: 2rem 0;
         }
@@ -171,22 +648,18 @@
             position: relative;
         }
 
-        /* Default PC Arrow Styling */
         .process-step:not(:last-child)::after {
-            font-family: "Font Awesome 5 Free";
+            font-family: "Font Awesome 6 Free";
             font-weight: 900;
             content: "\f061";
-            /* fa-arrow-right */
             position: absolute;
             top: 50%;
             left: calc(100% + 2.5rem);
-            /* Perfectly centered in 5rem gap */
             transform: translate(-50%, -50%);
             font-size: 2rem;
             color: #231842;
         }
 
-        /* Breakpoint for 2-column layout */
         @media (max-width: 1200px) {
             .process-flow {
                 grid-template-columns: repeat(2, 220px);
@@ -194,10 +667,8 @@
                 margin-left: auto;
                 margin-right: auto;
                 gap: 5rem 3rem;
-                /* Different gaps for this layout */
             }
 
-            /* --- GUARANTEED SNAKE FLOW --- */
             .process-step-collection {
                 grid-area: 1 / 1 / 2 / 2;
             }
@@ -210,25 +681,18 @@
                 grid-area: 2 / 2 / 3 / 3;
             }
 
-            /* Swapped */
             .process-step-recycling {
                 grid-area: 2 / 1 / 3 / 2;
             }
 
-            /* Swapped */
-
-            /* Remove all PC arrows */
             .process-step::after {
                 content: none !important;
             }
 
-            /* Add specific tablet arrows */
-            /* Arrow 1 -> 2 (Right) */
             .process-step-collection::before {
-                font-family: "Font Awesome 5 Free";
+                font-family: "Font Awesome 6 Free";
                 font-weight: 900;
                 content: "\f061";
-                /* fa-arrow-right */
                 position: absolute;
                 top: 50%;
                 left: calc(100% + 1.5rem);
@@ -237,12 +701,10 @@
                 color: #231842;
             }
 
-            /* Arrow 2 -> 3 (Down) */
             .process-step-sorting::before {
-                font-family: "Font Awesome 5 Free";
+                font-family: "Font Awesome 6 Free";
                 font-weight: 900;
                 content: "\f063";
-                /* fa-arrow-down */
                 position: absolute;
                 top: calc(100% + 2.5rem);
                 left: 50%;
@@ -251,12 +713,10 @@
                 color: #231842;
             }
 
-            /* Arrow 3 -> 4 (Left) */
             .process-step-distribution::before {
-                font-family: "Font Awesome 5 Free";
+                font-family: "Font Awesome 6 Free";
                 font-weight: 900;
                 content: "\f060";
-                /* fa-arrow-left */
                 position: absolute;
                 top: 50%;
                 right: calc(100% + 1.5rem);
@@ -266,15 +726,12 @@
             }
         }
 
-        /* Breakpoint for 1-column layout */
         @media (max-width: 500px) {
             .process-flow {
                 grid-template-columns: 1fr;
-                /* Single column */
                 gap: 5rem 0;
             }
 
-            /* Reset grid areas to flow naturally */
             .process-step-collection,
             .process-step-sorting,
             .process-step-distribution,
@@ -282,16 +739,13 @@
                 grid-area: auto;
             }
 
-            /* Reset tablet arrows */
             .process-step::before {
                 content: none !important;
             }
 
-            /* Apply simple down arrows for the single column flow */
             .process-step:not(:last-child)::after {
                 content: "\f063" !important;
-                /* fa-arrow-down */
-                font-family: "Font Awesome 5 Free";
+                font-family: "Font Awesome 6 Free";
                 font-weight: 900;
                 top: calc(100% + 2.5rem);
                 left: 50%;
@@ -303,7 +757,163 @@
         .process-icon {
             font-size: 2.5rem;
             margin-bottom: 1rem;
-            color: #2e7d32;
+            color: var(--ecoGreen-color);
+        }
+
+        .partnership-box {
+            margin-top: 3rem;
+            background-color: var(--white-color);
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: grid;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .partnership-box {
+                grid-template-columns: 1fr 2fr;
+            }
+        }
+
+        .partnership-box img {
+            max-width: 200px;
+            height: auto;
+            margin: 0 auto;
+        }
+
+        .partnership-box ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin: 1rem 0;
+        }
+
+        .partnership-box ul li {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .partnership-box ul li i {
+            margin-right: 0.5rem;
+            margin-top: 0.25rem;
+            color: var(--ecoGreen-color);
+        }
+
+        /* Impact Section */
+        #impact {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+        }
+
+        #impact .section-title p {
+            max-width: 42rem;
+            margin: 0 auto;
+        }
+
+        .impact-grid {
+            display: grid;
+            gap: 2rem;
+            grid-template-columns: 1fr;
+        }
+
+        @media (min-width: 768px) {
+            .impact-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .impact-card {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .impact-card .number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .impact-card .title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .impact-card .logos {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: auto;
+        }
+
+        .impact-card .logos img {
+            height: 2.5rem;
+            object-fit: contain;
+        }
+
+        .environmental-impact {
+            margin-top: 3rem;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 0.75rem;
+        }
+
+        .environmental-impact h3 {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .env-grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .env-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .env-item {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .env-item .icon-container {
+            background-color: rgba(46, 125, 50, 0.2);
+            padding: 0.75rem;
+            border-radius: 50%;
+            margin-right: 1rem;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .env-item .icon-container i {
+            font-size: 1.5rem;
+        }
+
+        .env-item h4 {
+            font-weight: 700;
+            font-size: 1.125rem;
+        }
+
+        /* Team Section */
+        #team {
+            background-color: var(--white-color);
         }
 
         .org-chart-container {
@@ -390,11 +1000,6 @@
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
         }
 
-        .subordinate-node {
-            width: 100%;
-            padding: 0;
-        }
-
         .leader-image {
             width: 70px;
             height: 70px;
@@ -413,7 +1018,6 @@
 
         .node p {
             color: #231842;
-            /* Accessibility Fix: Increased contrast */
             font-size: 0.8rem;
             margin-top: 0.1rem;
         }
@@ -433,276 +1037,267 @@
             border-left: 2px solid #F2C14E;
         }
 
-        a:focus,
-        button:focus {
-            outline: none;
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white-color);
+            padding: 4rem 0 2rem 0;
         }
 
-        .focus\:ring-accent:focus {
-            box-shadow: 0 0 0 3px rgba(242, 193, 78, 0.5);
+        .footer-grid {
+            display: grid;
+            gap: 3rem;
+            margin-bottom: 3rem;
         }
 
+        @media (min-width: 768px) {
+            .footer-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo img {
+            height: 2.5rem;
+            margin-right: 0.75rem;
+        }
+
+        .footer-logo span {
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .footer-grid p {
+            color: var(--gray-400-color);
+        }
+
+        .footer-grid h3 {
+            font-weight: 700;
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-grid ul {
+            list-style: none;
+        }
+
+        .footer-grid li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-grid a {
+            color: var(--white-color);
+            text-decoration: none;
+        }
+
+        .footer-grid a:hover {
+            color: var(--accent-color);
+        }
+
+        .footer-contact li {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .footer-contact i {
+            margin-right: 0.75rem;
+            margin-top: 0.25rem;
+            color: var(--accent-color);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #4a5568;
+            padding-top: 2rem;
+            text-align: center;
+            color: var(--gray-400-color);
+        }
+
+        /* Reduced Motion */
         @media (prefers-reduced-motion: reduce) {
             * {
                 animation-duration: 0.01ms !important;
                 animation-iteration-count: 1 !important;
                 transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
             }
         }
     </style>
 </head>
 
-<body class="bg-white text-gray-800">
+<body>
     <!-- Navbar -->
-    <nav class="fixed w-full bg-primary text-white shadow-md z-50">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="#home" class="flex items-center focus:outline-none focus:ring-2 focus:ring-accent rounded">
-                <img src="./static/images/logo.webp" alt="Logo TrackEco" class="h-12 mr-3" width="48" height="48">
-                <span class="font-bold text-xl">TrackEco</span>
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <a href="#home" class="navbar-logo">
+                <img src="./static/images/logo.webp" alt="Logo TrackEco" width="48" height="48">
+                <span data-translate-key="nav_brand">TrackEco</span>
             </a>
-            <div class="hidden md:flex space-x-4 items-center">
-                <a href="#home"
-                    class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-3 py-2"
-                    data-translate-key="nav_home">Beranda</a>
-                <a href="#mission"
-                    class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-3 py-2"
-                    data-translate-key="nav_mission">Misi</a>
-                <a href="#process"
-                    class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-3 py-2"
-                    data-translate-key="nav_process">Proses Kami</a>
-                <a href="#impact"
-                    class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-3 py-2"
-                    data-translate-key="nav_impact">Dampak</a>
-                <a href="#team"
-                    class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-3 py-2"
-                    data-translate-key="nav_team">Tim</a>
-                <a href="#contact"
-                    class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-3 py-2"
-                    data-translate-key="nav_contact">Kontak</a>
-                <div class="flex items-center space-x-2 border-l border-gray-600 ml-4 pl-4">
-                    <button id="lang-en"
-                        class="font-bold hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-3 py-2">EN</button>
+            <div class="navbar-desktop-links">
+                <a href="#home" data-translate-key="nav_home">Beranda</a>
+                <a href="#mission" data-translate-key="nav_mission">Misi</a>
+                <a href="#process" data-translate-key="nav_process">Proses Kami</a>
+                <a href="#impact" data-translate-key="nav_impact">Dampak</a>
+                <a href="#team" data-translate-key="nav_team">Tim</a>
+                <a href="#contact" data-translate-key="nav_contact">Kontak</a>
+                <div class="navbar-lang-switch">
+                    <button id="lang-en">EN</button>
                     <span>|</span>
-                    <button id="lang-id"
-                        class="font-bold hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-3 py-2">ID</button>
+                    <button id="lang-id">ID</button>
                 </div>
             </div>
-            <button class="md:hidden text-white focus:outline-none focus:ring-2 focus:ring-accent rounded z-20"
-                id="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-                <i class="fas fa-bars text-2xl"></i>
+            <button id="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                <i class="fas fa-bars"></i>
             </button>
-            <div id="mobile-menu"
-                class="mobile-menu md:hidden absolute top-full left-0 w-full bg-primary p-5 space-y-4">
-                <a href="#home"
-                    class="block text-center text-lg hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded py-2"
-                    data-translate-key="nav_home_mobile">Beranda</a>
-                <a href="#mission"
-                    class="block text-center text-lg hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded py-2"
-                    data-translate-key="nav_mission_mobile">Misi</a>
-                <a href="#process"
-                    class="block text-center text-lg hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded py-2"
-                    data-translate-key="nav_process_mobile">Proses Kami</a>
-                <a href="#impact"
-                    class="block text-center text-lg hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded py-2"
-                    data-translate-key="nav_impact_mobile">Dampak</a>
-                <a href="#team"
-                    class="block text-center text-lg hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded py-2"
-                    data-translate-key="nav_team_mobile">Tim</a>
-                <a href="#contact"
-                    class="block text-center text-lg hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded py-2"
-                    data-translate-key="nav_contact_mobile">Kontak</a>
-                <div class="flex justify-center items-center space-x-4 pt-4 border-t border-gray-700">
-                    <button id="lang-en-mobile" class="font-bold text-lg hover:text-accent">EN</button>
-                    <span class="text-lg">|</span>
-                    <button id="lang-id-mobile" class="font-bold text-lg hover:text-accent">ID</button>
-                </div>
+        </div>
+        <div id="mobile-menu" class="mobile-menu">
+            <a href="#home" data-translate-key="nav_home_mobile">Beranda</a>
+            <a href="#mission" data-translate-key="nav_mission_mobile">Misi</a>
+            <a href="#process" data-translate-key="nav_process_mobile">Proses Kami</a>
+            <a href="#impact" data-translate-key="nav_impact_mobile">Dampak</a>
+            <a href="#team" data-translate-key="nav_team_mobile">Tim</a>
+            <a href="#contact" data-translate-key="nav_contact_mobile">Kontak</a>
+            <div class="lang-switch-mobile">
+                <button id="lang-en-mobile">EN</button>
+                <span>|</span>
+                <button id="lang-id-mobile">ID</button>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <header id="home" class="relative h-screen flex items-center justify-center pt-20">
-        <div class="absolute inset-0 bg-gray-900 overflow-hidden">
-            <div class="relative w-full h-full">
-                <img src="./static/images/Beach2.webp" alt="Relawan TrackEco membersihkan pantai di Surabaya"
-                    class="w-full h-full object-cover absolute inset-0 opacity-100 transition-opacity duration-1000"
-                    id="hero-bg-1" width="1920" height="1080" loading="eager">
-                <img src="./static/images/Beach1.webp" alt="Aksi bersih pantai oleh TrackEco di Surabaya"
-                    class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000"
-                    id="hero-bg-2" width="1920" height="1080" loading="lazy">
-                <img src="./static/images/UBS1.webp" alt="Kunjungan TrackEco ke UBS Gold"
-                    class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000"
-                    id="hero-bg-3" width="1920" height="1080" loading="lazy">
-                <img src="./static/images/Ubs2.webp" alt="Diskusi TrackEco di UBS Gold"
-                    class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000"
-                    id="hero-bg-4" width="1920" height="1080" loading="lazy">
-                <img src="./static/images/FirstBackground.webp" alt="Pertemuan TrackEco dengan Panji"
-                    class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000"
-                    id="hero-bg-5" width="1920" height="1080" loading="lazy">
-                <img src="./static/images/background2.webp" alt="Kolaborasi TrackEco dan Panji"
-                    class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000"
-                    id="hero-bg-6" width="1920" height="1080" loading="lazy">
-                <img src="./static/images/background3.webp" alt="Sesi diskusi TrackEco"
-                    class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000"
-                    id="hero-bg-7" width="1920" height="1080" loading="lazy">
-                <img src="./static/images/Background4.webp" alt="Kerjasama TrackEco dengan mitra"
-                    class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000"
-                    id="hero-bg-8" width="1920" height="1080" loading="lazy">
-                <img src="./static/images/background5.webp" alt="Kegiatan kolaborasi TrackEco"
-                    class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000"
-                    id="hero-bg-9" width="1920" height="1080" loading="lazy">
-                <img src="./static/images/background6.webp" alt="Presentasi oleh tim TrackEco"
-                    class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000"
-                    id="hero-bg-10" width="1920" height="1080" loading="lazy">
-            </div>
+    <header id="home">
+        <div class="hero-background-container">
+            <img src="./static/images/Beach2.webp" alt="Relawan TrackEco membersihkan pantai di Surabaya"
+                class="active-slide" id="hero-bg-1" width="1920" height="1080" loading="eager">
+            <img src="./static/images/Beach1.webp" alt="Aksi bersih pantai oleh TrackEco di Surabaya" id="hero-bg-2"
+                width="1920" height="1080" loading="lazy" decoding="async">
+            <img src="./static/images/UBS1.webp" alt="Kunjungan TrackEco ke UBS Gold" id="hero-bg-3" width="1920"
+                height="1080" loading="lazy" decoding="async">
+            <img src="./static/images/Ubs2.webp" alt="Diskusi TrackEco di UBS Gold" id="hero-bg-4" width="1920"
+                height="1080" loading="lazy" decoding="async">
+            <img src="./static/images/FirstBackground.webp" alt="Pertemuan TrackEco dengan Panji" id="hero-bg-5"
+                width="1920" height="1080" loading="lazy" decoding="async">
+            <img src="./static/images/background2.webp" alt="Kolaborasi TrackEco dan Panji" id="hero-bg-6" width="1920"
+                height="1080" loading="lazy" decoding="async">
+            <img src="./static/images/background3.webp" alt="Sesi diskusi TrackEco" id="hero-bg-7" width="1920"
+                height="1080" loading="lazy" decoding="async">
+            <img src="./static/images/Background4.webp" alt="Kerjasama TrackEco dengan mitra" id="hero-bg-8"
+                width="1920" height="1080" loading="lazy" decoding="async">
+            <img src="./static/images/background5.webp" alt="Kegiatan kolaborasi TrackEco" id="hero-bg-9" width="1920"
+                height="1080" loading="lazy" decoding="async">
+            <img src="./static/images/background6.webp" alt="Presentasi oleh tim TrackEco" id="hero-bg-10" width="1920"
+                height="1080" loading="lazy" decoding="async">
         </div>
-        <div class="absolute inset-0 hero-overlay z-10"></div>
-        <div class="relative z-20 text-center px-4 md:px-0 max-w-4xl mx-auto">
-            <h1 class="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight" data-translate-key="hero_title">
-                Memberdayakan Surabaya Melalui Daur Ulang</h1>
-            <h2 class="text-xl md:text-2xl text-white mb-4">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 data-translate-key="hero_title">Memberdayakan Surabaya Melalui Daur Ulang</h1>
+            <h2>
                 <span data-translate-key="hero_subtitle_prefix">Bergabunglah dengan</span>
-                <span id="memberCounter" class="text-accent font-bold">74</span>
+                <span id="memberCounter" style="color: var(--accent-color); font-weight: 700;">74</span>
                 <span data-translate-key="hero_subtitle_suffix">anggota untuk mengubah sampah plastik menjadi manfaat
                     bagi masyarakat.</span>
             </h2>
-            <div class="flex flex-wrap justify-center gap-4 md:gap-8 mb-6">
-                <div class="text-white text-center">
-                    <div class="text-2xl md:text-3xl font-bold text-accent"><span id="bottleCounter">200,000</span>+
-                    </div>
-                    <div class="text-sm md:text-base" data-translate-key="hero_bottles_collected">Botol Plastik
-                        Terkumpul</div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="stat-number"><span id="bottleCounter">200,000</span>+</div>
+                    <div class="stat-label" data-translate-key="hero_bottles_collected">Botol Plastik Terkumpul</div>
                 </div>
-                <div class="text-white text-center">
-                    <div class="text-2xl md:text-3xl font-bold text-accent"><span id="partnerCounter">30</span>+</div>
-                    <div class="text-sm md:text-base" data-translate-key="hero_sme_partners">Mitra UKM Lokal</div>
+                <div class="hero-stat">
+                    <div class="stat-number"><span id="partnerCounter">30</span>+</div>
+                    <div class="stat-label" data-translate-key="hero_sme_partners">Mitra UKM Lokal</div>
                 </div>
             </div>
-            <!-- FINAL FIX FOR LOGOS -->
-            <div class="flex justify-center items-center space-x-4 mb-8">
-                <span class="text-white" data-translate-key="hero_collaborating">Bekerja sama dengan:</span>
+            <div class="hero-partners">
+                <span data-translate-key="hero_collaborating">Bekerja sama dengan:</span>
                 <a href="https://www.launchpd.org" target="_blank" rel="noopener noreferrer"
-                    class="hover:opacity-80 transition" aria-label="Kunjungi Launchpad (terbuka di tab baru)">
-                    <img src="./static/images/launchpad.webp" alt="Logo Launchpad" class="h-10 w-auto">
+                    aria-label="Kunjungi Launchpad (terbuka di tab baru)">
+                    <img src="./static/images/launchpad.webp" alt="Logo Launchpad" width="40" height="40" loading="lazy"
+                        decoding="async">
                 </a>
-                <a href="#" class="hover:opacity-80 transition" aria-label="Kunjungi Bank Sampah Induk Surabaya">
-                    <img src="./static/images/BankSampah.webp" alt="Logo Bank Sampah Induk Surabaya"
-                        class="h-10 w-auto">
+                <a href="#" aria-label="Kunjungi Bank Sampah Induk Surabaya">
+                    <img src="./static/images/BankSampah.webp" alt="Logo Bank Sampah Induk Surabaya" width="150"
+                        height="40" loading="lazy" decoding="async">
                 </a>
-                <span class="text-white text-sm">and more...</span>
+                <span>and more...</span>
             </div>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#mission"
-                    class="bg-transparent border-2 border-white text-white px-8 py-3 rounded-full font-bold hover:bg-white hover:text-primary transition text-lg focus:outline-none focus:ring-2 focus:ring-accent"
-                    data-translate-key="hero_learn_more">
-                    Pelajari Lebih Lanjut</a>
-                <a href="#contact"
-                    class="bg-accent border-2 border-accent text-primary px-8 py-3 rounded-full font-bold hover:bg-accent-dark hover:border-accent-dark transition text-lg focus:outline-none focus:ring-2 focus:ring-white"
-                    data-translate-key="hero_get_involved">
-                    Bergabung</a>
+            <div class="hero-buttons">
+                <a href="#mission" class="button button-outline" data-translate-key="hero_learn_more">Pelajari Lebih
+                    Lanjut</a>
+                <a href="#contact" class="button button-accent" data-translate-key="hero_get_involved">Bergabung</a>
             </div>
-            <div class="flex justify-center mt-8 space-x-3">
-                <button
-                    class="dot w-3 h-3 rounded-full bg-white bg-opacity-20 hover:bg-opacity-100 transition focus:outline-none focus:ring-2 focus:ring-accent"
-                    data-index="0" aria-label="Tampilkan slide 1"></button>
-                <button
-                    class="dot w-3 h-3 rounded-full bg-white bg-opacity-20 hover:bg-opacity-100 transition focus:outline-none focus:ring-2 focus:ring-accent"
-                    data-index="1" aria-label="Tampilkan slide 2"></button>
-                <button
-                    class="dot w-3 h-3 rounded-full bg-white bg-opacity-20 hover:bg-opacity-100 transition focus:outline-none focus:ring-2 focus:ring-accent"
-                    data-index="2" aria-label="Tampilkan slide 3"></button>
-                <button
-                    class="dot w-3 h-3 rounded-full bg-white bg-opacity-20 hover:bg-opacity-100 transition focus:outline-none focus:ring-2 focus:ring-accent"
-                    data-index="3" aria-label="Tampilkan slide 4"></button>
-                <button
-                    class="dot w-3 h-3 rounded-full bg-white bg-opacity-20 hover:bg-opacity-100 transition focus:outline-none focus:ring-2 focus:ring-accent"
-                    data-index="4" aria-label="Tampilkan slide 5"></button>
-                <button
-                    class="dot w-3 h-3 rounded-full bg-white bg-opacity-20 hover:bg-opacity-100 transition focus:outline-none focus:ring-2 focus:ring-accent"
-                    data-index="5" aria-label="Tampilkan slide 6"></button>
-                <button
-                    class="dot w-3 h-3 rounded-full bg-white bg-opacity-20 hover:bg-opacity-100 transition focus:outline-none focus:ring-2 focus:ring-accent"
-                    data-index="6" aria-label="Tampilkan slide 7"></button>
-                <button
-                    class="dot w-3 h-3 rounded-full bg-white bg-opacity-20 hover:bg-opacity-100 transition focus:outline-none focus:ring-2 focus:ring-accent"
-                    data-index="7" aria-label="Tampilkan slide 8"></button>
-                <button
-                    class="dot w-3 h-3 rounded-full bg-white bg-opacity-20 hover:bg-opacity-100 transition focus:outline-none focus:ring-2 focus:ring-accent"
-                    data-index="8" aria-label="Tampilkan slide 9"></button>
-                <button
-                    class="dot w-3 h-3 rounded-full bg-white bg-opacity-20 hover:bg-opacity-100 transition focus:outline-none focus:ring-2 focus:ring-accent"
-                    data-index="9" aria-label="Tampilkan slide 10"></button>
+            <div class="hero-dots">
+                <button class="dot active" data-index="0" aria-label="Tampilkan slide 1"></button>
+                <button class="dot" data-index="1" aria-label="Tampilkan slide 2"></button>
+                <button class="dot" data-index="2" aria-label="Tampilkan slide 3"></button>
+                <button class="dot" data-index="3" aria-label="Tampilkan slide 4"></button>
+                <button class="dot" data-index="4" aria-label="Tampilkan slide 5"></button>
+                <button class="dot" data-index="5" aria-label="Tampilkan slide 6"></button>
+                <button class="dot" data-index="6" aria-label="Tampilkan slide 7"></button>
+                <button class="dot" data-index="7" aria-label="Tampilkan slide 8"></button>
+                <button class="dot" data-index="8" aria-label="Tampilkan slide 9"></button>
+                <button class="dot" data-index="9" aria-label="Tampilkan slide 10"></button>
             </div>
         </div>
-        <div class="absolute bottom-10 left-0 right-0 flex flex-col items-center z-20">
-            <a href="#mission"
-                class="text-white animate-bounce focus:outline-none focus:ring-2 focus:ring-accent rounded"
-                aria-label="Gulir ke bagian berikutnya">
-                <i class="fas fa-chevron-down text-3xl"></i>
+        <div class="scroll-down-arrow">
+            <a href="#mission" aria-label="Gulir ke bagian berikutnya">
+                <i class="fas fa-chevron-down"></i>
             </a>
         </div>
     </header>
 
     <main>
         <!-- Mission Section -->
-        <section id="mission" class="py-20 bg-white">
-            <div class="container mx-auto px-4">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4" data-translate-key="mission_title">Misi
-                        Kami untuk Mengubah Surabaya</h2>
-                    <div class="w-20 h-1 bg-accent mx-auto"></div>
+        <section id="mission">
+            <div class="container">
+                <div class="section-title">
+                    <h2 data-translate-key="mission_title">Misi Kami untuk Mengubah Surabaya</h2>
+                    <div class="divider"></div>
                 </div>
-                <div class="flex flex-col md:flex-row gap-12 items-center">
-                    <div class="md:w-1/2">
-                        <h3 class="text-2xl font-bold text-primary mb-6" data-translate-key="mission_crisis_title">
-                            Krisis Plastik di Indonesia</h3>
-                        <p class="mb-4 text-lg" data-translate-key="mission_crisis_p1">Tahukah Anda bahwa Indonesia
-                            adalah salah satu penyumbang sampah plastik laut terbesar di dunia, menghasilkan lebih dari
-                            <span class="font-bold text-secondary">3,2 juta ton</span> setiap tahunnya?
-                        </p>
-                        <p class="mb-4 text-lg" data-translate-key="mission_crisis_p2">Di Surabaya sendiri, sampah
-                            plastik mencapai <span class="font-bold text-secondary">15-20%</span> dari total sampah,
-                            namun kurang dari <span class="font-bold text-secondary">10%</span> yang didaur ulang. Ke
-                            mana sisanya?</p>
-                        <ul class="space-y-3 mb-6">
-                            <li class="flex items-start"><i class="fas fa-check-circle text-accent mt-1 mr-2"></i><span
+                <div class="mission-grid">
+                    <div>
+                        <h3 data-translate-key="mission_crisis_title">Krisis Plastik di Indonesia</h3>
+                        <p data-translate-key="mission_crisis_p1">Tahukah Anda bahwa Indonesia adalah salah satu
+                            penyumbang sampah plastik laut terbesar di dunia, menghasilkan lebih dari <strong
+                                style="color: var(--secondary-color);">3,2 juta ton</strong> setiap tahunnya?</p>
+                        <p data-translate-key="mission_crisis_p2">Di Surabaya sendiri, sampah plastik mencapai <strong
+                                style="color: var(--secondary-color);">15-20%</strong> dari total sampah, namun kurang
+                            dari <strong style="color: var(--secondary-color);">10%</strong> yang didaur ulang. Ke mana
+                            sisanya?</p>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i><span
                                     data-translate-key="mission_crisis_l1">Menyumbat sungai dan pantai kita</span></li>
-                            <li class="flex items-start"><i class="fas fa-check-circle text-accent mt-1 mr-2"></i><span
+                            <li><i class="fas fa-check-circle"></i><span
                                     data-translate-key="mission_crisis_l2">Membahayakan biota laut</span></li>
-                            <li class="flex items-start"><i class="fas fa-check-circle text-accent mt-1 mr-2"></i><span
+                            <li><i class="fas fa-check-circle"></i><span
                                     data-translate-key="mission_crisis_l3">Menciptakan bahaya kesehatan bagi
                                     masyarakat</span></li>
                         </ul>
-                        <p class="text-lg" data-translate-key="mission_crisis_p3">Kami percaya krisis ini juga merupakan
-                            peluang — untuk membangun ekonomi sirkular yang bermanfaat bagi semua.</p>
+                        <p data-translate-key="mission_crisis_p3">Kami percaya krisis ini juga merupakan peluang — untuk
+                            membangun ekonomi sirkular yang bermanfaat bagi semua.</p>
                     </div>
-                    <div class="md:w-1/2 bg-gray-50 p-8 rounded-xl shadow-lg">
-                        <div class="text-center mb-8">
-                            <h3 class="text-2xl font-bold text-primary" data-translate-key="mission_process_title">
-                                Proses Dua Langkah Kami</h3>
-                        </div>
-                        <div class="space-y-8">
-                            <div class="flex items-start">
-                                <div class="bg-accent bg-opacity-20 p-3 rounded-full mr-4"><i
-                                        class="fas fa-minus-circle text-accent text-2xl"></i></div>
-                                <div>
-                                    <h4 class="font-bold text-lg mb-2" data-translate-key="mission_process_reduce">
-                                        Mengurangi</h4>
-                                    <p class="text-gray-700" data-translate-key="mission_process_reduce_desc">Mendidik
-                                        masyarakat tentang pencegahan sampah dan alternatif berkelanjutan untuk plastik
-                                        sekali pakai.</p>
-                                </div>
+                    <div class="mission-process-box">
+                        <h3 style="text-align: center;" data-translate-key="mission_process_title">Proses Dua Langkah
+                            Kami</h3>
+                        <div class="process-item">
+                            <div class="icon-container"><i class="fas fa-minus-circle"></i></div>
+                            <div>
+                                <h4 data-translate-key="mission_process_reduce">Mengurangi</h4>
+                                <p data-translate-key="mission_process_reduce_desc">Mendidik masyarakat tentang
+                                    pencegahan sampah dan alternatif berkelanjutan untuk plastik sekali pakai.</p>
                             </div>
-                            <div class="flex items-start">
-                                <div class="bg-accent bg-opacity-20 p-3 rounded-full mr-4"><i
-                                        class="fas fa-recycle text-accent text-2xl"></i></div>
-                                <div>
-                                    <h4 class="font-bold text-lg mb-2" data-translate-key="mission_process_recycle">
-                                        Mendaur Ulang</h4>
-                                    <p class="text-gray-700" data-translate-key="mission_process_recycle_desc">
-                                        Menciptakan titik pengumpulan yang mudah diakses dan bermitra dengan fasilitas
-                                        daur ulang untuk memproses bahan dengan benar.</p>
-                                </div>
+                        </div>
+                        <div class="process-item">
+                            <div class="icon-container"><i class="fas fa-recycle"></i></div>
+                            <div>
+                                <h4 data-translate-key="mission_process_recycle">Mendaur Ulang</h4>
+                                <p data-translate-key="mission_process_recycle_desc">Menciptakan titik pengumpulan yang
+                                    mudah diakses dan bermitra dengan fasilitas daur ulang untuk memproses bahan dengan
+                                    benar.</p>
                             </div>
                         </div>
                     </div>
@@ -711,171 +1306,142 @@
         </section>
 
         <!-- Process Section -->
-        <section id="process" class="py-16 bg-ecoGreen bg-opacity-10">
-            <div class="container mx-auto px-4">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4" data-translate-key="process_title">
-                        Proses Berkelanjutan Kami</h2>
-                    <p class="text-lg max-w-3xl mx-auto" data-translate-key="process_subtitle">Bermitra dengan
-                        <strong>Bank Sampah Induk Surabaya</strong>, kami telah mengembangkan pendekatan inovatif untuk
+        <section id="process">
+            <div class="container">
+                <div class="section-title">
+                    <h2 data-translate-key="process_title">Proses Berkelanjutan Kami</h2>
+                    <p class="process-subtitle" data-translate-key="process_subtitle">Bermitra dengan <strong>Bank
+                            Sampah Induk Surabaya</strong>, kami telah mengembangkan pendekatan inovatif untuk
                         pengelolaan sampah plastik yang bermanfaat bagi industri mikro kerajinan lokal dan lingkungan.
                     </p>
                 </div>
-                <!-- FINAL PROCESS FLOW CONTAINER -->
                 <div class="process-flow">
                     <div class="process-step process-step-collection">
                         <div class="process-icon"><i class="fas fa-hand-holding-medical"></i></div>
-                        <h3 class="font-bold text-lg mb-2" data-translate-key="process_step1_title">Pengumpulan</h3>
-                        <p class="text-sm" data-translate-key="process_step1_desc">Sampah plastik dikumpulkan dari
-                            masyarakat di seluruh Surabaya</p>
+                        <h3 data-translate-key="process_step1_title">Pengumpulan</h3>
+                        <p data-translate-key="process_step1_desc">Sampah plastik dikumpulkan dari masyarakat di seluruh
+                            Surabaya</p>
                     </div>
                     <div class="process-step process-step-sorting">
                         <div class="process-icon"><i class="fas fa-sort"></i></div>
-                        <h3 class="font-bold text-lg mb-2" data-translate-key="process_step2_title">Pemilahan</h3>
-                        <p class="text-sm" data-translate-key="process_step2_desc">Pemilahan oleh ahli dari <strong>Bank
-                                Sampah Induk Surabaya</strong> mengidentifikasi bahan berkualitas</p>
+                        <h3 data-translate-key="process_step2_title">Pemilahan</h3>
+                        <p data-translate-key="process_step2_desc">Pemilahan oleh ahli dari <strong>Bank Sampah Induk
+                                Surabaya</strong> mengidentifikasi bahan berkualitas</p>
                     </div>
                     <div class="process-step process-step-distribution">
                         <div class="process-icon"><i class="fas fa-hands-helping"></i></div>
-                        <h3 class="font-bold text-lg mb-2" data-translate-key="process_step3_title">Distribusi</h3>
-                        <p class="text-sm" data-translate-key="process_step3_desc">Plastik berkualitas tinggi disalurkan
-                            ke industri mikro kerajinan</p>
+                        <h3 data-translate-key="process_step3_title">Distribusi</h3>
+                        <p data-translate-key="process_step3_desc">Plastik berkualitas tinggi disalurkan ke industri
+                            mikro kerajinan</p>
                     </div>
                     <div class="process-step process-step-recycling">
                         <div class="process-icon"><i class="fas fa-recycle"></i></div>
-                        <h3 class="font-bold text-lg mb-2" data-translate-key="process_step4_title">Daur Ulang</h3>
-                        <p class="text-sm" data-translate-key="process_step4_desc">Bahan berkualitas lebih rendah
-                            dikirim ke fasilitas daur ulang</p>
+                        <h3 data-translate-key="process_step4_title">Daur Ulang</h3>
+                        <p data-translate-key="process_step4_desc">Bahan berkualitas lebih rendah dikirim ke fasilitas
+                            daur ulang</p>
                     </div>
                 </div>
-                <div class="mt-12 bg-white p-8 rounded-xl shadow-lg">
-                    <div class="flex flex-col md:flex-row gap-8 items-center">
-                        <div class="md:w-1/3 flex justify-center">
-                            <img src="./static/images/BankSampah.webp"
-                                alt="Bank Sampah Induk Surabaya - Mitra pemilahan kami"
-                                class="rounded-lg shadow-md max-w-full h-auto" width="200" height="200" loading="lazy"
-                                decoding="async">
-                        </div>
-                        <div class="md:w-2/3">
-                            <h3 class="text-2xl font-bold text-primary mb-4" data-translate-key="process_partner_title">
-                                Kemitraan dengan Bank Sampah Induk Surabaya</h3>
-                            <p class="mb-4" data-translate-key="process_partner_p1">Kami bangga berkolaborasi dengan
-                                <strong>Bank Sampah Induk Surabaya</strong>, yang menyediakan pemilahan ahli untuk semua
-                                bahan plastik yang terkumpul. Keahlian mereka memastikan bahwa:
-                            </p>
-                            <ul class="space-y-3 mb-6">
-                                <li class="flex items-start"><i
-                                        class="fas fa-check-circle text-ecoGreen mt-1 mr-2"></i><span
-                                        data-translate-key="process_partner_l1">Plastik berkualitas tinggi
-                                        diidentifikasi dan disalurkan ke industri mikro kerajinan lokal</span></li>
-                                <li class="flex items-start"><i
-                                        class="fas fa-check-circle text-ecoGreen mt-1 mr-2"></i><span
-                                        data-translate-key="process_partner_l2">Bahan berkualitas lebih rendah diproses
-                                        dengan benar melalui fasilitas daur ulang</span></li>
-                                <li class="flex items-start"><i
-                                        class="fas fa-check-circle text-ecoGreen mt-1 mr-2"></i><span
-                                        data-translate-key="process_partner_l3">Pemulung menerima kompensasi yang adil
-                                        atas pekerjaan penting mereka</span></li>
-                            </ul>
-                            <p data-translate-key="process_partner_p2">Kemitraan ini menciptakan ekonomi sirkular yang
-                                berkelanjutan yang bermanfaat bagi pengrajin lokal, mengurangi sampah, dan menciptakan
-                                peluang ekonomi di seluruh Surabaya.</p>
-                        </div>
+                <div class="partnership-box">
+                    <div>
+                        <img src="./static/images/BankSampah.webp"
+                            alt="Bank Sampah Induk Surabaya - Mitra pemilahan kami" width="200" height="200"
+                            loading="lazy" decoding="async">
+                    </div>
+                    <div>
+                        <h3 data-translate-key="process_partner_title">Kemitraan dengan Bank Sampah Induk Surabaya</h3>
+                        <p data-translate-key="process_partner_p1">Kami bangga berkolaborasi dengan <strong>Bank Sampah
+                                Induk Surabaya</strong>, yang menyediakan pemilahan ahli untuk semua bahan plastik yang
+                            terkumpul. Keahlian mereka memastikan bahwa:</p>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i><span data-translate-key="process_partner_l1">Plastik
+                                    berkualitas tinggi diidentifikasi dan disalurkan ke industri mikro kerajinan
+                                    lokal</span></li>
+                            <li><i class="fas fa-check-circle"></i><span data-translate-key="process_partner_l2">Bahan
+                                    berkualitas lebih rendah diproses dengan benar melalui fasilitas daur ulang</span>
+                            </li>
+                            <li><i class="fas fa-check-circle"></i><span
+                                    data-translate-key="process_partner_l3">Pemulung menerima kompensasi yang adil atas
+                                    pekerjaan penting mereka</span></li>
+                        </ul>
+                        <p data-translate-key="process_partner_p2">Kemitraan ini menciptakan ekonomi sirkular yang
+                            berkelanjutan yang bermanfaat bagi pengrajin lokal, mengurangi sampah, dan menciptakan
+                            peluang ekonomi di seluruh Surabaya.</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Impact Section -->
-        <section id="impact" class="py-16 bg-accent text-primary">
-            <div class="container mx-auto px-4">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl md:text-4xl font-bold mb-4" data-translate-key="impact_title">Dampak Kami dalam
-                        Angka</h2>
-                    <p class="text-lg max-w-2xl mx-auto" data-translate-key="impact_subtitle">Sejak didirikan pada tahun
-                        2024, TrackEco telah membuat kemajuan yang terukur dalam ekosistem pengelolaan sampah di
-                        Surabaya.</p>
+        <section id="impact">
+            <div class="container">
+                <div class="section-title">
+                    <h2 data-translate-key="impact_title" style="color: var(--primary-color);">Dampak Kami dalam Angka
+                    </h2>
+                    <p data-translate-key="impact_subtitle">Sejak didirikan pada tahun 2024, TrackEco telah membuat
+                        kemajuan yang terukur dalam ekosistem pengelolaan sampah di Surabaya.</p>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div
-                        class="bg-white bg-opacity-90 p-8 rounded-xl shadow-lg flex flex-col items-center text-center h-full">
-                        <div class="text-5xl font-bold text-primary mb-4">30+</div>
-                        <div class="text-xl font-semibold mb-4" data-translate-key="impact_card1_title">Mitra UKM Lokal
-                        </div>
-                        <div class="flex justify-center space-x-4 mt-auto">
-                            <img src="./static/images/AquaLogo.webp" alt="Logo Aqua" class="h-10 object-contain"
-                                width="80" height="40" loading="lazy" decoding="async">
-                            <img src="./static/images/Panji.webp" alt="Logo Panji" class="h-10 object-contain"
-                                width="80" height="40" loading="lazy" decoding="async">
-                            <img src="./static/images/BankSampah.webp" alt="Logo Bank Sampah Induk Surabaya"
-                                class="h-10 object-contain" width="40" height="40" loading="lazy" decoding="async">
+                <div class="impact-grid">
+                    <div class="impact-card">
+                        <div class="number">30+</div>
+                        <div class="title" data-translate-key="impact_card1_title">Mitra UKM Lokal</div>
+                        <div class="logos">
+                            <img src="./static/images/AquaLogo.webp" alt="Logo Aqua" width="80" height="40"
+                                loading="lazy" decoding="async">
+                            <img src="./static/images/Panji.webp" alt="Logo Panji" width="80" height="40" loading="lazy"
+                                decoding="async">
+                            <img src="./static/images/BankSampah.webp" alt="Logo Bank Sampah Induk Surabaya" width="40"
+                                height="40" loading="lazy" decoding="async">
                         </div>
                     </div>
-                    <div
-                        class="bg-white bg-opacity-90 p-8 rounded-xl shadow-lg flex flex-col items-center text-center h-full">
-                        <div class="text-5xl font-bold text-primary mb-4"><span id="impactBottleCounter">1400</span>+ kg
-                        </div>
-                        <div class="flex flex-col justify-center h-full">
-                            <div class="text-xl font-semibold mb-2" data-translate-key="impact_card2_title">Plastik
-                                Terkumpul</div>
-                            <p class="text-gray-600" data-translate-key="impact_card2_desc">Dari wilayah perkotaan</p>
-                        </div>
+                    <div class="impact-card">
+                        <div class="number"><span id="impactBottleCounter">1400</span>+ kg</div>
+                        <div class="title" data-translate-key="impact_card2_title">Plastik Terkumpul</div>
+                        <p data-translate-key="impact_card2_desc">Dari wilayah perkotaan</p>
                     </div>
-                    <div
-                        class="bg-white bg-opacity-90 p-8 rounded-xl shadow-lg flex flex-col items-center text-center h-full">
-                        <div class="text-5xl font-bold text-primary mb-4">74</div>
-                        <div class="flex flex-col justify-center h-full">
-                            <div class="text-xl font-semibold mb-2" data-translate-key="impact_card3_title">Anggota
-                                Aktif</div>
-                            <p class="text-gray-600" data-translate-key="impact_card3_desc">Memimpin upaya daur ulang
-                                komunitas</p>
-                        </div>
+                    <div class="impact-card">
+                        <div class="number">74</div>
+                        <div class="title" data-translate-key="impact_card3_title">Anggota Aktif</div>
+                        <p data-translate-key="impact_card3_desc">Memimpin upaya daur ulang komunitas</p>
                     </div>
                 </div>
-                <div class="mt-12 bg-white bg-opacity-90 p-8 rounded-xl shadow-lg">
-                    <h3 class="text-2xl font-bold text-center text-primary mb-6" data-translate-key="impact_env_title">
-                        Dampak Lingkungan</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="flex items-start">
-                            <div class="bg-ecoGreen bg-opacity-20 p-3 rounded-full mr-4"><i
-                                    class="fas fa-tree text-ecoGreen text-2xl"></i></div>
-                            <div>
-                                <h4 class="font-bold text-lg mb-2" data-translate-key="impact_env1_title">Pengurangan
-                                    Emisi Karbon</h4>
-                                <p class="text-gray-700" data-translate-key="impact_env1_desc">Upaya daur ulang kami
-                                    telah mencegah sekitar <strong>42 ton</strong> emisi CO2.</p>
+                <div class="environmental-impact">
+                    <h3 data-translate-key="impact_env_title">Dampak Lingkungan</h3>
+                    <div class="env-grid">
+                        <div class="env-item">
+                            <div class="icon-container"><i class="fas fa-tree" style="color:var(--ecoGreen-color);"></i>
                             </div>
-                        </div>
-                        <div class="flex items-start">
-                            <div class="bg-ecoGreen bg-opacity-20 p-3 rounded-full mr-4"><i
-                                    class="fas fa-water text-ecoBlue text-2xl"></i></div>
                             <div>
-                                <h4 class="font-bold text-lg mb-2" data-translate-key="impact_env2_title">Perlindungan
-                                    Laut</h4>
-                                <p class="text-gray-700" data-translate-key="impact_env2_desc">Kami telah mencegah
-                                    <strong>1.200 kg</strong> plastik masuk ke laut dan saluran air.
+                                <h4 data-translate-key="impact_env1_title">Pengurangan Emisi Karbon</h4>
+                                <p data-translate-key="impact_env1_desc">Upaya daur ulang kami telah mencegah sekitar
+                                    <strong>42 ton</strong> emisi CO2.
                                 </p>
                             </div>
                         </div>
-                        <div class="flex items-start">
-                            <div class="bg-ecoGreen bg-opacity-20 p-3 rounded-full mr-4"><i
-                                    class="fas fa-industry text-secondary text-2xl"></i></div>
+                        <div class="env-item">
+                            <div class="icon-container"><i class="fas fa-water" style="color:var(--ecoBlue-color);"></i>
+                            </div>
                             <div>
-                                <h4 class="font-bold text-lg mb-2" data-translate-key="impact_env3_title">Dukungan
-                                    Industri Kerajinan</h4>
-                                <p class="text-gray-700" data-translate-key="impact_env3_desc"><strong>85%</strong>
-                                    plastik berkualitas tinggi mendukung industri mikro kerajinan lokal.</p>
+                                <h4 data-translate-key="impact_env2_title">Perlindungan Laut</h4>
+                                <p data-translate-key="impact_env2_desc">Kami telah mencegah <strong>1.200 kg</strong>
+                                    plastik masuk ke laut dan saluran air.</p>
                             </div>
                         </div>
-                        <div class="flex items-start">
-                            <div class="bg-ecoGreen bg-opacity-20 p-3 rounded-full mr-4"><i
-                                    class="fas fa-users text-accent text-2xl"></i></div>
+                        <div class="env-item">
+                            <div class="icon-container"><i class="fas fa-industry"
+                                    style="color:var(--secondary-color);"></i></div>
                             <div>
-                                <h4 class="font-bold text-lg mb-2" data-translate-key="impact_env4_title">Keterlibatan
-                                    Masyarakat</h4>
-                                <p class="text-gray-700" data-translate-key="impact_env4_desc">Kami telah mengedukasi
-                                    <strong>500+</strong> anggota masyarakat tentang pengelolaan sampah yang benar.
-                                </p>
+                                <h4 data-translate-key="impact_env3_title">Dukungan Industri Kerajinan</h4>
+                                <p data-translate-key="impact_env3_desc"><strong>85%</strong> plastik berkualitas tinggi
+                                    mendukung industri mikro kerajinan lokal.</p>
+                            </div>
+                        </div>
+                        <div class="env-item">
+                            <div class="icon-container"><i class="fas fa-users" style="color:var(--accent-color);"></i>
+                            </div>
+                            <div>
+                                <h4 data-translate-key="impact_env4_title">Keterlibatan Masyarakat</h4>
+                                <p data-translate-key="impact_env4_desc">Kami telah mengedukasi <strong>500+</strong>
+                                    anggota masyarakat tentang pengelolaan sampah yang benar.</p>
                             </div>
                         </div>
                     </div>
@@ -884,13 +1450,12 @@
         </section>
 
         <!-- Team Section -->
-        <section id="team" class="py-20 bg-white">
-            <div class="container mx-auto px-4">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4" data-translate-key="team_title">Temui
-                        Tim Kami</h2>
-                    <p class="text-lg max-w-2xl mx-auto" data-translate-key="team_subtitle">Arahkan kursor ke seorang
-                        pemimpin untuk melihat tim mereka.</p>
+        <section id="team">
+            <div class="container">
+                <div class="section-title">
+                    <h2 data-translate-key="team_title">Temui Tim Kami</h2>
+                    <p data-translate-key="team_subtitle" style="max-width: 42rem; margin: 0 auto;">Arahkan kursor ke
+                        seorang pemimpin untuk melihat tim mereka.</p>
                 </div>
                 <div class="org-chart-container">
                     <div class="org-chart">
@@ -904,56 +1469,42 @@
     </main>
 
     <!-- Footer -->
-    <footer id="contact" class="bg-primary text-white pt-16 pb-8">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-                <div class="md:col-span-1">
-                    <div class="flex items-center mb-4"><img src="./static/images/logo.webp" alt="TrackEco Logo"
-                            class="h-10 mr-3" width="40" height="40"><span class="font-bold text-xl">TrackEco</span>
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-logo">
+                        <img src="./static/images/logo.webp" alt="TrackEco Logo" width="40" height="40">
+                        <span>TrackEco</span>
                     </div>
-                    <p class="mb-4" data-translate-key="footer_desc">Memberdayakan Surabaya untuk mengurangi sampah dan
-                        berkembang melalui program daur ulang komunitas.</p>
-                    <p class="text-sm text-gray-400" data-translate-key="footer_partner">Bekerja sama dengan Bank Sampah
-                        Induk Surabaya</p>
+                    <p data-translate-key="footer_desc">Memberdayakan Surabaya untuk mengurangi sampah dan berkembang
+                        melalui program daur ulang komunitas.</p>
+                    <p data-translate-key="footer_partner">Bekerja sama dengan Bank Sampah Induk Surabaya</p>
                 </div>
                 <div>
-                    <h3 class="font-bold text-lg mb-4" data-translate-key="footer_links_title">Tautan Cepat</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#home"
-                                class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-1"
-                                data-translate-key="footer_link_home">Beranda</a></li>
-                        <li><a href="#mission"
-                                class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-1"
-                                data-translate-key="footer_link_mission">Misi Kami</a></li>
-                        <li><a href="#process"
-                                class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-1"
-                                data-translate-key="footer_link_process">Proses Kami</a></li>
-                        <li><a href="#impact"
-                                class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-1"
-                                data-translate-key="footer_link_impact">Dampak</a></li>
-                        <li><a href="#team"
-                                class="hover:text-accent transition focus:outline-none focus:ring-2 focus:ring-accent rounded px-1"
-                                data-translate-key="footer_link_team">Tim Kami</a></li>
+                    <h3 data-translate-key="footer_links_title">Tautan Cepat</h3>
+                    <ul>
+                        <li><a href="#home" data-translate-key="footer_link_home">Beranda</a></li>
+                        <li><a href="#mission" data-translate-key="footer_link_mission">Misi Kami</a></li>
+                        <li><a href="#process" data-translate-key="footer_link_process">Proses Kami</a></li>
+                        <li><a href="#impact" data-translate-key="footer_link_impact">Dampak</a></li>
+                        <li><a href="#team" data-translate-key="footer_link_team">Tim Kami</a></li>
                     </ul>
                 </div>
-                <div>
-                    <h3 class="font-bold text-lg mb-4" data-translate-key="footer_contact_title">Hubungi Kami</h3>
-                    <ul class="space-y-2">
-                        <li class="flex items-start"><i class="fas fa-envelope mt-1 mr-3 text-accent"></i><a
-                                href="mailto:hello@trackeco.org"
-                                class="hover:text-accent transition">hello@trackeco.org</a></li>
-                        <li class="flex items-start"><i class="fab fa-instagram mt-1 mr-3 text-accent"></i><a
-                                href="https://www.instagram.com/trackeco_org" target="_blank" rel="noopener noreferrer"
-                                class="hover:text-accent transition">@trackeco_org</a></li>
-                        <li class="flex items-start"><i
-                                class="fas fa-map-marker-alt mt-1 mr-3 text-accent"></i><span>Surabaya,
-                                Indonesia</span></li>
+                <div class="footer-contact">
+                    <h3 data-translate-key="footer_contact_title">Hubungi Kami</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i><a href="mailto:hello@trackeco.org">hello@trackeco.org</a>
+                        </li>
+                        <li><i class="fab fa-instagram"></i><a href="https://www.instagram.com/trackeco_org"
+                                target="_blank" rel="noopener noreferrer">@trackeco_org</a></li>
+                        <li><i class="fas fa-map-marker-alt"></i><span>Surabaya, Indonesia</span></li>
                     </ul>
                 </div>
             </div>
-            <div class="border-t border-gray-700 pt-8 text-center text-gray-400">
-                <p>© 2024 TrackEco. <span data-translate-key="footer_rights">Hak cipta dilindungi
-                        undang-undang.</span></p>
+            <div class="footer-bottom">
+                <p>© 2024 TrackEco. <span data-translate-key="footer_rights">Hak cipta dilindungi undang-undang.</span>
+                </p>
             </div>
         </div>
     </footer>
@@ -971,12 +1522,12 @@
                     twitter_title: "TrackEco: Plastic Recycling & Waste Management in Surabaya",
                     twitter_description: "TrackEco empowers the Surabaya community to recycle plastic waste into valuable products.",
                     // Navigation
-                    nav_home: "Home", nav_mission: "Mission", nav_process: "Our Process", nav_impact: "Impact", nav_team: "Team", nav_contact: "Contact",
+                    nav_brand: "TrackEco", nav_home: "Home", nav_mission: "Mission", nav_process: "Our Process", nav_impact: "Impact", nav_team: "Team", nav_contact: "Contact",
                     nav_home_mobile: "Home", nav_mission_mobile: "Mission", nav_process_mobile: "Our Process", nav_impact_mobile: "Impact", nav_team_mobile: "Team", nav_contact_mobile: "Contact",
                     // Hero
                     hero_title: "Empowering Surabaya Through Recycling",
-                    hero_subtitle_prefix: "Join",
-                    hero_subtitle_suffix: "members turning plastic waste into community benefit.",
+                    hero_subtitle_prefix: "Join ",
+                    hero_subtitle_suffix: " members turning plastic waste into community benefit.",
                     hero_bottles_collected: "Plastic Bottles Collected",
                     hero_sme_partners: "Local SME Partners",
                     hero_collaborating: "Collaborating with:",
@@ -985,8 +1536,8 @@
                     // Mission
                     mission_title: "Our Mission to Transform Surabaya",
                     mission_crisis_title: "Indonesia's Plastic Crisis",
-                    mission_crisis_p1: "Did you know Indonesia is one of the world's largest contributors to ocean plastic waste, generating over <span class='font-bold text-secondary'>3.2 million tons</span> annually?",
-                    mission_crisis_p2: "In Surabaya alone, plastic waste accounts for <span class='font-bold text-secondary'>15-20%</span> of total waste, yet less than <span class='font-bold text-secondary'>10%</span> gets recycled. Where does the rest go?",
+                    mission_crisis_p1: "Did you know Indonesia is one of the world's largest contributors to ocean plastic waste, generating over <strong style='color: var(--secondary-color);'>3.2 million tons</strong> annually?",
+                    mission_crisis_p2: "In Surabaya alone, plastic waste accounts for <strong style='color: var(--secondary-color);'>15-20%</strong> of total waste, yet less than <strong style='color: var(--secondary-color);'>10%</strong> gets recycled. Where does the rest go?",
                     mission_crisis_l1: "Clogging our rivers and beaches",
                     mission_crisis_l2: "Endangering marine life",
                     mission_crisis_l3: "Creating health hazards for communities",
@@ -1017,7 +1568,7 @@
                     impact_card3_title: "Active Members", impact_card3_desc: "Leading community recycling efforts",
                     impact_env_title: "Environmental Impact",
                     impact_env1_title: "Carbon Emission Reduction", impact_env1_desc: "Our recycling efforts have prevented an estimated <strong>42 tons</strong> of CO2 emissions.",
-                    impact_env2_title: "Ocean Protection", impact_env2_desc: "We've prevented <strong>1.200 kg</strong> of plastic from entering oceans and waterways.",
+                    impact_env2_title: "Ocean Protection", impact_env2_desc: "We've prevented <strong>1,200 kg</strong> of plastic from entering oceans and waterways.",
                     impact_env3_title: "Craft Industry Support", impact_env3_desc: "<strong>85%</strong> of high-quality plastic supports local craft microindustries.",
                     impact_env4_title: "Community Engagement", impact_env4_desc: "We've educated <strong>500+</strong> community members on proper waste management.",
                     // Team
@@ -1043,12 +1594,12 @@
                     twitter_title: "TrackEco: Daur Ulang & Pengelolaan Sampah Plastik di Surabaya",
                     twitter_description: "TrackEco memberdayakan masyarakat Surabaya untuk mendaur ulang sampah plastik menjadi produk bernilai.",
                     // Navigation
-                    nav_home: "Beranda", nav_mission: "Misi", nav_process: "Proses Kami", nav_impact: "Dampak", nav_team: "Tim", nav_contact: "Kontak",
+                    nav_brand: "TrackEco", nav_home: "Beranda", nav_mission: "Misi", nav_process: "Proses Kami", nav_impact: "Dampak", nav_team: "Tim", nav_contact: "Kontak",
                     nav_home_mobile: "Beranda", nav_mission_mobile: "Misi", nav_process_mobile: "Proses Kami", nav_impact_mobile: "Dampak", nav_team_mobile: "Tim", nav_contact_mobile: "Kontak",
                     // Hero
                     hero_title: "Memberdayakan Surabaya Melalui Daur Ulang",
-                    hero_subtitle_prefix: "Bergabunglah dengan",
-                    hero_subtitle_suffix: "anggota untuk mengubah sampah plastik menjadi manfaat bagi masyarakat.",
+                    hero_subtitle_prefix: "Bergabunglah dengan ",
+                    hero_subtitle_suffix: " anggota untuk mengubah sampah plastik menjadi manfaat bagi masyarakat.",
                     hero_bottles_collected: "Botol Plastik Terkumpul",
                     hero_sme_partners: "Mitra UKM Lokal",
                     hero_collaborating: "Bekerja sama dengan:",
@@ -1057,8 +1608,8 @@
                     // Mission
                     mission_title: "Misi Kami untuk Mengubah Surabaya",
                     mission_crisis_title: "Krisis Plastik di Indonesia",
-                    mission_crisis_p1: "Tahukah Anda bahwa Indonesia adalah salah satu penyumbang sampah plastik laut terbesar di dunia, menghasilkan lebih dari <span class='font-bold text-secondary'>3,2 juta ton</span> setiap tahunnya?",
-                    mission_crisis_p2: "Di Surabaya sendiri, sampah plastik mencapai <span class='font-bold text-secondary'>15-20%</span> dari total sampah, namun kurang dari <span class='font-bold text-secondary'>10%</span> yang didaur ulang. Ke mana sisanya?",
+                    mission_crisis_p1: "Tahukah Anda bahwa Indonesia adalah salah satu penyumbang sampah plastik laut terbesar di dunia, menghasilkan lebih dari <strong style='color: var(--secondary-color);'>3,2 juta ton</strong> setiap tahunnya?",
+                    mission_crisis_p2: "Di Surabaya sendiri, sampah plastik mencapai <strong style='color: var(--secondary-color);'>15-20%</strong> dari total sampah, namun kurang dari <strong style='color: var(--secondary-color);'>10%</strong> yang didaur ulang. Ke mana sisanya?",
                     mission_crisis_l1: "Menyumbat sungai dan pantai kita",
                     mission_crisis_l2: "Membahayakan biota laut",
                     mission_crisis_l3: "Menciptakan bahaya kesehatan bagi masyarakat",
@@ -1143,15 +1694,15 @@
                     }
                 });
                 renderTeam(lang);
-                document.querySelectorAll('#lang-en, #lang-en-mobile').forEach(el => el.classList.toggle('text-accent', lang === 'en'));
-                document.querySelectorAll('#lang-id, #lang-id-mobile').forEach(el => el.classList.toggle('text-accent', lang === 'id'));
+                document.querySelectorAll('#lang-en, #lang-en-mobile').forEach(el => el.style.color = (lang === 'en' ? 'var(--accent-color)' : 'var(--white-color)'));
+                document.querySelectorAll('#lang-id, #lang-id-mobile').forEach(el => el.style.color = (lang === 'id' ? 'var(--accent-color)' : 'var(--white-color)'));
             };
 
             const getInitialLanguage = () => {
                 const savedLang = localStorage.getItem('language');
                 if (savedLang && ['en', 'id'].includes(savedLang)) return savedLang;
                 const browserLang = navigator.language.split('-')[0];
-                return browserLang === 'en' ? 'en' : 'id';
+                return browserLang === 'id' ? 'id' : 'en'; // Default to ID for local context
             };
 
             ['lang-en', 'lang-en-mobile'].forEach(id => document.getElementById(id).addEventListener('click', () => setLanguage('en')));
@@ -1161,31 +1712,45 @@
             setLanguage(initialLang);
 
             // --- Hero Background Slideshow ---
-            const backgrounds = Array.from(document.querySelectorAll('[id^="hero-bg-"]'));
-            let currentBg = 0;
-            const dots = Array.from(document.querySelectorAll('.dot'));
+            const backgrounds = Array.from(document.querySelectorAll('.hero-background-container img'));
+            const dots = Array.from(document.querySelectorAll('.hero-dots .dot'));
+            let currentBgIndex = 0;
+            let sliderInterval;
+
             function showBackground(index) {
                 if (!backgrounds.length) return;
-                backgrounds[currentBg].classList.replace('opacity-100', 'opacity-0');
-                currentBg = index;
-                backgrounds[currentBg].classList.replace('opacity-0', 'opacity-100');
-                dots.forEach((dot, i) => {
-                    dot.classList.toggle('bg-opacity-100', i === currentBg);
-                    dot.classList.toggle('bg-opacity-20', i !== currentBg);
-                });
+                backgrounds[currentBgIndex].classList.remove('active-slide');
+                dots[currentBgIndex].classList.remove('active');
+
+                currentBgIndex = index;
+
+                backgrounds[currentBgIndex].classList.add('active-slide');
+                dots[currentBgIndex].classList.add('active');
             }
-            let sliderInterval = setInterval(() => showBackground((currentBg + 1) % backgrounds.length), 5000);
-            dots.forEach((dot, index) => dot.addEventListener('click', () => {
+
+            function startSlider() {
+                sliderInterval = setInterval(() => {
+                    const nextIndex = (currentBgIndex + 1) % backgrounds.length;
+                    showBackground(nextIndex);
+                }, 5000);
+            }
+
+            function resetSlider() {
                 clearInterval(sliderInterval);
+                startSlider();
+            }
+
+            dots.forEach((dot, index) => dot.addEventListener('click', () => {
                 showBackground(index);
-                sliderInterval = setInterval(() => showBackground((currentBg + 1) % backgrounds.length), 5000);
+                resetSlider();
             }));
-            if (dots.length > 0) dots[0].classList.add('bg-opacity-100');
+
+            startSlider();
 
             // --- Counter Animation ---
             function animateCounter(element, target, duration = 2000) {
                 if (!element) return;
-                const startValue = 0;
+                let startValue = 0;
                 let startTime = null;
 
                 function animation(currentTime) {
@@ -1193,7 +1758,7 @@
                     const elapsedTime = currentTime - startTime;
                     const progress = Math.min(elapsedTime / duration, 1);
                     const currentValue = Math.floor(progress * (target - startValue) + startValue);
-                    element.textContent = currentValue.toLocaleString();
+                    element.textContent = currentValue.toLocaleString('id-ID');
                     if (progress < 1) {
                         window.requestAnimationFrame(animation);
                     }
@@ -1207,47 +1772,61 @@
                         animateCounter(document.getElementById('memberCounter'), 74, 1500);
                         animateCounter(document.getElementById('bottleCounter'), 200000, 2000);
                         animateCounter(document.getElementById('partnerCounter'), 30, 1500);
-                        animateCounter(document.getElementById('impactBottleCounter'), 1400, 2000);
+                        const impactCounter = document.getElementById('impactBottleCounter');
+                        if (impactCounter) {
+                            const target = 1400; // Hardcode target since we just need to animate
+                            animateCounter(impactCounter, target, 2000);
+                        }
                         observer.unobserve(entry.target);
                     }
                 });
             }, { threshold: 0.5 });
 
             const heroSection = document.getElementById('home');
-            if (heroSection) {
-                observer.observe(heroSection);
-            }
+            if (heroSection) observer.observe(heroSection);
+
 
             // --- Mobile Menu Toggle ---
             const mobileMenuButton = document.getElementById('mobile-menu-toggle');
             const mobileMenu = document.getElementById('mobile-menu');
             const menuIcon = mobileMenuButton.querySelector('i');
-            const closeMenu = () => {
+
+            function closeMenu() {
                 mobileMenu.classList.remove('is-open');
                 menuIcon.classList.remove('fa-times');
                 menuIcon.classList.add('fa-bars');
                 mobileMenuButton.setAttribute('aria-expanded', 'false');
             }
-            const toggleMenu = () => {
-                mobileMenu.classList.contains('is-open') ? closeMenu() : (
-                    mobileMenu.classList.add('is-open'),
-                    menuIcon.classList.remove('fa-bars'),
-                    menuIcon.classList.add('fa-times'),
-                    mobileMenuButton.setAttribute('aria-expanded', 'true')
-                );
-            };
-            mobileMenuButton.addEventListener('click', toggleMenu);
-            document.querySelectorAll('#mobile-menu a, #mobile-menu button').forEach(link => link.addEventListener('click', closeMenu));
 
-            // --- Smooth Scrolling ---
+            function toggleMenu() {
+                const isOpen = mobileMenu.classList.contains('is-open');
+                if (isOpen) {
+                    closeMenu();
+                } else {
+                    mobileMenu.classList.add('is-open');
+                    menuIcon.classList.remove('fa-bars');
+                    menuIcon.classList.add('fa-times');
+                    mobileMenuButton.setAttribute('aria-expanded', 'true');
+                }
+            }
+            mobileMenuButton.addEventListener('click', toggleMenu);
+            document.querySelectorAll('#mobile-menu a, #mobile-menu button').forEach(link => {
+                link.addEventListener('click', closeMenu);
+            });
+
+            // --- Smooth Scrolling for Anchor Links ---
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
                     const targetId = this.getAttribute('href');
                     const targetElement = document.querySelector(targetId);
                     if (targetElement) {
-                        const offsetTop = targetElement.offsetTop - 70; // Adjust for fixed navbar
-                        window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+                        const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                        const offsetTop = targetElement.offsetTop - navbarHeight;
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
                     }
                 });
             });

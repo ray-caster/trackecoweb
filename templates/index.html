@@ -26,7 +26,7 @@
         content="TrackEco: Daur Ulang & Pengelolaan Sampah Plastik di Surabaya">
     <meta property="og:description" data-translate-key="og_description"
         content="TrackEco memberdayakan masyarakat Surabaya untuk mendaur ulang sampah plastik menjadi produk bernilai, bekerja sama dengan Bank Sampah Induk Surabaya.">
-    <meta property="og:image" content="{{ url_for('static', filename='images/og-image.jpg') }}">
+    <meta property="og:image" content="{{ url_for('static', filename='images/og-image.webp') }}">
     <meta property="og:url" content="https://www.trackeco.org">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="id_ID">
@@ -39,7 +39,7 @@
         content="TrackEco: Daur Ulang & Pengelolaan Sampah Plastik di Surabaya">
     <meta name="twitter:description" data-translate-key="twitter_description"
         content="TrackEco memberdayakan masyarakat Surabaya untuk mendaur ulang sampah plastik menjadi produk bernilai, bekerja sama dengan Bank Sampah Induk Surabaya.">
-    <meta name="twitter:image" content="{{ url_for('static', filename='images/twitter-image.jpg') }}">
+    <meta name="twitter:image" content="{{ url_for('static', filename='images/twitter-image.webp') }}">
 
     <!-- Structured Data (Static, as it's for the entity) -->
     <script type="application/ld+json">
@@ -48,7 +48,7 @@
       "@type": "NGO",
       "name": "TrackEco",
       "url": "https://www.trackeco.org",
-      "logo": "{{ url_for('static', filename='images/logo.jpg') }}",
+      "logo": "{{ url_for('static', filename='images/logo.webp') }}",
       "description": "TrackEco is a non-profit organization in Surabaya focused on plastic waste management and recycling. We partner with Bank Sampah Induk Surabaya to channel quality plastic waste to micro-craft industries and process the rest responsibly.",
       "address": {
         "@type": "PostalAddress",
@@ -63,9 +63,12 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='images/apple-touch-icon.png') }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='images/favicon-32x32.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='images/favicon-16x16.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180"
+        href="{{ url_for('static', filename='images/apple-touch-icon.webp') }}">
+    <link rel="icon" type="image/png" sizes="32x32"
+        href="{{ url_for('static', filename='images/favicon-32x32.webp') }}">
+    <link rel="icon" type="image/png" sizes="16x16"
+        href="{{ url_for('static', filename='images/favicon-16x16.webp') }}">
     <link rel="manifest" href="/site.webmanifest">
     <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 
@@ -318,7 +321,7 @@
     <nav class="fixed w-full bg-primary text-white shadow-md z-50">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <a href="#home" class="flex items-center focus:outline-none focus:ring-2 focus:ring-accent rounded">
-                <img src="{{ url_for('static', filename='images/logo.jpg') }}"
+                <img src="{{ url_for('static', filename='images/logo.webp') }}"
                     alt="Logo TrackEco - Inisiatif daur ulang plastik di Surabaya" class="h-12 mr-3">
                 <span class="font-bold text-xl">TrackEco</span>
             </a>
@@ -387,39 +390,41 @@
     <header id="home" class="relative h-screen flex items-center justify-center pt-20">
         <div class="absolute inset-0 bg-gray-900 overflow-hidden">
             <div class="relative w-full h-full">
-                <img src="{{ url_for('static', filename='images/Beach2.jpg') }}"
+                <img src="{{ url_for('static', filename='images/Beach2.webp') }}"
                     alt="Relawan TrackEco membersihkan pantai di Surabaya"
                     class="w-full h-full object-cover absolute inset-0 opacity-100 transition-opacity duration-1000"
                     id="hero-bg-1">
-                <img src="{{ url_for('static', filename='images/Beach1.jpg') }}"
+                <img src="{{ url_for('static', filename='images/Beach1.webp') }}"
                     alt="Aksi bersih pantai oleh TrackEco di Surabaya"
                     class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000"
                     id="hero-bg-2">
-                <img src="{{ url_for('static', filename='images/UBS1.jpg') }}" alt="Kunjungan TrackEco ke UBS Gold"
+                <img src="{{ url_for('static', filename='images/UBS1.webp') }}" alt="Kunjungan TrackEco ke UBS Gold"
                     class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000"
                     id="hero-bg-3">
-                <img src="{{ url_for('static', filename='images/Ubs2.jpg') }}" alt="Diskusi TrackEco di UBS Gold"
+                <img src="{{ url_for('static', filename='images/Ubs2.webp') }}" alt="Diskusi TrackEco di UBS Gold"
                     class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000"
                     id="hero-bg-4">
-                <img src="{{ url_for('static', filename='images/FirstBackground.jpg') }}"
+                <img src="{{ url_for('static', filename='images/FirstBackground.webp') }}"
                     alt="Pertemuan TrackEco dengan Panji"
                     class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000"
                     id="hero-bg-5">
-                <img src="{{ url_for('static', filename='images/background2.jpg') }}"
+                <img src="{{ url_for('static', filename='images/background2.webp') }}"
                     alt="Kolaborasi TrackEco dan Panji"
                     class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000"
                     id="hero-bg-6">
-                <img src="{{ url_for('static', filename='images/background3.jpg') }}" alt="Sesi diskusi TrackEco"
+                <img src="{{ url_for('static', filename='images/background3.webp') }}" alt="Sesi diskusi TrackEco"
                     class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000"
                     id="hero-bg-7">
-                <img src="{{ url_for('static', filename='images/Background4.jpg') }}"
+                <img src="{{ url_for('static', filename='images/Background4.webp') }}"
                     alt="Kerjasama TrackEco dengan mitra"
                     class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000"
                     id="hero-bg-8">
-                <img src="{{ url_for('static', filename='images/background5.jpg') }}" alt="Kegiatan kolaborasi TrackEco"
+                <img src="{{ url_for('static', filename='images/background5.webp') }}"
+                    alt="Kegiatan kolaborasi TrackEco"
                     class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000"
                     id="hero-bg-9">
-                <img src="{{ url_for('static', filename='images/background6.jpg') }}" alt="Presentasi oleh tim TrackEco"
+                <img src="{{ url_for('static', filename='images/background6.webp') }}"
+                    alt="Presentasi oleh tim TrackEco"
                     class="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000"
                     id="hero-bg-10">
             </div>
@@ -458,7 +463,7 @@
                         class="h-10">
                 </a>
                 <a href="#" class="hover:opacity-80 transition" aria-label="Bank Sampah Induk Surabaya">
-                    <img src="{{ url_for('static', filename='images/BankSampah.jpg') }}"
+                    <img src="{{ url_for('static', filename='images/BankSampah.webp') }}"
                         alt="Logo Bank Sampah Induk Surabaya" class="h-10">
                 </a>
             </div>
@@ -622,7 +627,7 @@
                 <div class="mt-12 bg-white p-8 rounded-xl shadow-lg">
                     <div class="flex flex-col md:flex-row gap-8 items-center">
                         <div class="md:w-1/3 flex justify-center">
-                            <img src="{{ url_for('static', filename='images/BankSampah.jpg') }}"
+                            <img src="{{ url_for('static', filename='images/BankSampah.webp') }}"
                                 alt="Bank Sampah Induk Surabaya - Mitra pemilahan kami"
                                 class="rounded-lg shadow-md max-w-full h-auto">
                         </div>
@@ -673,11 +678,11 @@
                         <div class="text-xl font-semibold mb-4" data-translate-key="impact_card1_title">Mitra UKM Lokal
                         </div>
                         <div class="flex justify-center space-x-4 mt-auto">
-                            <img src="{{ url_for('static', filename='images/AquaLogo.png') }}" alt="Logo Aqua"
+                            <img src="{{ url_for('static', filename='images/AquaLogo.webp') }}" alt="Logo Aqua"
                                 class="h-10 object-contain">
-                            <img src="{{ url_for('static', filename='images/Panji.jpg') }}" alt="Logo Panji"
+                            <img src="{{ url_for('static', filename='images/Panji.webp') }}" alt="Logo Panji"
                                 class="h-10 object-contain">
-                            <img src="{{ url_for('static', filename='images/BankSampah.jpg') }}"
+                            <img src="{{ url_for('static', filename='images/BankSampah.webp') }}"
                                 alt="Logo Bank Sampah Induk Surabaya" class="h-10 object-contain">
                         </div>
                     </div>
@@ -778,7 +783,7 @@
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
                 <div class="md:col-span-1">
-                    <div class="flex items-center mb-4"><img src="{{ url_for('static', filename='images/logo.jpg') }}"
+                    <div class="flex items-center mb-4"><img src="{{ url_for('static', filename='images/logo.webp') }}"
                             alt="TrackEco Logo" class="h-10 mr-3"><span class="font-bold text-xl">TrackEco</span></div>
                     <p class="mb-4" data-translate-key="footer_desc">Memberdayakan Surabaya untuk mengurangi sampah dan
                         berkembang melalui program daur ulang komunitas.</p>
@@ -978,9 +983,9 @@
             };
 
             const teamData = [
-                { name: 'Stanley Cahyono', title: 'Executive Director of Business & Logistics', role: 'Chairman', image: `{{ url_for('static', filename='images/Stanley2.jpg') }}`, quoteKey: 'team_stanley_quote', team: [{ name: 'Jessica Hakiki', role: 'Head of Social Media' }, { name: 'Jayden Emery', role: 'Head of Logistics' }, { name: 'Thomas Alexander', role: 'Field Operations Team Leader' }] },
-                { name: 'Maximillian Eugene', title: 'Executive Director of Eng. & Tech', role: 'Vice Chairman', image: `{{ url_for('static', filename='images/Max.jpg') }}`, quoteKey: 'team_max_quote', team: [{ name: 'Ashton Suwandi', role: 'Vice Director of Eng. & Tech' }, { name: 'Eucharist Suhargo', role: 'Head of Research & Education' }, { name: 'Louis Gerrard', role: 'Head of Sustainable Planning' }] },
-                { name: 'Javier Ongko', title: 'Executive Director of Financing & Partnerships', image: `{{ url_for('static', filename='images/JavierOngko.jpg') }}`, quoteKey: 'team_javier_quote', team: [{ name: 'Serafine Susilo', role: 'Head of Strategic Partnerships' }, { name: 'Joseph Dylan', role: 'Head of Sponsorships and Treasury' }, { name: 'Dylan Archer', role: 'Head of Legal & Compliance' }, { name: 'Justin Armando', role: 'Head of Human Resources' }] }
+                { name: 'Stanley Cahyono', title: 'Executive Director of Business & Logistics', role: 'Chairman', image: `{{ url_for('static', filename='images/Stanley2.webp') }}`, quoteKey: 'team_stanley_quote', team: [{ name: 'Jessica Hakiki', role: 'Head of Social Media' }, { name: 'Jayden Emery', role: 'Head of Logistics' }, { name: 'Thomas Alexander', role: 'Field Operations Team Leader' }] },
+                { name: 'Maximillian Eugene', title: 'Executive Director of Eng. & Tech', role: 'Vice Chairman', image: `{{ url_for('static', filename='images/Max.webp') }}`, quoteKey: 'team_max_quote', team: [{ name: 'Ashton Suwandi', role: 'Vice Director of Eng. & Tech' }, { name: 'Eucharist Suhargo', role: 'Head of Research & Education' }, { name: 'Louis Gerrard', role: 'Head of Sustainable Planning' }] },
+                { name: 'Javier Ongko', title: 'Executive Director of Financing & Partnerships', image: `{{ url_for('static', filename='images/JavierOngko.webp') }}`, quoteKey: 'team_javier_quote', team: [{ name: 'Serafine Susilo', role: 'Head of Strategic Partnerships' }, { name: 'Joseph Dylan', role: 'Head of Sponsorships and Treasury' }, { name: 'Dylan Archer', role: 'Head of Legal & Compliance' }, { name: 'Justin Armando', role: 'Head of Human Resources' }] }
             ];
 
             function renderTeam(lang) {

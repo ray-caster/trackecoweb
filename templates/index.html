@@ -1394,7 +1394,7 @@
                         </div>
                     </div>
                     <div class="impact-card">
-                        <div class="number"><span id="impactBottleCounter">1400</span>+ kg</div>
+                        <div class="number"><span id="impactBottleCounter">700</span>+ kg</div>
                         <div class="title" data-translate-key="impact_card2_title">Plastik Terkumpul</div>
                         <p data-translate-key="impact_card2_desc">Dari wilayah perkotaan</p>
                     </div>
@@ -1568,7 +1568,7 @@
                     impact_card3_title: "Active Members", impact_card3_desc: "Leading community recycling efforts",
                     impact_env_title: "Environmental Impact",
                     impact_env1_title: "Carbon Emission Reduction", impact_env1_desc: "Our recycling efforts have prevented an estimated <strong>42 tons</strong> of CO2 emissions.",
-                    impact_env2_title: "Ocean Protection", impact_env2_desc: "We've prevented <strong>1,200 kg</strong> of plastic from entering oceans and waterways.",
+                    impact_env2_title: "Ocean Protection", impact_env2_desc: "We've prevented <strong>500 kg</strong> of plastic from entering oceans and waterways.",
                     impact_env3_title: "Craft Industry Support", impact_env3_desc: "<strong>85%</strong> of high-quality plastic supports local craft microindustries.",
                     impact_env4_title: "Community Engagement", impact_env4_desc: "We've educated <strong>500+</strong> community members on proper waste management.",
                     // Team
@@ -1770,11 +1770,11 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         animateCounter(document.getElementById('memberCounter'), 74, 1500);
-                        animateCounter(document.getElementById('bottleCounter'), 200000, 2000);
-                        animateCounter(document.getElementById('partnerCounter'), 30, 1500);
+                        animateCounter(document.getElementById('bottleCounter'), 35000, 2000);
+                        animateCounter(document.getElementById('partnerCounter'), 8, 1500);
                         const impactCounter = document.getElementById('impactBottleCounter');
                         if (impactCounter) {
-                            const target = 1400; // Hardcode target since we just need to animate
+                            const target = 700; // Hardcode target since we just need to animate
                             animateCounter(impactCounter, target, 2000);
                         }
                         observer.unobserve(entry.target);

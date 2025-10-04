@@ -934,71 +934,55 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 2.5rem;
+            perspective: 1500px;
         }
 
         .leader {
-            position: relative;
-            text-align: center;
-            padding-bottom: 20px;
-        }
-
-        .subordinates {
-            position: absolute;
-            left: calc(100% - 10px);
-            top: 0;
-            visibility: hidden;
-            opacity: 0;
-            transform: translateX(-10px);
-            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
-            z-index: 10;
-            background: white;
-            padding: 1rem;
-            border-radius: 0 0.75rem 0.75rem 0.75rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-            border: 1px solid #e2e8f0;
+            background-color: transparent;
             width: 220px;
             height: 280px;
-            overflow-y: auto;
         }
 
-        .subordinates li {
-            padding: 0.75rem 0;
-            white-space: normal;
-            border-bottom: 1px solid #f1f5f9;
+        .leader:not(.no-flip) {
+            cursor: pointer;
         }
 
-        .subordinates li:last-child {
-            border-bottom: none;
+        .leader.no-flip {
+            cursor: default;
         }
 
-        .leader:hover .subordinates {
-            visibility: visible;
-            opacity: 1;
-            transform: translateX(0);
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
         }
 
-        .node {
+        .leader:not(.no-flip):hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front,
+        .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
             align-items: center;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .leader-node {
-            width: 220px;
-            height: 280px;
-            padding: 1rem;
-            justify-content: space-between;
-            cursor: pointer;
+        .flip-card-front {
             background-color: #f8fafc;
-            border-radius: 0.75rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
             border: 1px solid #e2e8f0;
-        }
-
-        .leader-node:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+            justify-content: space-between;
+            padding: 1rem;
+            text-align: center;
         }
 
         .leader-image {
@@ -1011,19 +995,19 @@
             margin-bottom: 0.75rem;
         }
 
-        .node h3 {
+        .flip-card-front h3 {
             font-size: 1rem;
             font-weight: 700;
             color: #231842;
         }
 
-        .node p {
+        .flip-card-front p {
             color: #231842;
             font-size: 0.8rem;
             margin-top: 0.1rem;
         }
 
-        .node .role {
+        .flip-card-front .role {
             color: #6b7280;
             font-size: 0.7rem;
             font-style: italic;
@@ -1035,7 +1019,51 @@
             color: #4b5563;
             margin-top: 0.5rem;
             padding: 0 0.5rem;
-            border-left: 2px solid #F2C14E;
+            border-left: 2px solid var(--accent-color);
+        }
+
+        .flip-card-back {
+            background-color: var(--primary-color);
+            color: white;
+            transform: rotateY(180deg);
+            padding: 1.25rem 1rem;
+            overflow-y: auto;
+        }
+
+        .flip-card-back>h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+
+        .flip-card-back ul {
+            list-style: none;
+            padding: 0;
+            width: 100%;
+            text-align: center;
+        }
+
+        .flip-card-back li {
+            padding: 0.35rem 0;
+            border-bottom: 1px solid #4a5568;
+        }
+
+        .flip-card-back li:last-child {
+            border-bottom: none;
+        }
+
+        .flip-card-back li h3 {
+            font-size: 0.9rem;
+            color: white;
+            margin-bottom: 0.2rem;
+            font-weight: 600;
+        }
+
+        .flip-card-back .role {
+            font-size: 0.75rem;
+            color: var(--gray-400-color);
+            font-style: italic;
         }
 
         /* Footer */
@@ -1395,7 +1423,7 @@
                         </div>
                     </div>
                     <div class="impact-card">
-                        <div class="number"><span id="impactBottleCounter">700</span>+ kg</div>
+                        <div class="number"><span id="impactBottleCounter">3000</span>+ kg</div>
                         <div class="title" data-translate-key="impact_card2_title">Plastik Terkumpul</div>
                         <p data-translate-key="impact_card2_desc">Dari wilayah perkotaan</p>
                     </div>
@@ -1423,7 +1451,7 @@
                             </div>
                             <div>
                                 <h4 data-translate-key="impact_env2_title">Perlindungan Laut</h4>
-                                <p data-translate-key="impact_env2_desc">Kami telah mencegah <strong>1.200 kg</strong>
+                                <p data-translate-key="impact_env2_desc">Kami telah mencegah <strong>2.000 kg</strong>
                                     plastik masuk ke laut dan saluran air.</p>
                             </div>
                         </div>
@@ -1442,7 +1470,7 @@
                             <div>
                                 <h4 data-translate-key="impact_env4_title">Keterlibatan Masyarakat</h4>
                                 <p data-translate-key="impact_env4_desc">Kami telah mengedukasi <strong>500+</strong>
-                                    anggota masyarakat tentang pengelolaan sampah yang benar.</p>
+                                    orang tentang pengelolaan sampah yang benar.</p>
                             </div>
                         </div>
                     </div>
@@ -1569,15 +1597,19 @@
                     impact_card3_title: "Active Members", impact_card3_desc: "Leading community recycling efforts",
                     impact_env_title: "Environmental Impact",
                     impact_env1_title: "Carbon Emission Reduction", impact_env1_desc: "Our recycling efforts have prevented an estimated <strong>42 tons</strong> of CO2 emissions.",
-                    impact_env2_title: "Ocean Protection", impact_env2_desc: "We've prevented <strong>500 kg</strong> of plastic from entering oceans and waterways.",
+                    impact_env2_title: "Ocean Protection", impact_env2_desc: "We've prevented <strong>2,000 kg</strong> of plastic from entering oceans and waterways.",
                     impact_env3_title: "Craft Industry Support", impact_env3_desc: "<strong>85%</strong> of high-quality plastic supports local craft microindustries.",
-                    impact_env4_title: "Community Engagement", impact_env4_desc: "We've educated <strong>500+</strong> community members on proper waste management.",
+                    impact_env4_title: "Community Engagement", impact_env4_desc: "We've educated <strong>500+</strong> people on proper waste management.",
                     // Team
                     team_title: "Meet Our Team",
                     team_subtitle: "Hover over a leader to see their team.",
                     team_stanley_quote: 'Progress begins with what we throw away—or choose not to.',
                     team_max_quote: 'Every piece of plastic is a small step for systemic change in the world.',
                     team_javier_quote: 'Recycling isn\'t a cost—it\'s an investment in tomorrow\'s possibilities.',
+                    team_julian_quote: 'Where guidance meets action — building pathways toward a sustainable world.',
+                    team_stanley_title: "Business & Logistics Leaders",
+                    team_max_title: "Eng. & Tech Leaders",
+                    team_javier_title: "Financing & Partnership Leaders",
                     // Footer
                     footer_desc: "Empowering Surabaya to reduce waste and thrive through community recycling programs.",
                     footer_partner: "In partnership with Bank Sampah Induk Surabaya",
@@ -1641,15 +1673,19 @@
                     impact_card3_title: "Anggota Aktif", impact_card3_desc: "Memimpin upaya daur ulang komunitas",
                     impact_env_title: "Dampak Lingkungan",
                     impact_env1_title: "Pengurangan Emisi Karbon", impact_env1_desc: "Upaya daur ulang kami telah mencegah sekitar <strong>42 ton</strong> emisi CO2.",
-                    impact_env2_title: "Perlindungan Laut", impact_env2_desc: "Kami telah mencegah <strong>1.200 kg</strong> plastik masuk ke laut dan saluran air.",
+                    impact_env2_title: "Perlindungan Laut", impact_env2_desc: "Kami telah mencegah <strong>2.000 kg</strong> plastik masuk ke laut dan saluran air.",
                     impact_env3_title: "Dukungan Industri Kerajinan", impact_env3_desc: "<strong>85%</strong> plastik berkualitas tinggi mendukung industri mikro kerajinan lokal.",
-                    impact_env4_title: "Keterlibatan Masyarakat", impact_env4_desc: "Kami telah mengedukasi <strong>500+</strong> anggota masyarakat tentang pengelolaan sampah yang benar.",
+                    impact_env4_title: "Keterlibatan Masyarakat", impact_env4_desc: "Kami telah mengedukasi <strong>500+</strong> orang tentang pengelolaan sampah yang benar.",
                     // Team
                     team_title: "Temui Tim Kami",
                     team_subtitle: "Arahkan kursor ke seorang pemimpin untuk melihat tim mereka.",
                     team_stanley_quote: 'Kemajuan dimulai dari apa yang kita buang—atau pilih untuk tidak dibuang.',
                     team_max_quote: 'Setiap potongan plastik adalah langkah kecil untuk perubahan sistemik di dunia.',
                     team_javier_quote: 'Daur ulang bukanlah biaya—ini adalah investasi untuk kemungkinan di hari esok.',
+                    team_julian_quote: 'Di mana bimbingan bertemu aksi — membangun jalan menuju dunia yang berkelanjutan.',
+                    team_stanley_title: "Pemimpin Bisnis & Logistik",
+                    team_max_title: "Pemimpin Tek. & Rekayasa",
+                    team_javier_title: "Pemimpin Keuangan & Kemitraan",
                     // Footer
                     footer_desc: "Memberdayakan Surabaya untuk mengurangi sampah dan berkembang melalui program daur ulang komunitas.",
                     footer_partner: "Bekerja sama dengan Bank Sampah Induk Surabaya",
@@ -1661,9 +1697,10 @@
             };
 
             const teamData = [
-                { name: 'Stanley Cahyono', title: 'Executive Director of Business & Logistics', role: 'Chairman', image: `./static/images/Stanley2.webp`, quoteKey: 'team_stanley_quote', team: [{ name: 'Jessica Hakiki', role: 'Head of Social Media' }, { name: 'Jayden Emery', role: 'Head of Logistics' }, { name: 'Thomas Alexander', role: 'Field Operations Team Leader' }] },
-                { name: 'Maximillian Eugene', title: 'Executive Director of Eng. & Tech', role: 'Vice Chairman', image: `./static/images/Max.webp`, quoteKey: 'team_max_quote', team: [{ name: 'Ashton Suwandi', role: 'Vice Director of Eng. & Tech' }, { name: 'Eucharist Suhargo', role: 'Head of Research & Education' }, { name: 'Louis Gerrard', role: 'Head of Sustainable Planning' }] },
-                { name: 'Javier Ongko', title: 'Executive Director of Financing & Partnerships', image: `./static/images/JavierOngko.webp`, quoteKey: 'team_javier_quote', team: [{ name: 'Serafine Susilo', role: 'Head of Strategic Partnerships' }, { name: 'Joseph Dylan', role: 'Head of Sponsorships and Treasury' }, { name: 'Dylan Archer', role: 'Head of Legal & Compliance' }, { name: 'Justin Armando', role: 'Head of Human Resources' }] }
+                { name: 'Stanley Cahyono', title: 'Executive Director of Business & Logistics', role: 'Chairman', image: `./static/images/Stanley2.webp`, quoteKey: 'team_stanley_quote', teamTitleKey: 'team_stanley_title', team: [{ name: 'Jessica Hakiki', role: 'Head of Social Media' }, { name: 'Jayden Emery', role: 'Head of Logistics' }, { name: 'Thomas Alexander', role: 'Field Operations Team Leader' }] },
+                { name: 'Maximillian Eugene', title: 'Executive Director of Eng. & Tech', role: 'Vice Chairman', image: `./static/images/Max.webp`, quoteKey: 'team_max_quote', teamTitleKey: 'team_max_title', team: [{ name: 'Ashton Suwandi', role: 'Vice Director of Eng. & Tech' }, { name: 'Eucharist Suhargo', role: 'Head of Research & Education' }, { name: 'Louis Gerrard', role: 'Head of Sustainable Planning' }] },
+                { name: 'Javier Ongko', title: 'Executive Director of Financing & Partnerships', image: `./static/images/JavierOngko.webp`, quoteKey: 'team_javier_quote', teamTitleKey: 'team_javier_title', team: [{ name: 'Serafine Susilo', role: 'Head of Strategic Partnerships' }, { name: 'Joseph Dylan', role: 'Head of Sponsorships and Treasury' }, { name: 'Dylan Archer', role: 'Head of Legal & Compliance' }, { name: 'Justin Armando', role: 'Head of Human Resources' }] },
+                { name: 'Julian Prasadja', title: 'Advisor and Commissioner', image: `./static/images/julian.webp`, quoteKey: 'team_julian_quote', team: [] }
             ];
 
             function renderTeam(lang) {
@@ -1672,8 +1709,30 @@
                 let html = '';
                 teamData.forEach(leader => {
                     const quote = translations[lang][leader.quoteKey] || '';
-                    let subordinatesHtml = leader.team.map(member => `<li><div class="node subordinate-node"><h3>${member.name}</h3>${member.role ? `<p class="role">${member.role}</p>` : ''}</div></li>`).join('');
-                    html += `<li class="leader"><div class="node leader-node"><img src="${leader.image}" alt="${leader.name}" class="leader-image" width="70" height="70" loading="lazy" decoding="async"><div class="text-center"><h3>${leader.name}</h3><p>${leader.title}</p>${leader.role ? `<p class="role">${leader.role}</p>` : ''}</div><p class="leader-quote">“${quote}”</p></div><ul class="subordinates">${subordinatesHtml}</ul></li>`;
+                    const teamTitle = translations[lang][leader.teamTitleKey] || '';
+                    const hasTeam = leader.team && leader.team.length > 0;
+
+                    let subordinatesHtml = leader.team.map(member => `<li><h3>${member.name}</h3><p class="role">${member.role}</p></li>`).join('');
+
+                    html += `
+                        <li class="leader ${!hasTeam ? 'no-flip' : ''}">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <img src="${leader.image}" alt="${leader.name}" class="leader-image" width="70" height="70" loading="lazy" decoding="async">
+                                    <div class="text-center">
+                                        <h3>${leader.name}</h3>
+                                        <p>${leader.title}</p>
+                                        ${leader.role ? `<p class="role">${leader.role}</p>` : ''}
+                                    </div>
+                                    <p class="leader-quote">“${quote}”</p>
+                                </div>
+                                ${hasTeam ? `
+                                <div class="flip-card-back">
+                                    <h3>${teamTitle}</h3>
+                                    <ul>${subordinatesHtml}</ul>
+                                </div>` : ''}
+                            </div>
+                        </li>`;
                 });
                 container.innerHTML = html;
             }
@@ -1775,7 +1834,7 @@
                         animateCounter(document.getElementById('partnerCounter'), 8, 1500);
                         const impactCounter = document.getElementById('impactBottleCounter');
                         if (impactCounter) {
-                            const target = 700; // Hardcode target since we just need to animate
+                            const target = 3000; // Hardcode target since we just need to animate
                             animateCounter(impactCounter, target, 2000);
                         }
                         observer.unobserve(entry.target);

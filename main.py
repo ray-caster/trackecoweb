@@ -266,5 +266,27 @@ def api_reorder_news():
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)})
 
+@app.route("/api/news/featured", methods=['POST'])
+@login_required
+def api_toggle_featured():
+    if not FIREBASE_AVAILABLE:
+        return jsonify({'success': False, 'message': 'Firebase not configured'})
+    
+    data = request.get_json()
+    news_id = data.get('news_id')
+    featured = data.get('featured', False)
+    
+    try:
+        db = get_firestore_client()
+        if not db:
+            return jsonify({'success': False, 'message': 'Database not available'})
+        
+        doc_ref = db.collection('news').document(news_id)
+        doc_ref.update({'featured': featured})
+        
+        return jsonify({'success': True})
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)})
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)

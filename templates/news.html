@@ -1,547 +1,233 @@
 {% extends "shared/base.html" %}
 
 {% block title %}Latest News - TrackEco{% endblock %}
-{% block description %}Stay updated with TrackEco's latest recycling initiatives, partnerships, and environmental impact news in Surabaya.{% endblock %}
+{% block description %}Stay updated with the latest news and updates from TrackEco's environmental initiatives in Surabaya.{% endblock %}
 
 {% block extra_css %}
 <style>
-    /* News Page Styles with Modern Effects */
+    /* News Page Styles */
     .news-hero {
-        position: relative;
-        height: 60vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: linear-gradient(135deg, var(--primary-color), var(--ecoBlue-color));
-        overflow: hidden;
-    }
-
-    .news-hero::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background-image: url('/static/images/Beach2.webp');
-        background-size: cover;
-        background-position: center;
-        opacity: 0.2;
-        z-index: 0;
-    }
-
-    .news-hero-content {
-        position: relative;
-        z-index: 2;
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: var(--white-color);
+        padding: 6rem 0 4rem;
         text-align: center;
-        color: white;
-        max-width: 800px;
-        padding: 0 2rem;
     }
 
     .news-hero h1 {
-        font-size: 3.5rem;
+        font-size: 3rem;
         font-weight: 800;
         margin-bottom: 1rem;
-        background: linear-gradient(135deg, #fff, var(--accent-color));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
     }
 
     .news-hero p {
         font-size: 1.25rem;
         opacity: 0.9;
+        max-width: 600px;
+        margin: 0 auto;
     }
 
-    .news-filters {
-        display: flex;
-        gap: 1rem;
-        justify-content: center;
-        flex-wrap: wrap;
-        margin: 3rem 0;
-    }
-
-    .filter-btn {
-        padding: 0.75rem 1.5rem;
-        border-radius: 50px;
-        border: 2px solid var(--accent-color);
-        background: transparent;
-        color: var(--primary-color);
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-
-    .filter-btn:hover,
-    .filter-btn.active {
-        background: var(--accent-color);
-        color: var(--primary-color);
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(242, 193, 78, 0.3);
+    .news-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 4rem 2rem;
     }
 
     .news-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
         gap: 2rem;
-        margin: 3rem 0;
+        margin-bottom: 3rem;
     }
 
     .news-card {
-        border-radius: 24px;
+        background: var(--white-color);
+        border-radius: 16px;
         overflow: hidden;
-        background: white;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-        position: relative;
-        cursor: pointer;
-    }
-
-    .news-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: linear-gradient(90deg, var(--accent-color), var(--ecoGreen-color));
-        transform: scaleX(0);
-        transition: transform 0.3s ease;
-    }
-
-    .news-card:hover::before {
-        transform: scaleX(1);
+        transition: all 0.3s ease;
     }
 
     .news-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        transform: translateY(-5px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
     }
 
-    .news-card-image {
+    .news-card.featured {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+    }
+
+    .news-card.featured .news-image {
+        height: 300px;
+    }
+
+    .news-image {
         width: 100%;
         height: 200px;
         object-fit: cover;
-        transition: transform 0.5s ease;
     }
 
-    .news-card:hover .news-card-image {
-        transform: scale(1.1);
-    }
-
-    .news-card-content {
+    .news-content {
         padding: 1.5rem;
     }
 
-    .news-card-category {
-        display: inline-block;
-        padding: 0.25rem 0.75rem;
-        border-radius: 20px;
-        font-size: 0.75rem;
-        font-weight: 600;
-        margin-bottom: 0.75rem;
-        text-transform: uppercase;
-    }
-
-    .category-partnership {
-        background: rgba(46, 125, 50, 0.2);
-        color: var(--ecoGreen-color);
-    }
-
-    .category-event {
-        background: rgba(21, 101, 192, 0.2);
-        color: var(--ecoBlue-color);
-    }
-
-    .category-impact {
-        background: rgba(242, 193, 78, 0.2);
-        color: #B8860B;
-    }
-
-    .category-innovation {
-        background: rgba(224, 122, 95, 0.2);
-        color: var(--secondary-color);
-    }
-
-    .news-card h3 {
-        font-size: 1.25rem;
-        font-weight: 700;
-        color: var(--primary-color);
-        margin-bottom: 0.75rem;
-        line-height: 1.4;
-    }
-
-    .news-card-meta {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        font-size: 0.875rem;
-        color: var(--gray-400-color);
-        margin-bottom: 0.75rem;
-    }
-
-    .news-card-meta i {
-        color: var(--accent-color);
-    }
-
-    .news-card p {
-        color: var(--gray-700-color);
-        line-height: 1.6;
-        margin-bottom: 1rem;
-    }
-
-    .read-more {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        color: var(--accent-color);
-        font-weight: 600;
-        text-decoration: none;
-        transition: gap 0.3s ease;
-    }
-
-    .read-more:hover {
-        gap: 1rem;
-    }
-
-    .featured-news {
-        margin: 3rem 0;
-        border-radius: 32px;
-        overflow: hidden;
-        position: relative;
-        height: 500px;
-    }
-
-    .featured-news-image {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .featured-news-overlay {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-    }
-
-    .featured-news-content {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        padding: 3rem;
-        color: white;
-    }
-
-    .featured-badge {
+    .news-category {
         display: inline-block;
         padding: 0.5rem 1rem;
         background: var(--accent-color);
         color: var(--primary-color);
-        border-radius: 50px;
-        font-weight: 700;
+        border-radius: 20px;
         font-size: 0.875rem;
+        font-weight: 600;
         margin-bottom: 1rem;
     }
 
-    .featured-news h2 {
-        font-size: 2.5rem;
-        font-weight: 800;
-        margin-bottom: 1rem;
-    }
-
-    .featured-news p {
-        font-size: 1.125rem;
-        opacity: 0.9;
-        max-width: 700px;
-        margin-bottom: 1.5rem;
-    }
-
-    /* Newsletter Section with Glass Effect */
-    .newsletter-section {
-        margin: 5rem 0;
-        position: relative;
-        padding: 4rem 0;
-        background: linear-gradient(135deg, var(--ecoGreen-color), var(--ecoBlue-color));
-        border-radius: 32px;
-        overflow: hidden;
-    }
-
-    .newsletter-section::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background-image: url('/static/images/background3.webp');
-        background-size: cover;
-        opacity: 0.1;
-    }
-
-    .newsletter-content {
-        position: relative;
-        z-index: 2;
-        text-align: center;
+    .news-category.featured {
+        background: linear-gradient(135deg, #F2C14E, #2e7d32);
         color: white;
-        max-width: 600px;
-        margin: 0 auto;
-        padding: 0 2rem;
     }
 
-    .newsletter-content h3 {
-        font-size: 2rem;
+    .news-title {
+        font-size: 1.25rem;
         font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 0.75rem;
+        line-height: 1.3;
+    }
+
+    .news-card.featured .news-title {
+        font-size: 1.5rem;
+    }
+
+    .news-description {
+        color: var(--text-color);
+        line-height: 1.6;
         margin-bottom: 1rem;
     }
 
-    .newsletter-content p {
-        margin-bottom: 2rem;
-        opacity: 0.9;
-    }
-
-    .newsletter-form {
+    .news-meta {
         display: flex;
-        gap: 1rem;
-        max-width: 500px;
-        margin: 0 auto;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.875rem;
+        color: var(--text-light);
     }
 
-    .newsletter-input {
-        flex: 1;
-        padding: 1rem 1.5rem;
-        border-radius: 50px;
-        border: none;
-        background: rgba(255, 255, 255, 0.9);
-        backdrop-filter: blur(10px);
-        font-size: 1rem;
+    .news-date {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
     }
 
-    .newsletter-btn {
-        padding: 1rem 2rem;
-        border-radius: 50px;
-        border: none;
-        background: var(--accent-color);
+    .news-read-more {
+        color: var(--accent-color);
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s ease;
+    }
+
+    .news-read-more:hover {
+        color: var(--secondary-color);
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+        color: var(--text-light);
+    }
+
+    .empty-state h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
         color: var(--primary-color);
-        font-weight: 700;
-        cursor: pointer;
+    }
+
+    .empty-state p {
+        font-size: 1.125rem;
+        margin-bottom: 2rem;
+    }
+
+    .btn-primary {
+        display: inline-block;
+        padding: 1rem 2rem;
+        background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+        color: var(--white-color);
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: 600;
         transition: all 0.3s ease;
     }
 
-    .newsletter-btn:hover {
-        transform: scale(1.05);
-        box-shadow: 0 5px 20px rgba(242, 193, 78, 0.4);
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(242, 193, 78, 0.4);
     }
 
     @media (max-width: 768px) {
         .news-hero h1 {
-            font-size: 2.5rem;
+            font-size: 2rem;
+        }
+
+        .news-hero p {
+            font-size: 1rem;
         }
 
         .news-grid {
             grid-template-columns: 1fr;
         }
 
-        .featured-news {
-            height: 400px;
-        }
-
-        .featured-news h2 {
-            font-size: 1.75rem;
-        }
-
-        .newsletter-form {
-            flex-direction: column;
+        .news-card.featured {
+            grid-column: 1;
+            grid-template-columns: 1fr;
         }
     }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="news-hero" data-parallax="0.5">
-    <div class="news-hero-content">
-        <h1 class="animate-fade-in magnetic-text">Latest News</h1>
-        <p class="animate-fade-in animate-delay-1">Stay updated with our recycling initiatives and environmental impact</p>
-    </div>
-</div>
-
-<section>
+<!-- News Hero Section -->
+<section class="news-hero">
     <div class="container">
-        <!-- Featured News -->
-        <div class="featured-news glass-card scroll-reveal">
-            <img src="/static/images/Beach1.webp" alt="Featured News" class="featured-news-image" data-parallax="0.3">
-            <div class="featured-news-overlay"></div>
-            <div class="featured-news-content">
-                <span class="featured-badge magnetic">Featured Story</span>
-                <h2>TrackEco Partners with 10 New Local SMEs</h2>
-                <p>Expanding our network to create more opportunities for plastic upcycling and community empowerment across Surabaya.</p>
-                <a href="#" class="btn-glass btn-modern magnetic-strong">Read Full Story</a>
-            </div>
-        </div>
-
-        <!-- Filters -->
-        <div class="news-filters">
-            <button class="filter-btn active magnetic" data-category="all">All News</button>
-            <button class="filter-btn magnetic" data-category="partnership">Partnerships</button>
-            <button class="filter-btn magnetic" data-category="event">Events</button>
-            <button class="filter-btn magnetic" data-category="impact">Impact</button>
-            <button class="filter-btn magnetic" data-category="innovation">Innovation</button>
-        </div>
-
-        <!-- News Grid -->
-        <div class="news-grid">
-            <article class="news-card magnetic scroll-reveal" data-category="partnership">
-                <img src="/static/images/UBS1.webp" alt="Partnership News" class="news-card-image">
-                <div class="news-card-content">
-                    <span class="news-card-category category-partnership">Partnership</span>
-                    <h3>Bank Sampah Induk Surabaya Collaboration Milestone</h3>
-                    <div class="news-card-meta">
-                        <span><i class="far fa-calendar"></i> October 5, 2024</span>
-                        <span><i class="far fa-clock"></i> 3 min read</span>
-                    </div>
-                    <p>We've reached a significant milestone in our collaboration, processing over 2,000 kg of plastic waste together.</p>
-                    <a href="#" class="read-more">
-                        Read More <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </article>
-
-            <article class="news-card magnetic scroll-reveal" data-category="event">
-                <img src="/static/images/Beach2.webp" alt="Beach Cleanup Event" class="news-card-image">
-                <div class="news-card-content">
-                    <span class="news-card-category category-event">Event</span>
-                    <h3>Coastal Cleanup Initiative 2024</h3>
-                    <div class="news-card-meta">
-                        <span><i class="far fa-calendar"></i> September 28, 2024</span>
-                        <span><i class="far fa-clock"></i> 5 min read</span>
-                    </div>
-                    <p>Over 100 volunteers joined us in cleaning Surabaya's beaches, collecting 500kg of plastic waste in a single day.</p>
-                    <a href="#" class="read-more">
-                        Read More <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </article>
-
-            <article class="news-card magnetic scroll-reveal" data-category="impact">
-                <img src="/static/images/background5.webp" alt="Impact Report" class="news-card-image">
-                <div class="news-card-content">
-                    <span class="news-card-category category-impact">Impact</span>
-                    <h3>Q3 2024 Environmental Impact Report</h3>
-                    <div class="news-card-meta">
-                        <span><i class="far fa-calendar"></i> September 15, 2024</span>
-                        <span><i class="far fa-clock"></i> 7 min read</span>
-                    </div>
-                    <p>Our quarterly impact report shows a 40% increase in plastic collection and a growing network of community partners.</p>
-                    <a href="#" class="read-more">
-                        Read More <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </article>
-
-            <article class="news-card magnetic scroll-reveal" data-category="innovation">
-                <img src="/static/images/background6.webp" alt="Innovation" class="news-card-image">
-                <div class="news-card-content">
-                    <span class="news-card-category category-innovation">Innovation</span>
-                    <h3>New Plastic Sorting Technology Implemented</h3>
-                    <div class="news-card-meta">
-                        <span><i class="far fa-calendar"></i> August 30, 2024</span>
-                        <span><i class="far fa-clock"></i> 4 min read</span>
-                    </div>
-                    <p>We're implementing new sorting technology that improves efficiency by 60% and identifies recyclable plastics more accurately.</p>
-                    <a href="#" class="read-more">
-                        Read More <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </article>
-
-            <article class="news-card magnetic scroll-reveal" data-category="partnership">
-                <img src="/static/images/background2.webp" alt="Launchpad Partnership" class="news-card-image">
-                <div class="news-card-content">
-                    <span class="news-card-category category-partnership">Partnership</span>
-                    <h3>Launchpad Partnership Expansion</h3>
-                    <div class="news-card-meta">
-                        <span><i class="far fa-calendar"></i> August 20, 2024</span>
-                        <span><i class="far fa-clock"></i> 6 min read</span>
-                    </div>
-                    <p>Our partnership with Launchpad grows stronger, providing mentorship and resources for sustainable scaling.</p>
-                    <a href="#" class="read-more">
-                        Read More <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </article>
-
-            <article class="news-card magnetic scroll-reveal" data-category="event">
-                <img src="/static/images/Background4.webp" alt="Workshop" class="news-card-image">
-                <div class="news-card-content">
-                    <span class="news-card-category category-event">Event</span>
-                    <h3>Community Recycling Workshop Series</h3>
-                    <div class="news-card-meta">
-                        <span><i class="far fa-calendar"></i> August 10, 2024</span>
-                        <span><i class="far fa-clock"></i> 4 min read</span>
-                    </div>
-                    <p>Launch of our monthly workshop series teaching communities about proper waste sorting and recycling techniques.</p>
-                    <a href="#" class="read-more">
-                        Read More <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </article>
-        </div>
-
-        <!-- Newsletter Section -->
-        <div class="newsletter-section glass-card scroll-reveal">
-            <div class="newsletter-content">
-                <h3 class="magnetic-text">Stay Updated</h3>
-                <p>Subscribe to our newsletter for the latest news on recycling initiatives and environmental impact.</p>
-                <form class="newsletter-form" id="newsletterForm">
-                    <input type="email" class="newsletter-input" placeholder="Enter your email" required>
-                    <button type="submit" class="newsletter-btn magnetic-strong">Subscribe</button>
-                </form>
-            </div>
-        </div>
+        <h1 data-translate-key="news_hero_title">Latest News</h1>
+        <p data-translate-key="news_hero_desc">Stay updated with our latest environmental initiatives and community impact stories.</p>
     </div>
 </section>
+
+<!-- News Articles -->
+<section class="news-container">
+    {% if news_articles and news_articles|length > 0 %}
+        <div class="news-grid">
+            {% for article in news_articles %}
+            <article class="news-card {% if article.featured %}featured{% endif %}">
+                <img src="{{ article.image_url }}" alt="{{ article.title_en }}" class="news-image">
+                <div class="news-content">
+                    <span class="news-category {% if article.featured %}featured{% endif %}">
+                        {{ article.category|title }}
+                        {% if article.featured %} - Featured{% endif %}
+                    </span>
+                    <h3 class="news-title">{{ article.title_id if current_lang == 'id' else article.title_en }}</h3>
+                    <p class="news-description">
+                        {{ article.description_id if current_lang == 'id' else article.description_en }}
+                    </p>
+                    <div class="news-meta">
+                        <div class="news-date">
+                            <i class="fas fa-calendar"></i>
+                            <span>{{ article.created_at.strftime('%B %d, %Y') if article.created_at else 'Recent' }}</span>
+                        </div>
+                        <a href="#" class="news-read-more" data-translate-key="news_read_more">Read More</a>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <h3 data-translate-key="news_empty_title">No News Yet</h3>
+            <p data-translate-key="news_empty_desc">Check back soon for the latest updates from TrackEco!</p>
+            <a href="/admin/login" class="btn-primary" data-translate-key="news_admin_link">Admin Login</a>
+        </div>
+    {% endif %}
+</section>
 {% endblock %}
-
-{% block extra_js %}
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // Filter functionality
-        const filterButtons = document.querySelectorAll('.filter-btn');
-        const newsCards = document.querySelectorAll('.news-card');
-
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const category = button.dataset.category;
-                
-                // Update active button
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-                
-                // Filter cards
-                newsCards.forEach(card => {
-                    if (category === 'all' || card.dataset.category === category) {
-                        card.style.display = 'block';
-                        setTimeout(() => {
-                            card.style.opacity = '1';
-                            card.style.transform = 'translateY(0)';
-                        }, 10);
-                    } else {
-                        card.style.opacity = '0';
-                        card.style.transform = 'translateY(20px)';
-                        setTimeout(() => {
-                            card.style.display = 'none';
-                        }, 300);
-                    }
-                });
-            });
-        });
-
-        // Newsletter form
-        const newsletterForm = document.getElementById('newsletterForm');
-        newsletterForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = newsletterForm.querySelector('input').value;
-            alert(`Thank you for subscribing! We'll send updates to ${email}`);
-            newsletterForm.reset();
-        });
-    });
-</script>
-{% endblock %}
-

@@ -360,9 +360,13 @@
                         <h3>{{ article.title_en }}</h3>
                         <div class="news-meta">
                             <span class="news-category category-{{ article.category }}">{{ article.category }}</span>
-                            {% if article.featured %}
-                            <span class="news-status" style="background: #F2C14E; color: #231842;">Featured</span>
-                            {% endif %}
+                            <label class="featured-toggle">
+                                <input type="checkbox" 
+                                       class="featured-checkbox" 
+                                       data-news-id="{{ article.id }}"
+                                       {% if article.featured %}checked{% endif %}>
+                                <span class="featured-label">Featured</span>
+                            </label>
                             <span class="news-status {% if article.published %}status-published{% else %}status-draft{% endif %}">
                                 {% if article.published %}Published{% else %}Draft{% endif %}
                             </span>
@@ -446,6 +450,37 @@
                 alert('Error saving order: ' + error.message);
             }
         }
+
+        // Handle featured toggle
+        document.addEventListener('change', async function(e) {
+            if (e.target.classList.contains('featured-checkbox')) {
+                const newsId = e.target.dataset.newsId;
+                const featured = e.target.checked;
+                
+                try {
+                    const response = await fetch('/api/news/featured', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ 
+                            news_id: newsId, 
+                            featured: featured 
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (!data.success) {
+                        alert('Failed to update featured status: ' + data.message);
+                        e.target.checked = !featured; // Revert checkbox
+                    }
+                } catch (error) {
+                    alert('Error updating featured status: ' + error.message);
+                    e.target.checked = !featured; // Revert checkbox
+                }
+            }
+        });
     </script>
 </body>
 </html>

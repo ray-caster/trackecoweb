@@ -1,0 +1,271 @@
+{% extends "shared/base.html" %}
+
+{% block title %}Website Data - TrackEco Admin{% endblock %}
+
+{% block extra_css %}
+<style>
+    .admin-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    .admin-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+    }
+
+    .admin-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--primary-color);
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(242, 193, 78, 0.4);
+    }
+
+    .data-form {
+        background: white;
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-section {
+        margin-bottom: 2rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid #eee;
+    }
+
+    .form-section:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: var(--primary-color);
+    }
+
+    .form-group input, .form-group textarea {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 1rem;
+    }
+
+    .form-group textarea {
+        resize: vertical;
+        min-height: 100px;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+    }
+
+    .stat-group {
+        background: #f8f9fa;
+        padding: 1rem;
+        border-radius: 8px;
+        border: 1px solid #e9ecef;
+    }
+
+    .stat-group label {
+        font-size: 0.875rem;
+        color: var(--text-light);
+        margin-bottom: 0.5rem;
+    }
+
+    .stat-group input {
+        font-size: 1.25rem;
+        font-weight: 600;
+        text-align: center;
+        background: white;
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: flex-end;
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 1px solid #eee;
+    }
+
+    .btn-secondary {
+        background: #f5f5f5;
+        color: #666;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+        background: #e9ecef;
+    }
+
+    @media (max-width: 768px) {
+        .form-row {
+            grid-template-columns: 1fr;
+        }
+        
+        .stats-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="admin-container">
+    <div class="admin-header">
+        <h1 class="admin-title">Website Data & Statistics</h1>
+        <a href="{{ url_for('admin_dashboard') }}" class="btn-primary">← Back to Dashboard</a>
+    </div>
+
+    <div class="data-form">
+        <form method="POST" action="{{ url_for('admin_update_website_data') }}">
+            <!-- Hero Section -->
+            <div class="form-section">
+                <h2 class="section-title">Hero Section</h2>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="hero_title_en">Hero Title (English) *</label>
+                        <input type="text" id="hero_title_en" name="hero_title_en" 
+                               value="{{ website_data.hero_title_en or 'TrackEco - Plastic Waste Management' }}" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="hero_title_id">Hero Title (Indonesian) *</label>
+                        <input type="text" id="hero_title_id" name="hero_title_id" 
+                               value="{{ website_data.hero_title_id or 'TrackEco - Pengelolaan Sampah Plastik' }}" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="hero_subtitle_en">Hero Subtitle (English)</label>
+                        <input type="text" id="hero_subtitle_en" name="hero_subtitle_en" 
+                               value="{{ website_data.hero_subtitle_en or 'Transforming plastic waste into valuable resources' }}">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="hero_subtitle_id">Hero Subtitle (Indonesian)</label>
+                        <input type="text" id="hero_subtitle_id" name="hero_subtitle_id" 
+                               value="{{ website_data.hero_subtitle_id or 'Mengubah sampah plastik menjadi sumber daya berharga' }}">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistics -->
+            <div class="form-section">
+                <h2 class="section-title">Statistics</h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-group">
+                        <label for="plastic_collected">Plastic Collected (kg)</label>
+                        <input type="number" id="plastic_collected" name="plastic_collected" 
+                               value="{{ website_data.stats.plastic_collected if website_data.stats else 5000 }}" min="0">
+                    </div>
+                    
+                    <div class="stat-group">
+                        <label for="communities_reached">Communities Reached</label>
+                        <input type="number" id="communities_reached" name="communities_reached" 
+                               value="{{ website_data.stats.communities_reached if website_data.stats else 25 }}" min="0">
+                    </div>
+                    
+                    <div class="stat-group">
+                        <label for="recycling_rate">Recycling Rate (%)</label>
+                        <input type="number" id="recycling_rate" name="recycling_rate" 
+                               value="{{ website_data.stats.recycling_rate if website_data.stats else 85 }}" min="0" max="100">
+                    </div>
+                    
+                    <div class="stat-group">
+                        <label for="co2_reduced">CO2 Reduced (kg)</label>
+                        <input type="number" id="co2_reduced" name="co2_reduced" 
+                               value="{{ website_data.stats.co2_reduced if website_data.stats else 1200 }}" min="0">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mission Section -->
+            <div class="form-section">
+                <h2 class="section-title">Mission Section</h2>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="mission_title_en">Mission Title (English)</label>
+                        <input type="text" id="mission_title_en" name="mission_title_en" 
+                               value="{{ website_data.mission_title_en or 'Our Mission' }}">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mission_title_id">Mission Title (Indonesian)</label>
+                        <input type="text" id="mission_title_id" name="mission_title_id" 
+                               value="{{ website_data.mission_title_id or 'Misi Kami' }}">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="mission_text_en">Mission Text (English)</label>
+                        <textarea id="mission_text_en" name="mission_text_en" rows="4">{{ website_data.mission_text_en or 'To create a sustainable future by transforming plastic waste into valuable resources.' }}</textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mission_text_id">Mission Text (Indonesian)</label>
+                        <textarea id="mission_text_id" name="mission_text_id" rows="4">{{ website_data.mission_text_id or 'Menciptakan masa depan yang berkelanjutan dengan mengubah sampah plastik menjadi sumber daya berharga.' }}</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <a href="{{ url_for('admin_dashboard') }}" class="btn-secondary">Cancel</a>
+                <button type="submit" class="btn-primary">Update Website Data</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

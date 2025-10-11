@@ -179,3 +179,110 @@ def update_news_order(news_id, new_order):
         print(f"Error updating news order: {e}")
         return False
 
+# Category Management Functions
+def get_categories():
+    """Get all categories"""
+    db = get_firestore_client()
+    if not db:
+        return []
+    
+    try:
+        docs = db.collection('categories').stream()
+        categories = []
+        for doc in docs:
+            category_data = doc.to_dict()
+            category_data['id'] = doc.id
+            categories.append(category_data)
+        return categories
+    except Exception as e:
+        print(f"Error getting categories: {e}")
+        return []
+
+def add_category(category_data):
+    """Add a new category"""
+    db = get_firestore_client()
+    if not db:
+        return False
+    
+    try:
+        doc_ref = db.collection('categories').add(category_data)
+        return doc_ref[1].id
+    except Exception as e:
+        print(f"Error adding category: {e}")
+        return False
+
+def update_category(category_id, category_data):
+    """Update a category"""
+    db = get_firestore_client()
+    if not db:
+        return False
+    
+    try:
+        doc_ref = db.collection('categories').document(category_id)
+        doc_ref.update(category_data)
+        return True
+    except Exception as e:
+        print(f"Error updating category: {e}")
+        return False
+
+def delete_category(category_id):
+    """Delete a category"""
+    db = get_firestore_client()
+    if not db:
+        return False
+    
+    try:
+        doc_ref = db.collection('categories').document(category_id)
+        doc_ref.delete()
+        return True
+    except Exception as e:
+        print(f"Error deleting category: {e}")
+        return False
+
+# Website Data Management Functions
+def get_website_data():
+    """Get website data and statistics"""
+    db = get_firestore_client()
+    if not db:
+        return {}
+    
+    try:
+        doc = db.collection('website_data').document('main').get()
+        if doc.exists:
+            return doc.to_dict()
+        else:
+            # Return default data
+            return {
+                'hero_title_en': 'TrackEco - Plastic Waste Management',
+                'hero_title_id': 'TrackEco - Pengelolaan Sampah Plastik',
+                'hero_subtitle_en': 'Transforming plastic waste into valuable resources',
+                'hero_subtitle_id': 'Mengubah sampah plastik menjadi sumber daya berharga',
+                'stats': {
+                    'plastic_collected': 5000,
+                    'communities_reached': 25,
+                    'recycling_rate': 85,
+                    'co2_reduced': 1200
+                },
+                'mission_title_en': 'Our Mission',
+                'mission_title_id': 'Misi Kami',
+                'mission_text_en': 'To create a sustainable future by transforming plastic waste into valuable resources.',
+                'mission_text_id': 'Menciptakan masa depan yang berkelanjutan dengan mengubah sampah plastik menjadi sumber daya berharga.'
+            }
+    except Exception as e:
+        print(f"Error getting website data: {e}")
+        return {}
+
+def update_website_data(data):
+    """Update website data"""
+    db = get_firestore_client()
+    if not db:
+        return False
+    
+    try:
+        doc_ref = db.collection('website_data').document('main')
+        doc_ref.set(data, merge=True)
+        return True
+    except Exception as e:
+        print(f"Error updating website data: {e}")
+        return False
+

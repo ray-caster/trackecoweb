@@ -128,7 +128,8 @@ def admin_dashboard():
         flash('Firebase is not configured. Please set up Firebase credentials.', 'error')
     
     news_articles = get_all_news() if FIREBASE_AVAILABLE else []
-    return render_template("admin/dashboard.html", news_articles=news_articles)
+    categories = get_categories() if FIREBASE_AVAILABLE else []
+    return render_template("admin/dashboard.html", news_articles=news_articles, categories=categories)
 
 @app.route("/admin/news/add", methods=['GET', 'POST'])
 @login_required
@@ -149,6 +150,17 @@ def admin_add_news():
                 file.save(filepath)
                 image_url = f'/static/images/uploads/{unique_filename}'
         
+        # Handle publish date
+        publish_date_str = request.form.get('publish_date')
+        publish_date = None
+        if publish_date_str:
+            try:
+                publish_date = datetime.fromisoformat(publish_date_str.replace('T', ' '))
+            except:
+                publish_date = datetime.now()
+        else:
+            publish_date = datetime.now()
+
         news_data = {
             'title_en': request.form.get('title_en'),
             'title_id': request.form.get('title_id'),
@@ -158,6 +170,7 @@ def admin_add_news():
             'image_url': image_url,
             'published': request.form.get('published') == 'on',
             'featured': request.form.get('featured') == 'on',
+            'publish_date': publish_date,
             'order': int(request.form.get('order', 999)),
             'created_at': datetime.now(),
             'updated_at': datetime.now()
@@ -170,7 +183,9 @@ def admin_add_news():
         else:
             flash('Failed to add news article.', 'error')
     
-    return render_template("admin/add_news.html")
+    categories = get_categories() if FIREBASE_AVAILABLE else []
+    current_date = datetime.now().strftime('%Y-%m-%dT%H:%M')
+    return render_template("admin/add_news.html", categories=categories, current_date=current_date)
 
 @app.route("/admin/news/edit/<news_id>", methods=['GET', 'POST'])
 @login_required
@@ -191,6 +206,17 @@ def admin_edit_news(news_id):
                 file.save(filepath)
                 image_url = f'/static/images/uploads/{unique_filename}'
         
+        # Handle publish date
+        publish_date_str = request.form.get('publish_date')
+        publish_date = None
+        if publish_date_str:
+            try:
+                publish_date = datetime.fromisoformat(publish_date_str.replace('T', ' '))
+            except:
+                publish_date = news.publish_date if hasattr(news, 'publish_date') else datetime.now()
+        else:
+            publish_date = news.publish_date if hasattr(news, 'publish_date') else datetime.now()
+
         news_data = {
             'title_en': request.form.get('title_en'),
             'title_id': request.form.get('title_id'),
@@ -200,6 +226,7 @@ def admin_edit_news(news_id):
             'image_url': image_url,
             'published': request.form.get('published') == 'on',
             'featured': request.form.get('featured') == 'on',
+            'publish_date': publish_date,
             'order': int(request.form.get('order', 999)),
             'updated_at': datetime.now()
         }
@@ -287,6 +314,114 @@ def api_toggle_featured():
         return jsonify({'success': True})
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)})
+
+# Category Management Routes
+@app.route("/admin/categories")
+@login_required
+def admin_categories():
+    if not FIREBASE_AVAILABLE:
+        flash('Firebase is not configured.', 'error')
+        return render_template("admin/categories.html", categories=[])
+    
+    categories = get_categories()
+    return render_template("admin/categories.html", categories=categories)
+
+@app.route("/admin/categories/add", methods=['POST'])
+@login_required
+def admin_add_category():
+    if not FIREBASE_AVAILABLE:
+        return jsonify({'success': False, 'message': 'Firebase not configured'})
+    
+    category_data = {
+        'name': request.form.get('name'),
+        'color': request.form.get('color'),
+        'description': request.form.get('description', ''),
+        'created_at': datetime.now()
+    }
+    
+    category_id = add_category(category_data)
+    if category_id:
+        flash('Category added successfully!', 'success')
+        return redirect(url_for('admin_categories'))
+    else:
+        flash('Failed to add category.', 'error')
+        return redirect(url_for('admin_categories'))
+
+@app.route("/admin/categories/edit/<category_id>", methods=['POST'])
+@login_required
+def admin_edit_category(category_id):
+    if not FIREBASE_AVAILABLE:
+        return jsonify({'success': False, 'message': 'Firebase not configured'})
+    
+    category_data = {
+        'name': request.form.get('name'),
+        'color': request.form.get('color'),
+        'description': request.form.get('description', ''),
+        'updated_at': datetime.now()
+    }
+    
+    if update_category(category_id, category_data):
+        flash('Category updated successfully!', 'success')
+    else:
+        flash('Failed to update category.', 'error')
+    
+    return redirect(url_for('admin_categories'))
+
+@app.route("/admin/categories/delete/<category_id>", methods=['POST'])
+@login_required
+def admin_delete_category(category_id):
+    if not FIREBASE_AVAILABLE:
+        return jsonify({'success': False, 'message': 'Firebase not configured'})
+    
+    if delete_category(category_id):
+        flash('Category deleted successfully!', 'success')
+    else:
+        flash('Failed to delete category.', 'error')
+    
+    return redirect(url_for('admin_categories'))
+
+# Website Data Management Routes
+@app.route("/admin/website-data")
+@login_required
+def admin_website_data():
+    if not FIREBASE_AVAILABLE:
+        flash('Firebase is not configured.', 'error')
+        return render_template("admin/website_data.html", website_data={})
+    
+    website_data = get_website_data()
+    return render_template("admin/website_data.html", website_data=website_data)
+
+@app.route("/admin/website-data/update", methods=['POST'])
+@login_required
+def admin_update_website_data():
+    if not FIREBASE_AVAILABLE:
+        flash('Firebase is not configured.', 'error')
+        return redirect(url_for('admin_website_data'))
+    
+    website_data = {
+        'hero_title_en': request.form.get('hero_title_en'),
+        'hero_title_id': request.form.get('hero_title_id'),
+        'hero_subtitle_en': request.form.get('hero_subtitle_en'),
+        'hero_subtitle_id': request.form.get('hero_subtitle_id'),
+        'stats': {
+            'plastic_collected': int(request.form.get('plastic_collected', 0)),
+            'communities_reached': int(request.form.get('communities_reached', 0)),
+            'recycling_rate': int(request.form.get('recycling_rate', 0)),
+            'co2_reduced': int(request.form.get('co2_reduced', 0))
+        },
+        'mission_title_en': request.form.get('mission_title_en'),
+        'mission_title_id': request.form.get('mission_title_id'),
+        'mission_text_en': request.form.get('mission_text_en'),
+        'mission_text_id': request.form.get('mission_text_id'),
+        'updated_at': datetime.now()
+    }
+    
+    if update_website_data(website_data):
+        flash('Website data updated successfully!', 'success')
+    else:
+        flash('Failed to update website data.', 'error')
+    
+    return redirect(url_for('admin_website_data'))
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)

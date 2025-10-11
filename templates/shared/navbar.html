@@ -1,0 +1,248 @@
+<style>
+    /* Navbar with glassmorphism */
+    .navbar {
+        position: fixed;
+        width: 100%;
+        background: rgba(35, 24, 66, 0.85);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        color: var(--white-color);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 1000;
+        transition: all 0.3s ease;
+    }
+
+    .navbar.scrolled {
+        background: rgba(35, 24, 66, 0.95);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    }
+
+    .navbar-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+    }
+
+    .navbar-logo {
+        display: flex;
+        align-items: center;
+        color: var(--white-color);
+        text-decoration: none;
+        transition: transform 0.3s ease;
+    }
+
+    .navbar-logo:hover {
+        transform: scale(1.05);
+    }
+
+    .navbar-logo img {
+        height: 3rem;
+        margin-right: 0.75rem;
+    }
+
+    .navbar-logo span {
+        font-weight: 700;
+        font-size: 1.25rem;
+    }
+
+    .navbar-desktop-links {
+        display: none;
+    }
+
+    @media (min-width: 768px) {
+        .navbar-desktop-links {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+    }
+
+    .navbar-desktop-links a {
+        color: var(--white-color);
+        text-decoration: none;
+        padding: 0.5rem 0.75rem;
+        border-radius: 0.5rem;
+        font-weight: 500;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .navbar-desktop-links a::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--accent-color);
+        transition: width 0.3s ease;
+    }
+
+    .navbar-desktop-links a:hover::before {
+        width: 100%;
+    }
+
+    .navbar-desktop-links a:hover {
+        color: var(--accent-color);
+    }
+
+    .navbar-lang-switch {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        border-left: 1px solid rgba(255, 255, 255, 0.2);
+        margin-left: 1rem;
+        padding-left: 1rem;
+    }
+
+    .navbar-lang-switch button {
+        font-weight: 700;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: var(--white-color);
+        padding: 0.5rem;
+        border-radius: 0.25rem;
+        transition: all 0.3s ease;
+    }
+
+    .navbar-lang-switch button:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--accent-color);
+    }
+
+    #mobile-menu-toggle {
+        display: block;
+        background: none;
+        border: none;
+        color: var(--white-color);
+        font-size: 1.5rem;
+        cursor: pointer;
+        z-index: 60;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+    }
+
+    #mobile-menu-toggle:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--accent-color);
+    }
+
+    @media (min-width: 768px) {
+        #mobile-menu-toggle {
+            display: none;
+        }
+    }
+
+    .mobile-menu {
+        display: block;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(35, 24, 66, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        padding: 1.25rem;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out;
+        opacity: 0;
+        visibility: hidden;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .mobile-menu.is-open {
+        max-height: calc(100vh - 4rem);
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .mobile-menu a,
+    .mobile-menu button {
+        display: block;
+        text-align: center;
+        font-size: 1.125rem;
+        color: var(--white-color);
+        text-decoration: none;
+        padding: 0.75rem 0;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .mobile-menu a:hover,
+    .mobile-menu button:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--accent-color);
+    }
+
+    .mobile-menu .lang-switch-mobile {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        margin-top: 1rem;
+    }
+
+    .mobile-menu .lang-switch-mobile button {
+        font-weight: 700;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+</style>
+
+<nav class="navbar" id="navbar">
+    <div class="container navbar-container">
+        <a href="/" class="navbar-logo magnetic">
+            <img src="/static/images/logo.webp" alt="Logo TrackEco" width="48" height="48">
+            <span data-translate-key="nav_brand">TrackEco</span>
+        </a>
+        <div class="navbar-desktop-links">
+            <a href="/" data-translate-key="nav_home">Beranda</a>
+            <a href="/news" data-translate-key="nav_news">Berita</a>
+            <a href="/timeline" data-translate-key="nav_timeline">Linimasa</a>
+            <a href="/calculator" data-translate-key="nav_calculator">Kalkulator</a>
+            <a href="/#impact" data-translate-key="nav_impact">Dampak</a>
+            <div class="navbar-lang-switch">
+                <button id="lang-en">EN</button>
+                <span>|</span>
+                <button id="lang-id">ID</button>
+            </div>
+        </div>
+        <button id="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+    <div id="mobile-menu" class="mobile-menu">
+        <a href="/" data-translate-key="nav_home">Beranda</a>
+        <a href="/news" data-translate-key="nav_news">Berita</a>
+        <a href="/timeline" data-translate-key="nav_timeline">Linimasa</a>
+        <a href="/calculator" data-translate-key="nav_calculator">Kalkulator</a>
+        <a href="/#impact" data-translate-key="nav_impact">Dampak</a>
+        <div class="lang-switch-mobile">
+            <button id="lang-en-mobile">EN</button>
+            <span>|</span>
+            <button id="lang-id-mobile">ID</button>
+        </div>
+    </div>
+</nav>
+
+<script>
+    // Add scrolled class to navbar on scroll
+    window.addEventListener('scroll', () => {
+        const navbar = document.getElementById('navbar');
+        if (window.scrollY > 50) {
+            navbar?.classList.add('scrolled');
+        } else {
+            navbar?.classList.remove('scrolled');
+        }
+    });
+</script>
+

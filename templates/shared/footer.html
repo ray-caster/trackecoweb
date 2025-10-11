@@ -1,0 +1,180 @@
+<style>
+    /* Footer with glassmorphism */
+    footer {
+        background: linear-gradient(135deg, rgba(35, 24, 66, 0.95), rgba(35, 24, 66, 1));
+        color: var(--white-color);
+        padding: 4rem 0 2rem 0;
+        position: relative;
+        overflow: hidden;
+    }
+
+    footer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+    }
+
+    .footer-grid {
+        display: grid;
+        gap: 3rem;
+        margin-bottom: 3rem;
+    }
+
+    @media (min-width: 768px) {
+        .footer-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    .footer-logo {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .footer-logo img {
+        height: 2.5rem;
+        margin-right: 0.75rem;
+    }
+
+    .footer-logo span {
+        font-weight: 700;
+        font-size: 1.25rem;
+    }
+
+    .footer-grid p {
+        color: var(--gray-400-color);
+        line-height: 1.8;
+    }
+
+    .footer-grid h3 {
+        font-weight: 700;
+        font-size: 1.125rem;
+        margin-bottom: 1rem;
+        color: var(--accent-color);
+    }
+
+    .footer-grid ul {
+        list-style: none;
+    }
+
+    .footer-grid li {
+        margin-bottom: 0.75rem;
+    }
+
+    .footer-grid a {
+        color: var(--white-color);
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: inline-block;
+    }
+
+    .footer-grid a:hover {
+        color: var(--accent-color);
+        transform: translateX(5px);
+    }
+
+    .footer-contact li {
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .footer-contact i {
+        margin-right: 0.75rem;
+        margin-top: 0.25rem;
+        color: var(--accent-color);
+    }
+
+    .footer-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 2rem;
+        text-align: center;
+        color: var(--gray-400-color);
+    }
+
+    .footer-social {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+
+    .footer-social a {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    .footer-social a:hover {
+        background: var(--accent-color);
+        transform: translateY(-3px) scale(1.1);
+        box-shadow: 0 5px 15px rgba(242, 193, 78, 0.4);
+    }
+</style>
+
+<footer id="contact">
+    <div class="container">
+        <div class="footer-grid">
+            <div>
+                <div class="footer-logo">
+                    <img src="/static/images/logo.webp" alt="TrackEco Logo" width="40" height="40">
+                    <span>TrackEco</span>
+                </div>
+                <p data-translate-key="footer_desc">Memberdayakan Surabaya untuk mengurangi sampah dan berkembang melalui program daur ulang komunitas.</p>
+                <p data-translate-key="footer_partner" style="margin-top: 1rem;">Bekerja sama dengan Bank Sampah Induk Surabaya</p>
+                <div class="footer-social">
+                    <a href="https://www.instagram.com/trackeco_org" target="_blank" rel="noopener noreferrer" class="magnetic" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="mailto:hello@trackeco.org" class="magnetic" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <h3 data-translate-key="footer_links_title">Tautan Cepat</h3>
+                <ul>
+                    <li><a href="/" data-translate-key="footer_link_home">Beranda</a></li>
+                    <li><a href="/news" data-translate-key="footer_link_news">Berita</a></li>
+                    <li><a href="/timeline" data-translate-key="footer_link_timeline">Linimasa</a></li>
+                    <li><a href="/calculator" data-translate-key="footer_link_calculator">Kalkulator</a></li>
+                    <li><a href="/#mission" data-translate-key="footer_link_mission">Misi Kami</a></li>
+                    <li><a href="/#impact" data-translate-key="footer_link_impact">Dampak</a></li>
+                    <li><a href="/#team" data-translate-key="footer_link_team">Tim Kami</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h3 data-translate-key="footer_contact_title">Hubungi Kami</h3>
+                <ul>
+                    <li>
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:hello@trackeco.org">hello@trackeco.org</a>
+                    </li>
+                    <li>
+                        <i class="fab fa-instagram"></i>
+                        <a href="https://www.instagram.com/trackeco_org" target="_blank" rel="noopener noreferrer">@trackeco_org</a>
+                    </li>
+                    <li>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Surabaya, Indonesia</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 TrackEco. <span data-translate-key="footer_rights">Hak cipta dilindungi undang-undang.</span></p>
+        </div>
+    </div>
+</footer>
+

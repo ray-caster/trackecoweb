@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7810920590124307"
+        crossorigin="anonymous"></script>
+    
+    <title>{% block title %}TrackEco: Daur Ulang & Pengelolaan Sampah Plastik di Surabaya{% endblock %}</title>
+    
+    <meta name="description" content="{% block description %}TrackEco mengubah sampah plastik di Surabaya menjadi kerajinan tangan melalui kerjasama dengan Bank Sampah Induk Surabaya.{% endblock %}">
+    <meta name="keywords" content="daur ulang plastik Surabaya, pengelolaan sampah Surabaya, Bank Sampah Induk Surabaya, kerajinan daur ulang, ekonomi sirkular">
+    <meta name="author" content="TrackEco">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.trackeco.org">
+
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="{% block og_title %}TrackEco: Daur Ulang & Pengelolaan Sampah Plastik di Surabaya{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}TrackEco memberdayakan masyarakat Surabaya untuk mendaur ulang sampah plastik menjadi produk bernilai.{% endblock %}">
+    <meta property="og:image" content="./static/images/og-image.webp">
+    <meta property="og:url" content="https://www.trackeco.org">
+    <meta property="og:type" content="website">
+
+    <!-- Preconnect for faster font loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Font Awesome for icons -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+    <!-- Fallback for browsers with JavaScript disabled -->
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
+    </noscript>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/images/apple-touch-icon.webp">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/images/favicon-32x32.webp">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/images/favicon-16x16.webp">
+    
+    <!-- Modern Effects CSS -->
+    <link rel="stylesheet" href="/static/css/effects.css">
+    
+    <style>
+        /* Base and Reset Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--white-color);
+            color: var(--gray-800-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .container {
+                max-width: 640px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                max-width: 768px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 1024px;
+            }
+        }
+
+        @media (min-width: 1280px) {
+            .container {
+                max-width: 1280px;
+            }
+        }
+
+        a,
+        button {
+            transition: all 0.3s ease;
+        }
+
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid var(--accent-color);
+            outline-offset: 2px;
+            border-radius: 2px;
+        }
+
+        /* Main Content */
+        main {
+            min-height: 100vh;
+        }
+
+        section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .section-title .divider {
+            width: 5rem;
+            height: 4px;
+            background-color: var(--accent-color);
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    {% include 'shared/navbar.html' %}
+    
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    
+    {% include 'shared/footer.html' %}
+
+    <!-- Core JavaScript modules -->
+    <script src="/static/js/magnetic.js" defer></script>
+    <script src="/static/js/parallax.js" defer></script>
+    
+    {% block extra_js %}{% endblock %}
+    
+    <script defer>
+        // Language management
+        const translations = {
+            en: {
+                nav_home: "Home",
+                nav_news: "News",
+                nav_timeline: "Timeline",
+                nav_calculator: "Calculator",
+                nav_mission: "Mission",
+                nav_impact: "Impact",
+                nav_team: "Team",
+                nav_contact: "Contact",
+                nav_brand: "TrackEco",
+                footer_desc: "Empowering Surabaya to reduce waste and thrive through community recycling programs.",
+                footer_partner: "In partnership with Bank Sampah Induk Surabaya",
+                footer_links_title: "Quick Links",
+                footer_link_home: "Home",
+                footer_link_news: "News",
+                footer_link_timeline: "Timeline",
+                footer_link_calculator: "Calculator",
+                footer_link_mission: "Our Mission",
+                footer_link_impact: "Impact",
+                footer_link_team: "Our Team",
+                footer_contact_title: "Contact Us",
+                footer_rights: "All rights reserved."
+            },
+            id: {
+                nav_home: "Beranda",
+                nav_news: "Berita",
+                nav_timeline: "Linimasa",
+                nav_calculator: "Kalkulator",
+                nav_mission: "Misi",
+                nav_impact: "Dampak",
+                nav_team: "Tim",
+                nav_contact: "Kontak",
+                nav_brand: "TrackEco",
+                footer_desc: "Memberdayakan Surabaya untuk mengurangi sampah dan berkembang melalui program daur ulang komunitas.",
+                footer_partner: "Bekerja sama dengan Bank Sampah Induk Surabaya",
+                footer_links_title: "Tautan Cepat",
+                footer_link_home: "Beranda",
+                footer_link_news: "Berita",
+                footer_link_timeline: "Linimasa",
+                footer_link_calculator: "Kalkulator",
+                footer_link_mission: "Misi Kami",
+                footer_link_impact: "Dampak",
+                footer_link_team: "Tim Kami",
+                footer_contact_title: "Hubungi Kami",
+                footer_rights: "Hak cipta dilindungi undang-undang."
+            }
+        };
+
+        const setLanguage = (lang) => {
+            document.documentElement.lang = lang;
+            localStorage.setItem('language', lang);
+            document.querySelectorAll('[data-translate-key]').forEach(element => {
+                const key = element.getAttribute('data-translate-key');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+            
+            document.querySelectorAll('#lang-en, #lang-en-mobile').forEach(el => 
+                el.style.color = (lang === 'en' ? 'var(--accent-color)' : 'var(--white-color)')
+            );
+            document.querySelectorAll('#lang-id, #lang-id-mobile').forEach(el => 
+                el.style.color = (lang === 'id' ? 'var(--accent-color)' : 'var(--white-color)')
+            );
+        };
+
+        const getInitialLanguage = () => {
+            const savedLang = localStorage.getItem('language');
+            if (savedLang && ['en', 'id'].includes(savedLang)) return savedLang;
+            const browserLang = navigator.language.split('-')[0];
+            return browserLang === 'id' ? 'id' : 'en';
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize language
+            const initialLang = getInitialLanguage();
+            setLanguage(initialLang);
+
+            // Language switchers
+            ['lang-en', 'lang-en-mobile'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.addEventListener('click', () => setLanguage('en'));
+            });
+            ['lang-id', 'lang-id-mobile'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.addEventListener('click', () => setLanguage('id'));
+            });
+
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIcon = mobileMenuButton?.querySelector('i');
+
+            function closeMenu() {
+                mobileMenu?.classList.remove('is-open');
+                menuIcon?.classList.remove('fa-times');
+                menuIcon?.classList.add('fa-bars');
+                mobileMenuButton?.setAttribute('aria-expanded', 'false');
+            }
+
+            function toggleMenu() {
+                const isOpen = mobileMenu?.classList.contains('is-open');
+                if (isOpen) {
+                    closeMenu();
+                } else {
+                    mobileMenu?.classList.add('is-open');
+                    menuIcon?.classList.remove('fa-bars');
+                    menuIcon?.classList.add('fa-times');
+                    mobileMenuButton?.setAttribute('aria-expanded', 'true');
+                }
+            }
+
+            mobileMenuButton?.addEventListener('click', toggleMenu);
+            document.querySelectorAll('#mobile-menu a, #mobile-menu button').forEach(link => {
+                link.addEventListener('click', closeMenu);
+            });
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    e.preventDefault();
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 0;
+                        const offsetTop = targetElement.offsetTop - navbarHeight;
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+

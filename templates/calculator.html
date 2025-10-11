@@ -1,0 +1,698 @@
+{% extends "shared/base.html" %}
+
+{% block title %}Impact Calculator - TrackEco{% endblock %}
+{% block description %}Calculate the environmental impact of your recycling efforts. See how much CO2, water, and energy you can save by recycling plastic waste.{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Calculator Page Styles */
+    .calculator-hero {
+        position: relative;
+        height: 60vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, var(--ecoGreen-color), var(--ecoBlue-color));
+        overflow: hidden;
+    }
+
+    .calculator-hero::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url('/static/images/background3.webp');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.15;
+    }
+
+    .calculator-hero-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        color: white;
+        max-width: 800px;
+        padding: 0 2rem;
+    }
+
+    .calculator-hero h1 {
+        font-size: 3.5rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+    }
+
+    .calculator-hero p {
+        font-size: 1.25rem;
+        opacity: 0.95;
+    }
+
+    /* Mode Selector */
+    .mode-selector {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin: 3rem 0;
+    }
+
+    .mode-card {
+        padding: 2rem;
+        border-radius: 24px;
+        background: white;
+        border: 3px solid transparent;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .mode-card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, var(--accent-color), var(--ecoGreen-color));
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .mode-card:hover,
+    .mode-card.active {
+        border-color: var(--accent-color);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .mode-card.active::before {
+        opacity: 0.1;
+    }
+
+    .mode-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        position: relative;
+        z-index: 2;
+    }
+
+    .mode-card h3 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+        position: relative;
+        z-index: 2;
+    }
+
+    .mode-card p {
+        color: var(--gray-700-color);
+        font-size: 0.9rem;
+        position: relative;
+        z-index: 2;
+    }
+
+    /* Calculator Container */
+    .calculator-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        margin: 3rem 0;
+    }
+
+    .calculator-input-section {
+        background: white;
+        padding: 2.5rem;
+        border-radius: 24px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    .calculator-results-section {
+        background: linear-gradient(135deg, var(--primary-color), var(--ecoBlue-color));
+        padding: 2.5rem;
+        border-radius: 24px;
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .calculator-results-section::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url('/static/images/background5.webp');
+        background-size: cover;
+        opacity: 0.1;
+    }
+
+    .input-group {
+        margin-bottom: 2rem;
+    }
+
+    .input-label {
+        display: block;
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-bottom: 0.75rem;
+        font-size: 1rem;
+    }
+
+    .input-field {
+        width: 100%;
+        padding: 1rem 1.5rem;
+        border-radius: 12px;
+        border: 2px solid #e5e7eb;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: white;
+    }
+
+    .input-field:focus {
+        outline: none;
+        border-color: var(--accent-color);
+        box-shadow: 0 0 0 3px rgba(242, 193, 78, 0.1);
+    }
+
+    .input-with-unit {
+        position: relative;
+    }
+
+    .input-unit {
+        position: absolute;
+        right: 1.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--gray-400-color);
+        font-weight: 600;
+        pointer-events: none;
+    }
+
+    .slider-container {
+        margin-bottom: 2rem;
+    }
+
+    .slider {
+        width: 100%;
+        height: 8px;
+        border-radius: 5px;
+        background: linear-gradient(to right, var(--accent-color), var(--ecoGreen-color));
+        outline: none;
+        -webkit-appearance: none;
+    }
+
+    .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: var(--accent-color);
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    .slider::-webkit-slider-thumb:hover {
+        transform: scale(1.2);
+        box-shadow: 0 4px 12px rgba(242, 193, 78, 0.4);
+    }
+
+    .slider::-moz-range-thumb {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: var(--accent-color);
+        cursor: pointer;
+        border: none;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .slider-value {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 0.5rem;
+        font-size: 0.875rem;
+        color: var(--gray-400-color);
+    }
+
+    .calculate-btn {
+        width: 100%;
+        padding: 1.25rem 2rem;
+        border-radius: 12px;
+        border: none;
+        background: linear-gradient(135deg, var(--accent-color), var(--ecoGreen-color));
+        color: white;
+        font-weight: 700;
+        font-size: 1.125rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(242, 193, 78, 0.3);
+    }
+
+    .calculate-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(242, 193, 78, 0.4);
+    }
+
+    .calculate-btn:active {
+        transform: translateY(0);
+    }
+
+    /* Results Display */
+    .results-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    .results-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+    .result-card {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 16px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    .result-card:hover {
+        transform: translateX(5px);
+        background: rgba(255, 255, 255, 0.25);
+    }
+
+    .result-icon {
+        font-size: 2rem;
+        margin-bottom: 0.75rem;
+        display: block;
+    }
+
+    .result-value {
+        font-size: 2.5rem;
+        font-weight: 800;
+        display: block;
+        color: var(--accent-color);
+        margin-bottom: 0.5rem;
+    }
+
+    .result-label {
+        font-size: 1rem;
+        opacity: 0.9;
+    }
+
+    .result-description {
+        margin-top: 0.75rem;
+        font-size: 0.875rem;
+        opacity: 0.8;
+        line-height: 1.6;
+    }
+
+    .comparison-section {
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .comparison-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+
+    .comparison-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        margin-bottom: 0.75rem;
+    }
+
+    .comparison-icon {
+        font-size: 1.5rem;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 3rem;
+        opacity: 0.7;
+    }
+
+    .empty-state-icon {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+        opacity: 0.5;
+    }
+
+    /* Info Cards */
+    .info-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin: 4rem 0;
+    }
+
+    .info-card {
+        padding: 2rem;
+        border-radius: 20px;
+        background: white;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        border-left: 4px solid var(--accent-color);
+        transition: all 0.3s ease;
+    }
+
+    .info-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    .info-card h4 {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+    }
+
+    .info-card p {
+        color: var(--gray-700-color);
+        line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+        .calculator-hero h1 {
+            font-size: 2.5rem;
+        }
+
+        .calculator-container {
+            grid-template-columns: 1fr;
+        }
+
+        .mode-selector {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="calculator-hero" data-parallax="0.5">
+    <div class="calculator-hero-content">
+        <h1 class="animate-fade-in magnetic-text">Impact Calculator</h1>
+        <p class="animate-fade-in animate-delay-1">Calculate the environmental impact of your recycling efforts</p>
+    </div>
+</div>
+
+<section>
+    <div class="container">
+        <!-- Mode Selector -->
+        <div class="section-title">
+            <h2>Choose Calculation Mode</h2>
+            <p style="max-width: 600px; margin: 1rem auto 0;">Select how you want to calculate your environmental impact</p>
+        </div>
+
+        <div class="mode-selector">
+            <div class="mode-card active magnetic" data-mode="plastic">
+                <div class="mode-icon">♻️</div>
+                <h3>Plastic Recycling</h3>
+                <p>Calculate impact based on plastic weight recycled</p>
+            </div>
+            <div class="mode-card magnetic" data-mode="bottles">
+                <div class="mode-icon">🍾</div>
+                <h3>Bottle Count</h3>
+                <p>Calculate impact based on number of bottles</p>
+            </div>
+            <div class="mode-card magnetic" data-mode="time">
+                <div class="mode-icon">⏱️</div>
+                <h3>Time-Based</h3>
+                <p>Calculate impact over a time period</p>
+            </div>
+            <div class="mode-card magnetic" data-mode="community">
+                <div class="mode-icon">👥</div>
+                <h3>Community Impact</h3>
+                <p>Calculate collective community impact</p>
+            </div>
+        </div>
+
+        <!-- Calculator Interface -->
+        <div class="calculator-container">
+            <!-- Input Section -->
+            <div class="calculator-input-section glass-card scroll-reveal">
+                <h3 style="margin-bottom: 2rem; color: var(--primary-color); font-size: 1.75rem;">Input Your Data</h3>
+                
+                <!-- Plastic Mode -->
+                <div id="plastic-inputs" class="mode-inputs">
+                    <div class="input-group">
+                        <label class="input-label">Plastic Weight (kg)</label>
+                        <div class="input-with-unit">
+                            <input type="number" class="input-field" id="plasticWeight" placeholder="Enter weight" value="10" min="0">
+                            <span class="input-unit">kg</span>
+                        </div>
+                    </div>
+                    <div class="slider-container">
+                        <label class="input-label">Plastic Type Quality</label>
+                        <input type="range" class="slider" id="qualitySlider" min="1" max="10" value="7">
+                        <div class="slider-value">
+                            <span>Low Quality</span>
+                            <span id="qualityValue">7</span>
+                            <span>High Quality</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottle Mode -->
+                <div id="bottles-inputs" class="mode-inputs" style="display: none;">
+                    <div class="input-group">
+                        <label class="input-label">Number of Bottles</label>
+                        <input type="number" class="input-field" id="bottleCount" placeholder="Enter bottle count" value="100" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Bottle Size</label>
+                        <select class="input-field" id="bottleSize">
+                            <option value="0.33">Small (330ml)</option>
+                            <option value="0.5">Medium (500ml)</option>
+                            <option value="0.6" selected>Large (600ml)</option>
+                            <option value="1">Extra Large (1L)</option>
+                            <option value="1.5">Extra Extra Large (1.5L)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Time Mode -->
+                <div id="time-inputs" class="mode-inputs" style="display: none;">
+                    <div class="input-group">
+                        <label class="input-label">Daily Plastic Recycled (kg)</label>
+                        <div class="input-with-unit">
+                            <input type="number" class="input-field" id="dailyPlastic" placeholder="Enter daily amount" value="2" min="0">
+                            <span class="input-unit">kg/day</span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Time Period</label>
+                        <select class="input-field" id="timePeriod">
+                            <option value="7">1 Week</option>
+                            <option value="30" selected>1 Month</option>
+                            <option value="90">3 Months</option>
+                            <option value="180">6 Months</option>
+                            <option value="365">1 Year</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Community Mode -->
+                <div id="community-inputs" class="mode-inputs" style="display: none;">
+                    <div class="input-group">
+                        <label class="input-label">Number of Participants</label>
+                        <input type="number" class="input-field" id="participants" placeholder="Enter number of people" value="50" min="1">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Average Plastic per Person (kg/month)</label>
+                        <div class="input-with-unit">
+                            <input type="number" class="input-field" id="avgPerPerson" placeholder="Enter average" value="3" min="0">
+                            <span class="input-unit">kg</span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Duration (months)</label>
+                        <input type="number" class="input-field" id="duration" placeholder="Enter duration" value="6" min="1">
+                    </div>
+                </div>
+
+                <button class="calculate-btn magnetic-strong" id="calculateBtn">
+                    <i class="fas fa-calculator"></i> Calculate Impact
+                </button>
+            </div>
+
+            <!-- Results Section -->
+            <div class="calculator-results-section glass-dark scroll-reveal">
+                <div class="results-content">
+                    <div id="resultsDisplay">
+                        <div class="empty-state">
+                            <div class="empty-state-icon">📊</div>
+                            <p>Enter your data and click Calculate to see your environmental impact</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Cards -->
+        <div class="info-cards">
+            <div class="info-card magnetic scroll-reveal">
+                <h4>🌍 CO2 Emissions</h4>
+                <p>Recycling plastic prevents CO2 emissions by avoiding the need to create new plastic from virgin materials. Each kilogram of recycled plastic saves approximately 1.5 kg of CO2.</p>
+            </div>
+            <div class="info-card magnetic scroll-reveal">
+                <h4>💧 Water Conservation</h4>
+                <p>Manufacturing new plastic requires significant water. Recycling saves about 11 liters of water per kilogram of plastic, helping preserve this precious resource.</p>
+            </div>
+            <div class="info-card magnetic scroll-reveal">
+                <h4>⚡ Energy Savings</h4>
+                <p>Recycling plastic uses 88% less energy than producing new plastic. This translates to approximately 5.7 kWh saved per kilogram of plastic recycled.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        let currentMode = 'plastic';
+        
+        // Mode Selection
+        const modeCards = document.querySelectorAll('.mode-card');
+        modeCards.forEach(card => {
+            card.addEventListener('click', () => {
+                modeCards.forEach(c => c.classList.remove('active'));
+                card.classList.add('active');
+                currentMode = card.dataset.mode;
+                showModeInputs(currentMode);
+            });
+        });
+        
+        function showModeInputs(mode) {
+            document.querySelectorAll('.mode-inputs').forEach(input => {
+                input.style.display = 'none';
+            });
+            document.getElementById(`${mode}-inputs`).style.display = 'block';
+        }
+        
+        // Quality Slider
+        const qualitySlider = document.getElementById('qualitySlider');
+        const qualityValue = document.getElementById('qualityValue');
+        qualitySlider?.addEventListener('input', () => {
+            qualityValue.textContent = qualitySlider.value;
+        });
+        
+        // Calculate Button
+        const calculateBtn = document.getElementById('calculateBtn');
+        calculateBtn.addEventListener('click', calculateImpact);
+        
+        function calculateImpact() {
+            let plasticKg = 0;
+            
+            // Calculate based on mode
+            switch(currentMode) {
+                case 'plastic':
+                    plasticKg = parseFloat(document.getElementById('plasticWeight').value) || 0;
+                    break;
+                case 'bottles':
+                    const bottleCount = parseFloat(document.getElementById('bottleCount').value) || 0;
+                    const bottleSize = parseFloat(document.getElementById('bottleSize').value) || 0.6;
+                    plasticKg = bottleCount * bottleSize * 0.03; // Approx 30g per liter
+                    break;
+                case 'time':
+                    const dailyPlastic = parseFloat(document.getElementById('dailyPlastic').value) || 0;
+                    const timePeriod = parseFloat(document.getElementById('timePeriod').value) || 30;
+                    plasticKg = dailyPlastic * timePeriod;
+                    break;
+                case 'community':
+                    const participants = parseFloat(document.getElementById('participants').value) || 0;
+                    const avgPerPerson = parseFloat(document.getElementById('avgPerPerson').value) || 0;
+                    const duration = parseFloat(document.getElementById('duration').value) || 1;
+                    plasticKg = participants * avgPerPerson * duration;
+                    break;
+            }
+            
+            if (plasticKg <= 0) {
+                alert('Please enter valid values');
+                return;
+            }
+            
+            // Calculate impacts
+            const co2Saved = (plasticKg * 1.5).toFixed(1);
+            const waterSaved = (plasticKg * 11).toFixed(0);
+            const energySaved = (plasticKg * 5.7).toFixed(1);
+            const treesEquivalent = (co2Saved / 21).toFixed(1); // One tree absorbs 21kg CO2/year
+            const bottlesEquivalent = Math.floor(plasticKg / 0.03);
+            
+            displayResults({
+                plasticKg: plasticKg.toFixed(1),
+                co2Saved,
+                waterSaved,
+                energySaved,
+                treesEquivalent,
+                bottlesEquivalent
+            });
+        }
+        
+        function displayResults(results) {
+            const resultsHTML = `
+                <h3 class="results-title">Your Environmental Impact</h3>
+                
+                <div class="result-card magnetic animate-fade-in">
+                    <span class="result-icon">♻️</span>
+                    <span class="result-value">${results.plasticKg} kg</span>
+                    <span class="result-label">Plastic Recycled</span>
+                    <p class="result-description">Equivalent to approximately ${results.bottlesEquivalent} plastic bottles</p>
+                </div>
+                
+                <div class="result-card magnetic animate-fade-in animate-delay-1">
+                    <span class="result-icon">🌍</span>
+                    <span class="result-value">${results.co2Saved} kg</span>
+                    <span class="result-label">CO2 Emissions Prevented</span>
+                    <p class="result-description">Same as planting ${results.treesEquivalent} trees for one year</p>
+                </div>
+                
+                <div class="result-card magnetic animate-fade-in animate-delay-2">
+                    <span class="result-icon">💧</span>
+                    <span class="result-value">${results.waterSaved} L</span>
+                    <span class="result-label">Water Conserved</span>
+                    <p class="result-description">Enough water for ${Math.floor(results.waterSaved / 50)} showers</p>
+                </div>
+                
+                <div class="result-card magnetic animate-fade-in animate-delay-3">
+                    <span class="result-icon">⚡</span>
+                    <span class="result-value">${results.energySaved} kWh</span>
+                    <span class="result-label">Energy Saved</span>
+                    <p class="result-description">Could power a laptop for ${Math.floor(results.energySaved * 20)} hours</p>
+                </div>
+                
+                <div class="comparison-section animate-fade-in animate-delay-4">
+                    <h4 class="comparison-title">Real-World Comparisons</h4>
+                    <div class="comparison-item">
+                        <span class="comparison-icon">🚗</span>
+                        <span>Equivalent to ${(results.co2Saved / 0.411).toFixed(0)} km not driven by car</span>
+                    </div>
+                    <div class="comparison-item">
+                        <span class="comparison-icon">💡</span>
+                        <span>Could power ${Math.floor(results.energySaved / 0.9)} LED bulbs for 24 hours</span>
+                    </div>
+                    <div class="comparison-item">
+                        <span class="comparison-icon">🏠</span>
+                        <span>Saves enough energy to power a home for ${(results.energySaved / 30).toFixed(1)} days</span>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('resultsDisplay').innerHTML = resultsHTML;
+        }
+    });
+</script>
+{% endblock %}
+

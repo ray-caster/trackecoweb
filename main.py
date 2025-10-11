@@ -14,5 +14,17 @@ def favicon():
 def index():
     return render_template("index.html")
 
+@app.route("/news")
+def news():
+    return render_template("news.html")
+
+@app.route("/timeline")
+def timeline():
+    return render_template("timeline.html")
+
+@app.route("/calculator")
+def calculator():
+    return render_template("calculator.html")
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

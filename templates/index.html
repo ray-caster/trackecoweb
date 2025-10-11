@@ -1,1898 +1,1467 @@
-<!DOCTYPE html>
-<!-- The 'lang' attribute will be dynamically set by JavaScript -->
-<html lang="id">
+{% extends "shared/base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7810920590124307"
-        crossorigin="anonymous"></script>
-    <!-- Meta tags will be dynamically updated based on language -->
-    <title data-translate-key="meta_title">TrackEco: Daur Ulang & Pengelolaan Sampah Plastik di Surabaya</title>
-    <meta name="description" data-translate-key="meta_description"
-        content="TrackEco mengubah sampah plastik di Surabaya menjadi kerajinan tangan melalui kerjasama dengan Bank Sampah Induk Surabaya. Bergabunglah dengan kami untuk mengurangi sampah plastik.">
-    <meta name="keywords"
-        content="daur ulang plastik Surabaya, pengelolaan sampah Surabaya, Bank Sampah Induk Surabaya, kerajinan daur ulang, ekonomi sirkular, lingkungan hidup Surabaya, plastic recycling Surabaya, waste management Surabaya">
-    <meta name="author" content="TrackEco">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://www.trackeco.org">
+{% block title %}TrackEco: Daur Ulang & Pengelolaan Sampah Plastik di Surabaya{% endblock %}
+{% block description %}TrackEco mengubah sampah plastik di Surabaya menjadi kerajinan tangan melalui kerjasama dengan Bank Sampah Induk Surabaya. Bergabunglah dengan kami untuk mengurangi sampah plastik.{% endblock %}
 
-    <!-- Hreflang tags for multilingual SEO -->
-    <link rel="alternate" hreflang="id" href="https://www.trackeco.org">
-    <link rel="alternate" hreflang="en" href="https://www.trackeco.org">
-    <link rel="alternate" hreflang="x-default" href="https://www.trackeco.org">
+{% block extra_css %}
+<!-- Preload ALL carousel images -->
+<link rel="preload" as="image" href="/static/images/Beach2.webp">
+<link rel="preload" as="image" href="/static/images/Beach1.webp">
+<link rel="preload" as="image" href="/static/images/UBS1.webp">
+<link rel="preload" as="image" href="/static/images/Ubs2.webp">
+<link rel="preload" as="image" href="/static/images/FirstBackground.webp">
+<link rel="preload" as="image" href="/static/images/background2.webp">
+<link rel="preload" as="image" href="/static/images/background3.webp">
+<link rel="preload" as="image" href="/static/images/Background4.webp">
+<link rel="preload" as="image" href="/static/images/background5.webp">
+<link rel="preload" as="image" href="/static/images/background6.webp">
 
-    <!-- Security Meta Tags for Best Practices -->
-    <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data:; object-src 'none';">
-    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
-    <meta name="cross-origin-opener-policy" content="same-origin">
+<!-- Security Meta Tags -->
+<meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data:; object-src 'none';">
 
-    <!-- Open Graph / Social Media Meta Tags -->
-    <meta property="og:title" data-translate-key="og_title"
-        content="TrackEco: Daur Ulang & Pengelolaan Sampah Plastik di Surabaya">
-    <meta property="og:description" data-translate-key="og_description"
-        content="TrackEco memberdayakan masyarakat Surabaya untuk mendaur ulang sampah plastik menjadi produk bernilai, bekerja sama dengan Bank Sampah Induk Surabaya.">
-    <meta property="og:image" content="./static/images/og-image.webp">
-    <meta property="og:url" content="https://www.trackeco.org">
-    <meta property="og:type" content="website">
-    <meta property="og:locale" content="id_ID">
-    <meta property="og:locale:alternate" content="en_US">
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "NGO",
+  "name": "TrackEco",
+  "url": "https://www.trackeco.org",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "/static/images/logo.webp",
+    "width": 128,
+    "height": 128
+  },
+  "description": "TrackEco is a non-profit organization in Surabaya focused on plastic waste management and recycling...",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Surabaya",
+    "addressCountry": "ID"
+  },
+  "sameAs": [
+    "https://www.instagram.com/trackeco_org"
+  ]
+}
+</script>
 
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" data-translate-key="twitter_title"
-        content="TrackEco: Daur Ulang & Pengelolaan Sampah Plastik di Surabaya">
-    <meta name="twitter:description" data-translate-key="twitter_description"
-        content="TrackEco memberdayakan masyarakat Surabaya untuk mendaur ulang sampah plastik menjadi produk bernilai, bekerja sama dengan Bank Sampah Induk Surabaya.">
-    <meta name="twitter:image" content="./static/images/twitter-image.webp">
-
-    <!-- Preconnect for faster font loading -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <!-- Preload LCP image and critical assets for performance -->
-    <link rel="preload" as="image" href="./static/images/Beach2.webp">
-    <!-- Asynchronously load Font Awesome for icons -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-        as="style" onload="this.onload=null;this.rel='stylesheet'">
-
-    <!-- Fallback for browsers with JavaScript disabled -->
-    <noscript>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-        <link rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
-    </noscript>
-
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "NGO",
-      "name": "TrackEco",
-      "url": "https://www.trackeco.org",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "./static/images/logo.webp",
-        "width": 128,
-        "height": 128
-      },
-      "description": "TrackEco is a non-profit organization in Surabaya focused on plastic waste management and recycling...",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Surabaya",
-        "addressCountry": "ID"
-      },
-      "sameAs": [
-        "https://www.instagram.com/trackeco_org"
-      ]
+<style>
+    /* Hero Section with Split Layout */
+    #home {
+        position: relative;
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: 1fr;
+        margin-top: 0;
     }
-    </script>
 
-    <link rel="apple-touch-icon" sizes="180x180" href="./static/images/apple-touch-icon.webp">
-    <link rel="icon" type="image/png" sizes="32x32" href="./static/images/favicon-32x32.webp">
-    <link rel="icon" type="image/png" sizes="16x16" href="./static/images/favicon-16x16.webp">
-    <link rel="manifest" href="/site.webmanifest">
-    <link rel="sitemap" type="application/xml" href="/sitemap.xml">
-
-    <style>
-        /* CSS Variables */
-        :root {
-            --primary-color: #231842;
-            --accent-color: #F2C14E;
-            --secondary-color: #E07A5F;
-            --ecoGreen-color: #2e7d32;
-            --ecoBlue-color: #1565c0;
-            --white-color: #ffffff;
-            --gray-800-color: #1f2937;
-            --gray-700-color: #374151;
-            --gray-400-color: #9ca3af;
-        }
-
-        /* Base and Reset Styles */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--white-color);
-            color: var(--gray-800-color);
-            line-height: 1.6;
-        }
-
-        .container {
-            width: 100%;
-            margin-left: auto;
-            margin-right: auto;
-            padding-left: 1rem;
-            padding-right: 1rem;
-        }
-
-        @media (min-width: 640px) {
-            .container {
-                max-width: 640px;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .container {
-                max-width: 768px;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .container {
-                max-width: 1024px;
-            }
-        }
-
-        @media (min-width: 1280px) {
-            .container {
-                max-width: 1280px;
-            }
-        }
-
-        a,
-        button {
-            transition: all 0.3s ease;
-        }
-
-        a:focus-visible,
-        button:focus-visible {
-            outline: 2px solid var(--accent-color);
-            outline-offset: 2px;
-            border-radius: 2px;
-        }
-
-        /* Navbar */
-        .navbar {
-            position: fixed;
-            width: 100%;
-            background-color: var(--primary-color);
-            color: var(--white-color);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            z-index: 50;
-        }
-
-        .navbar-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 0.75rem;
-            padding-bottom: 0.75rem;
-        }
-
-        .navbar-logo {
-            display: flex;
-            align-items: center;
-            color: var(--white-color);
-            text-decoration: none;
-        }
-
-        .navbar-logo img {
-            height: 3rem;
-            margin-right: 0.75rem;
-        }
-
-        .navbar-logo span {
-            font-weight: 700;
-            font-size: 1.25rem;
-        }
-
-        .navbar-desktop-links {
-            display: none;
-        }
-
-        @media (min-width: 768px) {
-            .navbar-desktop-links {
-                display: flex;
-                align-items: center;
-                gap: 1rem;
-            }
-        }
-
-        .navbar-desktop-links a,
-        .navbar-lang-switch button {
-            color: var(--white-color);
-            text-decoration: none;
-            padding: 0.5rem 0.75rem;
-            border-radius: 0.25rem;
-        }
-
-        .navbar-desktop-links a:hover,
-        .navbar-lang-switch button:hover {
-            color: var(--accent-color);
-        }
-
-        .navbar-lang-switch {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            border-left: 1px solid #4a5568;
-            margin-left: 1rem;
-            padding-left: 1rem;
-        }
-
-        .navbar-lang-switch button {
-            font-weight: 700;
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-
-        #mobile-menu-toggle {
-            display: block;
-            background: none;
-            border: none;
-            color: var(--white-color);
-            font-size: 1.5rem;
-            cursor: pointer;
-            z-index: 60;
-        }
-
-        @media (min-width: 768px) {
-            #mobile-menu-toggle {
-                display: none;
-            }
-        }
-
-        .mobile-menu {
-            display: block;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            background-color: var(--primary-color);
-            padding: 1.25rem;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out;
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .mobile-menu.is-open {
-            max-height: calc(100vh - 4rem);
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .mobile-menu a,
-        .mobile-menu button {
-            display: block;
-            text-align: center;
-            font-size: 1.125rem;
-            color: var(--white-color);
-            text-decoration: none;
-            padding: 0.5rem 0;
-        }
-
-        .mobile-menu .lang-switch-mobile {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid #4a5568;
-        }
-
-        .mobile-menu .lang-switch-mobile button {
-            font-weight: 700;
-        }
-
-        /* Hero Section */
+    @media (min-width: 1024px) {
         #home {
-            position: relative;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding-top: 4rem;
-            /* Navbar height */
+            grid-template-columns: 1fr 1fr;
         }
+    }
 
-        .hero-background-container {
-            position: absolute;
-            inset: 0;
-            overflow: hidden;
-        }
+    /* Left side - Hero Content */
+    .hero-left {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 3rem 2rem;
+        padding-top: calc(80px + 3rem);
+        background: linear-gradient(135deg, rgba(35, 24, 66, 0.95), rgba(46, 125, 50, 0.9));
+        z-index: 10;
+    }
 
-        .hero-background-container img {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-        }
+    .hero-content {
+        position: relative;
+        z-index: 20;
+        text-align: left;
+        max-width: 600px;
+    }
 
-        .hero-background-container img.active-slide {
-            opacity: 1;
-        }
+    .hero-content h1 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--white-color);
+        margin-bottom: 1.5rem;
+        line-height: 1.1;
+    }
 
-        .hero-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to bottom, rgba(35, 24, 66, 0.8) 0%, rgba(35, 24, 66, 0.6) 100%);
-            mix-blend-mode: multiply;
-            z-index: 10;
-        }
+    .hero-content h2 {
+        font-size: 1.125rem;
+        color: var(--white-color);
+        margin-bottom: 2rem;
+        line-height: 1.6;
+        opacity: 0.95;
+    }
 
-        .hero-content {
-            position: relative;
-            z-index: 20;
-            text-align: center;
-            max-width: 56rem;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-
+    @media (min-width: 768px) {
         .hero-content h1 {
-            font-size: 1.875rem;
-            font-weight: 700;
-            color: var(--white-color);
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
+            font-size: 3.5rem;
         }
 
         .hero-content h2 {
             font-size: 1.25rem;
-            color: var(--white-color);
-            margin-bottom: 1rem;
         }
+    }
 
-        @media (min-width: 768px) {
-            .hero-content h1 {
-                font-size: 3rem;
-            }
+    /* Right side - Latest News Preview */
+    .hero-right {
+        position: relative;
+        background: #f8f9fa;
+        overflow: hidden;
+        padding-top: 80px;
+    }
 
-            .hero-content h2 {
-                font-size: 1.5rem;
-            }
+    .hero-background-container {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+    }
+
+    .hero-background-container img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+    }
+
+    .hero-background-container img.active-slide {
+        opacity: 1;
+    }
+
+    .hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, rgba(35, 24, 66, 0.85) 0%, rgba(35, 24, 66, 0.7) 100%);
+        z-index: 10;
+    }
+
+    .news-preview-container {
+        position: relative;
+        z-index: 20;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 3rem 2rem;
+        color: white;
+    }
+
+    .news-badge {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        background: var(--accent-color);
+        color: var(--primary-color);
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 0.875rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .news-preview-title {
+        font-size: 2rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+        line-height: 1.2;
+    }
+
+    .news-preview-desc {
+        font-size: 1.125rem;
+        opacity: 0.95;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+    }
+
+    .news-preview-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1rem 2rem;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50px;
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .news-preview-link:hover {
+        background: rgba(255, 255, 255, 0.25);
+        transform: translateX(5px);
+    }
+
+    .hero-stats {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .hero-stat {
+        text-align: left;
+    }
+
+    .hero-stat .stat-number {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--accent-color);
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+
+    .hero-stat .stat-label {
+        font-size: 0.875rem;
+        color: var(--white-color);
+        opacity: 0.9;
+    }
+
+    .hero-partners {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        color: var(--white-color);
+        flex-wrap: wrap;
+    }
+
+    .hero-partners img {
+        height: 2rem;
+        width: auto;
+    }
+
+    .hero-buttons {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .button {
+        display: inline-block;
+        padding: 0.75rem 2rem;
+        border-radius: 9999px;
+        font-weight: 700;
+        font-size: 1.125rem;
+        text-decoration: none;
+        border: 2px solid;
+    }
+
+    .button-outline {
+        background-color: transparent;
+        border-color: var(--white-color);
+        color: var(--white-color);
+    }
+
+    .button-outline:hover {
+        background-color: var(--white-color);
+        color: var(--primary-color);
+    }
+
+    .button-accent {
+        background-color: var(--accent-color);
+        border-color: var(--accent-color);
+        color: var(--primary-color);
+    }
+
+    .button-accent:hover {
+        opacity: 0.9;
+    }
+
+    .hero-dots {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 2rem;
+    }
+
+    .hero-dots .dot {
+        width: 0.625rem;
+        height: 0.625rem;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.3);
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .hero-dots .dot:hover,
+    .hero-dots .dot.active {
+        background-color: var(--accent-color);
+        transform: scale(1.2);
+    }
+
+    @media (max-width: 1023px) {
+        #home {
+            padding-top: 80px;
         }
-
-        .hero-stats {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 1.5rem;
+        
+        .hero-left {
+            padding-top: 3rem;
         }
-
-        .hero-stat .stat-number {
-            font-size: 1.875rem;
-            font-weight: 700;
-            color: var(--accent-color);
+        
+        .hero-right {
+            min-height: 60vh;
+            padding-top: 0;
         }
-
-        .hero-stat .stat-label {
-            font-size: 0.875rem;
-            color: var(--white-color);
+        
+        .hero-content {
+            text-align: center;
         }
-
-        .hero-partners {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            color: var(--white-color);
-        }
-
-        .hero-partners img {
-            height: 2.5rem;
-            width: auto;
-        }
-
-        .hero-buttons {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        @media (min-width: 640px) {
-            .hero-buttons {
-                flex-direction: row;
-                justify-content: center;
-            }
-        }
-
-        .button {
-            display: inline-block;
-            padding: 0.75rem 2rem;
-            border-radius: 9999px;
-            font-weight: 700;
-            font-size: 1.125rem;
-            text-decoration: none;
-            border: 2px solid;
-        }
-
-        .button-outline {
-            background-color: transparent;
-            border-color: var(--white-color);
-            color: var(--white-color);
-        }
-
-        .button-outline:hover {
-            background-color: var(--white-color);
-            color: var(--primary-color);
-        }
-
-        .button-accent {
-            background-color: var(--accent-color);
-            border-color: var(--accent-color);
-            color: var(--primary-color);
-        }
-
-        .button-accent:hover {
-            opacity: 0.9;
-        }
-
-        .hero-dots {
-            display: flex;
-            justify-content: center;
-            gap: 0.75rem;
-            margin-top: 2rem;
-        }
-
-        .hero-dots .dot {
-            width: 0.75rem;
-            height: 0.75rem;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.2);
-            border: none;
-            cursor: pointer;
-        }
-
-        .hero-dots .dot:hover,
-        .hero-dots .dot.active {
-            background-color: rgba(255, 255, 255, 1);
-        }
-
-        .scroll-down-arrow {
-            position: absolute;
-            bottom: 2.5rem;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 20;
-            animation: bounce 2s infinite;
-        }
-
-        .scroll-down-arrow a {
-            color: var(--white-color);
+        
+        .hero-content h1 {
             font-size: 2rem;
         }
-
-        @keyframes bounce {
-
-            0%,
-            20%,
-            50%,
-            80%,
-            100% {
-                transform: translate(-50%, 0);
-            }
-
-            40% {
-                transform: translate(-50%, -20px);
-            }
-
-            60% {
-                transform: translate(-50%, -10px);
-            }
-        }
-
-        /* General Section Styling */
-        section {
-            padding: 5rem 0;
-        }
-
-        .section-title {
+        
+        .hero-stat {
             text-align: center;
-            margin-bottom: 4rem;
         }
-
-        .section-title h2 {
-            font-size: 2.25rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
+        
+        .hero-partners {
+            justify-content: center;
         }
-
-        .section-title .divider {
-            width: 5rem;
-            height: 4px;
-            background-color: var(--accent-color);
-            margin: 0 auto;
+        
+        .hero-buttons {
+            justify-content: center;
         }
-
-        /* Mission Section */
-        #mission {
-            background-color: var(--white-color);
+        
+        .hero-dots {
+            justify-content: center;
         }
+    }
 
+    /* Mission Section */
+    #mission {
+        background-color: var(--white-color);
+    }
+
+    .mission-grid {
+        display: grid;
+        gap: 3rem;
+        align-items: center;
+    }
+
+    @media (min-width: 768px) {
         .mission-grid {
-            display: grid;
-            gap: 3rem;
-            align-items: center;
+            grid-template-columns: 1fr 1fr;
         }
+    }
 
-        @media (min-width: 768px) {
-            .mission-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
+    .mission-grid h3 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 1.5rem;
+    }
 
-        .mission-grid h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
-        }
+    .mission-grid p {
+        margin-bottom: 1rem;
+        font-size: 1.125rem;
+    }
 
-        .mission-grid p {
-            margin-bottom: 1rem;
-            font-size: 1.125rem;
-        }
+    .mission-grid ul {
+        list-style: none;
+        margin-bottom: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
 
-        .mission-grid ul {
-            list-style: none;
-            margin-bottom: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
+    .mission-grid ul li {
+        display: flex;
+        align-items: flex-start;
+    }
 
-        .mission-grid ul li {
-            display: flex;
-            align-items: flex-start;
-        }
+    .mission-grid .fa-check-circle {
+        color: var(--accent-color);
+        margin-right: 0.5rem;
+        margin-top: 0.25rem;
+    }
 
-        .mission-grid .fa-check-circle {
-            color: var(--accent-color);
-            margin-right: 0.5rem;
-            margin-top: 0.25rem;
-        }
+    .mission-process-box {
+        background-color: #f9fafb;
+        padding: 2rem;
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
 
-        .mission-process-box {
-            background-color: #f9fafb;
-            padding: 2rem;
-            border-radius: 0.75rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
+    .mission-process-box .process-item {
+        display: flex;
+        align-items: flex-start;
+    }
 
-        .mission-process-box .process-item {
-            display: flex;
-            align-items: flex-start;
-        }
+    .mission-process-box .process-item:not(:last-child) {
+        margin-bottom: 2rem;
+    }
 
-        .mission-process-box .process-item:not(:last-child) {
-            margin-bottom: 2rem;
-        }
+    .mission-process-box .icon-container {
+        background-color: rgba(242, 193, 78, 0.2);
+        padding: 0.75rem;
+        border-radius: 50%;
+        margin-right: 1rem;
+        color: var(--accent-color);
+        font-size: 1.5rem;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-        .mission-process-box .icon-container {
-            background-color: rgba(242, 193, 78, 0.2);
-            padding: 0.75rem;
-            border-radius: 50%;
-            margin-right: 1rem;
-            color: var(--accent-color);
-            font-size: 1.5rem;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    .mission-process-box h4 {
+        font-weight: 700;
+        font-size: 1.125rem;
+        margin-bottom: 0.5rem;
+    }
 
-        .mission-process-box h4 {
-            font-weight: 700;
-            font-size: 1.125rem;
-            margin-bottom: 0.5rem;
-        }
+    /* Process Section */
+    #process {
+        background-color: rgba(46, 125, 50, 0.1);
+    }
 
-        /* Process Section */
-        #process {
-            background-color: rgba(46, 125, 50, 0.1);
-        }
+    .process-subtitle {
+        font-size: 1.125rem;
+        max-width: 48rem;
+        margin: 0 auto;
+    }
 
-        .process-subtitle {
-            font-size: 1.125rem;
-            max-width: 48rem;
-            margin: 0 auto;
-        }
+    .process-flow {
+        display: grid;
+        justify-content: center;
+        grid-template-columns: repeat(4, 220px);
+        gap: 2rem 5rem;
+        margin: 2rem 0;
+    }
 
+    .process-step {
+        background: white;
+        border-radius: 12px;
+        padding: 1.5rem;
+        width: 220px;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        position: relative;
+    }
+
+    .process-step:not(:last-child)::after {
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        content: "\f061";
+        position: absolute;
+        top: 50%;
+        left: calc(100% + 2.5rem);
+        transform: translate(-50%, -50%);
+        font-size: 2rem;
+        color: #231842;
+    }
+
+    @media (max-width: 1200px) {
         .process-flow {
-            display: grid;
-            justify-content: center;
-            grid-template-columns: repeat(4, 220px);
-            gap: 2rem 5rem;
-            margin: 2rem 0;
+            grid-template-columns: repeat(2, 220px);
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            gap: 5rem 3rem;
         }
 
-        .process-step {
-            background: white;
-            border-radius: 12px;
-            padding: 1.5rem;
-            width: 220px;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            position: relative;
+        .process-step-collection {
+            grid-area: 1 / 1 / 2 / 2;
         }
 
-        .process-step:not(:last-child)::after {
+        .process-step-sorting {
+            grid-area: 1 / 2 / 2 / 3;
+        }
+
+        .process-step-distribution {
+            grid-area: 2 / 2 / 3 / 3;
+        }
+
+        .process-step-recycling {
+            grid-area: 2 / 1 / 3 / 2;
+        }
+
+        .process-step::after {
+            content: none !important;
+        }
+
+        .process-step-collection::before {
             font-family: "Font Awesome 6 Free";
             font-weight: 900;
             content: "\f061";
             position: absolute;
             top: 50%;
-            left: calc(100% + 2.5rem);
+            left: calc(100% + 1.5rem);
             transform: translate(-50%, -50%);
             font-size: 2rem;
             color: #231842;
         }
 
-        @media (max-width: 1200px) {
-            .process-flow {
-                grid-template-columns: repeat(2, 220px);
-                max-width: 500px;
-                margin-left: auto;
-                margin-right: auto;
-                gap: 5rem 3rem;
-            }
-
-            .process-step-collection {
-                grid-area: 1 / 1 / 2 / 2;
-            }
-
-            .process-step-sorting {
-                grid-area: 1 / 2 / 2 / 3;
-            }
-
-            .process-step-distribution {
-                grid-area: 2 / 2 / 3 / 3;
-            }
-
-            .process-step-recycling {
-                grid-area: 2 / 1 / 3 / 2;
-            }
-
-            .process-step::after {
-                content: none !important;
-            }
-
-            .process-step-collection::before {
-                font-family: "Font Awesome 6 Free";
-                font-weight: 900;
-                content: "\f061";
-                position: absolute;
-                top: 50%;
-                left: calc(100% + 1.5rem);
-                transform: translate(-50%, -50%);
-                font-size: 2rem;
-                color: #231842;
-            }
-
-            .process-step-sorting::before {
-                font-family: "Font Awesome 6 Free";
-                font-weight: 900;
-                content: "\f063";
-                position: absolute;
-                top: calc(100% + 2.5rem);
-                left: 50%;
-                transform: translateX(-50%);
-                font-size: 2rem;
-                color: #231842;
-            }
-
-            .process-step-distribution::before {
-                font-family: "Font Awesome 6 Free";
-                font-weight: 900;
-                content: "\f060";
-                position: absolute;
-                top: 50%;
-                right: calc(100% + 1.5rem);
-                transform: translate(50%, -50%);
-                font-size: 2rem;
-                color: #231842;
-            }
-        }
-
-        @media (max-width: 500px) {
-            .process-flow {
-                grid-template-columns: 1fr;
-                gap: 5rem 0;
-            }
-
-            .process-step-collection,
-            .process-step-sorting,
-            .process-step-distribution,
-            .process-step-recycling {
-                grid-area: auto;
-            }
-
-            .process-step::before {
-                content: none !important;
-            }
-
-            .process-step:not(:last-child)::after {
-                content: "\f063" !important;
-                font-family: "Font Awesome 6 Free";
-                font-weight: 900;
-                top: calc(100% + 2.5rem);
-                left: 50%;
-                transform: translateX(-50%);
-                font-size: 2rem;
-            }
-        }
-
-        .process-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--ecoGreen-color);
-        }
-
-        .partnership-box {
-            margin-top: 3rem;
-            background-color: var(--white-color);
-            padding: 2rem;
-            border-radius: 0.75rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            display: grid;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        @media (min-width: 768px) {
-            .partnership-box {
-                grid-template-columns: 1fr 2fr;
-            }
-        }
-
-        .partnership-box img {
-            max-width: 200px;
-            height: auto;
-            margin: 0 auto;
-        }
-
-        .partnership-box ul {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            margin: 1rem 0;
-        }
-
-        .partnership-box ul li {
-            display: flex;
-            align-items: flex-start;
-        }
-
-        .partnership-box ul li i {
-            margin-right: 0.5rem;
-            margin-top: 0.25rem;
-            color: var(--ecoGreen-color);
-        }
-
-        /* Impact Section */
-        #impact {
-            background-color: var(--accent-color);
-            color: var(--primary-color);
-        }
-
-        #impact .section-title p {
-            max-width: 42rem;
-            margin: 0 auto;
-        }
-
-        .impact-grid {
-            display: grid;
-            gap: 2rem;
-            grid-template-columns: 1fr;
-        }
-
-        @media (min-width: 768px) {
-            .impact-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        .impact-card {
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 2rem;
-            border-radius: 0.75rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .impact-card .number {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-
-        .impact-card .title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .impact-card .logos {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: auto;
-        }
-
-        .impact-card .logos img {
-            height: 2.5rem;
-            object-fit: contain;
-        }
-
-        .environmental-impact {
-            margin-top: 3rem;
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 2rem;
-            border-radius: 0.75rem;
-        }
-
-        .environmental-impact h3 {
-            text-align: center;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-        }
-
-        .env-grid {
-            display: grid;
-            gap: 2rem;
-        }
-
-        @media (min-width: 768px) {
-            .env-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        .env-item {
-            display: flex;
-            align-items: flex-start;
-        }
-
-        .env-item .icon-container {
-            background-color: rgba(46, 125, 50, 0.2);
-            padding: 0.75rem;
-            border-radius: 50%;
-            margin-right: 1rem;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .env-item .icon-container i {
-            font-size: 1.5rem;
-        }
-
-        .env-item h4 {
-            font-weight: 700;
-            font-size: 1.125rem;
-        }
-
-        /* Team Section */
-        #team {
-            background-color: var(--white-color);
-        }
-
-        .org-chart-container {
-            display: flex;
-            justify-content: center;
-            padding: 2rem 1rem;
-        }
-
-        .org-chart ul {
-            padding: 0;
-            margin: 0;
-            list-style-type: none;
-        }
-
-        #leaders-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 2.5rem;
-            perspective: 1500px;
-        }
-
-        .leader {
-            background-color: transparent;
-            width: 220px;
-            height: 280px;
-        }
-
-        .leader:not(.no-flip) {
-            cursor: pointer;
-        }
-
-        .leader.no-flip {
-            cursor: default;
-        }
-
-        .flip-card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-        }
-
-        .leader:not(.no-flip):hover .flip-card-inner {
-            transform: rotateY(180deg);
-        }
-
-        .flip-card-front,
-        .flip-card-back {
+        .process-step-sorting::before {
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            content: "\f063";
             position: absolute;
-            width: 100%;
-            height: 100%;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            border-radius: 0.75rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .flip-card-front {
-            background-color: #f8fafc;
-            border: 1px solid #e2e8f0;
-            justify-content: space-between;
-            padding: 1rem;
-            text-align: center;
-        }
-
-        .leader-image {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid white;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-            margin-bottom: 0.75rem;
-        }
-
-        .flip-card-front h3 {
-            font-size: 1rem;
-            font-weight: 700;
+            top: calc(100% + 2.5rem);
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
             color: #231842;
         }
 
-        .flip-card-front p {
+        .process-step-distribution::before {
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            content: "\f060";
+            position: absolute;
+            top: 50%;
+            right: calc(100% + 1.5rem);
+            transform: translate(50%, -50%);
+            font-size: 2rem;
             color: #231842;
-            font-size: 0.8rem;
-            margin-top: 0.1rem;
+        }
+    }
+
+    @media (max-width: 500px) {
+        .process-flow {
+            grid-template-columns: 1fr;
+            gap: 5rem 0;
         }
 
-        .flip-card-front .role {
-            color: #6b7280;
-            font-size: 0.7rem;
-            font-style: italic;
+        .process-step-collection,
+        .process-step-sorting,
+        .process-step-distribution,
+        .process-step-recycling {
+            grid-area: auto;
         }
 
-        .leader-quote {
-            font-style: italic;
-            font-size: 0.75rem;
-            color: #4b5563;
-            margin-top: 0.5rem;
-            padding: 0 0.5rem;
-            border-left: 2px solid var(--accent-color);
+        .process-step::before {
+            content: none !important;
         }
 
-        .flip-card-back {
-            background-color: var(--primary-color);
-            color: white;
-            transform: rotateY(180deg);
-            padding: 1.25rem 1rem;
-            overflow-y: auto;
+        .process-step:not(:last-child)::after {
+            content: "\f063" !important;
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            top: calc(100% + 2.5rem);
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
         }
+    }
 
-        .flip-card-back>h3 {
-            font-size: 1.1rem;
-            margin-bottom: 0.75rem;
-            color: var(--accent-color);
-            font-weight: 700;
+    .process-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: var(--ecoGreen-color);
+    }
+
+    .partnership-box {
+        margin-top: 3rem;
+        background-color: var(--white-color);
+        padding: 2rem;
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        display: grid;
+        gap: 2rem;
+        align-items: center;
+    }
+
+    @media (min-width: 768px) {
+        .partnership-box {
+            grid-template-columns: 1fr 2fr;
         }
+    }
 
-        .flip-card-back ul {
-            list-style: none;
-            padding: 0;
-            width: 100%;
-            text-align: center;
+    .partnership-box img {
+        max-width: 200px;
+        height: auto;
+        margin: 0 auto;
+    }
+
+    .partnership-box ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        margin: 1rem 0;
+    }
+
+    .partnership-box ul li {
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .partnership-box ul li i {
+        margin-right: 0.5rem;
+        margin-top: 0.25rem;
+        color: var(--ecoGreen-color);
+    }
+
+    /* Impact Section */
+    #impact {
+        background-color: var(--accent-color);
+        color: var(--primary-color);
+    }
+
+    #impact .section-title p {
+        max-width: 42rem;
+        margin: 0 auto;
+    }
+
+    .impact-grid {
+        display: grid;
+        gap: 2rem;
+        grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 768px) {
+        .impact-grid {
+            grid-template-columns: repeat(3, 1fr);
         }
+    }
 
-        .flip-card-back li {
-            padding: 0.35rem 0;
-            border-bottom: 1px solid #4a5568;
+    .impact-card {
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 2rem;
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .impact-card .number {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+
+    .impact-card .title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    .impact-card .logos {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: auto;
+    }
+
+    .impact-card .logos img {
+        height: 2.5rem;
+        object-fit: contain;
+    }
+
+    .environmental-impact {
+        margin-top: 3rem;
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 2rem;
+        border-radius: 0.75rem;
+    }
+
+    .environmental-impact h3 {
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+    }
+
+    .env-grid {
+        display: grid;
+        gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+        .env-grid {
+            grid-template-columns: 1fr 1fr;
         }
+    }
 
-        .flip-card-back li:last-child {
-            border-bottom: none;
-        }
+    .env-item {
+        display: flex;
+        align-items: flex-start;
+    }
 
-        .flip-card-back li h3 {
-            font-size: 0.9rem;
-            color: white;
-            margin-bottom: 0.2rem;
-            font-weight: 600;
-        }
+    .env-item .icon-container {
+        background-color: rgba(46, 125, 50, 0.2);
+        padding: 0.75rem;
+        border-radius: 50%;
+        margin-right: 1rem;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-        .flip-card-back .role {
-            font-size: 0.75rem;
-            color: var(--gray-400-color);
-            font-style: italic;
-        }
+    .env-item .icon-container i {
+        font-size: 1.5rem;
+    }
 
-        /* Footer */
-        footer {
-            background-color: var(--primary-color);
-            color: var(--white-color);
-            padding: 4rem 0 2rem 0;
-        }
+    .env-item h4 {
+        font-weight: 700;
+        font-size: 1.125rem;
+    }
 
-        .footer-grid {
-            display: grid;
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
+    /* Team Section */
+    #team {
+        background-color: var(--white-color);
+    }
 
-        @media (min-width: 768px) {
-            .footer-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
+    .org-chart-container {
+        display: flex;
+        justify-content: center;
+        padding: 2rem 1rem;
+    }
 
-        .footer-logo {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
+    .org-chart ul {
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+    }
 
-        .footer-logo img {
-            height: 2.5rem;
-            margin-right: 0.75rem;
-        }
+    #leaders-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2.5rem;
+        perspective: 1500px;
+    }
 
-        .footer-logo span {
-            font-weight: 700;
-            font-size: 1.25rem;
-        }
+    .leader {
+        background-color: transparent;
+        width: 220px;
+        height: 280px;
+    }
 
-        .footer-grid p {
-            color: var(--gray-400-color);
-        }
+    .leader:not(.no-flip) {
+        cursor: pointer;
+    }
 
-        .footer-grid h3 {
-            font-weight: 700;
-            font-size: 1.125rem;
-            margin-bottom: 1rem;
-        }
+    .leader.no-flip {
+        cursor: default;
+    }
 
-        .footer-grid ul {
-            list-style: none;
-        }
+    .flip-card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.6s;
+        transform-style: preserve-3d;
+    }
 
-        .footer-grid li {
-            margin-bottom: 0.5rem;
-        }
+    .leader:not(.no-flip):hover .flip-card-inner {
+        transform: rotateY(180deg);
+    }
 
-        .footer-grid a {
-            color: var(--white-color);
-            text-decoration: none;
-        }
+    .flip-card-front,
+    .flip-card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 
-        .footer-grid a:hover {
-            color: var(--accent-color);
-        }
+    .flip-card-front {
+        background-color: #f8fafc;
+        border: 1px solid #e2e8f0;
+        justify-content: space-between;
+        padding: 1rem;
+        text-align: center;
+    }
 
-        .footer-contact li {
-            display: flex;
-            align-items: flex-start;
-        }
+    .leader-image {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid white;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        margin-bottom: 0.75rem;
+    }
 
-        .footer-contact i {
-            margin-right: 0.75rem;
-            margin-top: 0.25rem;
-            color: var(--accent-color);
-        }
+    .flip-card-front h3 {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #231842;
+    }
 
-        .footer-bottom {
-            border-top: 1px solid #4a5568;
-            padding-top: 2rem;
-            text-align: center;
-            color: var(--gray-400-color);
-        }
+    .flip-card-front p {
+        color: #231842;
+        font-size: 0.8rem;
+        margin-top: 0.1rem;
+    }
 
-        /* Reduced Motion */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-                scroll-behavior: auto !important;
-            }
-        }
-    </style>
-</head>
+    .flip-card-front .role {
+        color: #6b7280;
+        font-size: 0.7rem;
+        font-style: italic;
+    }
 
-<body>
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="container navbar-container">
-            <a href="#home" class="navbar-logo">
-                <img src="./static/images/logo.webp" alt="Logo TrackEco" width="48" height="48">
-                <span data-translate-key="nav_brand">TrackEco</span>
-            </a>
-            <div class="navbar-desktop-links">
-                <a href="#home" data-translate-key="nav_home">Beranda</a>
-                <a href="#mission" data-translate-key="nav_mission">Misi</a>
-                <a href="#process" data-translate-key="nav_process">Proses Kami</a>
-                <a href="#impact" data-translate-key="nav_impact">Dampak</a>
-                <a href="#team" data-translate-key="nav_team">Tim</a>
-                <a href="#contact" data-translate-key="nav_contact">Kontak</a>
-                <div class="navbar-lang-switch">
-                    <button id="lang-en">EN</button>
-                    <span>|</span>
-                    <button id="lang-id">ID</button>
-                </div>
-            </div>
-            <button id="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-        <div id="mobile-menu" class="mobile-menu">
-            <a href="#home" data-translate-key="nav_home_mobile">Beranda</a>
-            <a href="#mission" data-translate-key="nav_mission_mobile">Misi</a>
-            <a href="#process" data-translate-key="nav_process_mobile">Proses Kami</a>
-            <a href="#impact" data-translate-key="nav_impact_mobile">Dampak</a>
-            <a href="#team" data-translate-key="nav_team_mobile">Tim</a>
-            <a href="#contact" data-translate-key="nav_contact_mobile">Kontak</a>
-            <div class="lang-switch-mobile">
-                <button id="lang-en-mobile">EN</button>
-                <span>|</span>
-                <button id="lang-id-mobile">ID</button>
-            </div>
-        </div>
-    </nav>
+    .leader-quote {
+        font-style: italic;
+        font-size: 0.75rem;
+        color: #4b5563;
+        margin-top: 0.5rem;
+        padding: 0 0.5rem;
+        border-left: 2px solid var(--accent-color);
+    }
 
-    <!-- Hero Section -->
-    <header id="home">
-        <div class="hero-background-container">
-            <img src="./static/images/Beach2.webp" alt="Relawan TrackEco membersihkan pantai di Surabaya"
-                class="active-slide" id="hero-bg-1" width="1920" height="1080" loading="eager">
-            <img src="./static/images/Beach1.webp" alt="Aksi bersih pantai oleh TrackEco di Surabaya" id="hero-bg-2"
-                width="1920" height="1080" loading="lazy" decoding="async">
-            <img src="./static/images/UBS1.webp" alt="Kunjungan TrackEco ke UBS Gold" id="hero-bg-3" width="1920"
-                height="1080" loading="lazy" decoding="async">
-            <img src="./static/images/Ubs2.webp" alt="Diskusi TrackEco di UBS Gold" id="hero-bg-4" width="1920"
-                height="1080" loading="lazy" decoding="async">
-            <img src="./static/images/FirstBackground.webp" alt="Pertemuan TrackEco dengan Panji" id="hero-bg-5"
-                width="1920" height="1080" loading="lazy" decoding="async">
-            <img src="./static/images/background2.webp" alt="Kolaborasi TrackEco dan Panji" id="hero-bg-6" width="1920"
-                height="1080" loading="lazy" decoding="async">
-            <img src="./static/images/background3.webp" alt="Sesi diskusi TrackEco" id="hero-bg-7" width="1920"
-                height="1080" loading="lazy" decoding="async">
-            <img src="./static/images/Background4.webp" alt="Kerjasama TrackEco dengan mitra" id="hero-bg-8"
-                width="1920" height="1080" loading="lazy" decoding="async">
-            <img src="./static/images/background5.webp" alt="Kegiatan kolaborasi TrackEco" id="hero-bg-9" width="1920"
-                height="1080" loading="lazy" decoding="async">
-            <img src="./static/images/background6.webp" alt="Presentasi oleh tim TrackEco" id="hero-bg-10" width="1920"
-                height="1080" loading="lazy" decoding="async">
-        </div>
-        <div class="hero-overlay"></div>
+    .flip-card-back {
+        background-color: var(--primary-color);
+        color: white;
+        transform: rotateY(180deg);
+        padding: 1.25rem 1rem;
+        overflow-y: auto;
+    }
+
+    .flip-card-back>h3 {
+        font-size: 1.1rem;
+        margin-bottom: 0.75rem;
+        color: var(--accent-color);
+        font-weight: 700;
+    }
+
+    .flip-card-back ul {
+        list-style: none;
+        padding: 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    .flip-card-back li {
+        padding: 0.35rem 0;
+        border-bottom: 1px solid #4a5568;
+    }
+
+    .flip-card-back li:last-child {
+        border-bottom: none;
+    }
+
+    .flip-card-back li h3 {
+        font-size: 0.9rem;
+        color: white;
+        margin-bottom: 0.2rem;
+        font-weight: 600;
+    }
+
+    .flip-card-back .role {
+        font-size: 0.75rem;
+        color: var(--gray-400-color);
+        font-style: italic;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section with Split Layout -->
+<header id="home">
+    <!-- Left Side: Hero Content -->
+    <div class="hero-left">
         <div class="hero-content">
             <h1 data-translate-key="hero_title">Memberdayakan Surabaya Melalui Daur Ulang</h1>
-            <h2>
-                <span data-translate-key="hero_subtitle_prefix">Bergabunglah dengan</span>
-                <span id="memberCounter" style="color: var(--accent-color); font-weight: 700;">74</span>
-                <span data-translate-key="hero_subtitle_suffix">anggota untuk mengubah sampah plastik menjadi manfaat
-                    bagi masyarakat.</span>
+            <h2 data-translate-key="hero_subtitle">
+                Bergabunglah dengan <span id="memberCounter" style="color: var(--accent-color); font-weight: 800;">74</span> anggota untuk mengubah sampah plastik menjadi manfaat bagi masyarakat.
             </h2>
+            
             <div class="hero-stats">
                 <div class="hero-stat">
-                    <div class="stat-number"><span id="bottleCounter">200,000</span>+</div>
-                    <div class="stat-label" data-translate-key="hero_bottles_collected">Botol Plastik Terkumpul</div>
+                    <span class="stat-number"><span id="bottleCounter">35,000</span>+</span>
+                    <span class="stat-label" data-translate-key="hero_bottles_collected">Botol Plastik Terkumpul</span>
                 </div>
                 <div class="hero-stat">
-                    <div class="stat-number"><span id="partnerCounter">30</span>+</div>
-                    <div class="stat-label" data-translate-key="hero_sme_partners">Mitra UKM Lokal</div>
+                    <span class="stat-number"><span id="partnerCounter">8</span>+</span>
+                    <span class="stat-label" data-translate-key="hero_sme_partners">Mitra UKM Lokal</span>
                 </div>
             </div>
+            
             <div class="hero-partners">
-                <span data-translate-key="hero_collaborating">Bekerja sama dengan:</span>
+                <span data-translate-key="hero_collaborating" style="font-size: 0.875rem; opacity: 0.8;">Bekerja sama dengan:</span>
                 <a href="https://www.launchpd.org" target="_blank" rel="noopener noreferrer"
-                    aria-label="Kunjungi Launchpad (terbuka di tab baru)">
-                    <img src="./static/images/launchpad.webp" alt="Logo Launchpad" width="40" height="40" loading="lazy"
-                        decoding="async">
+                    aria-label="Kunjungi Launchpad">
+                    <img src="/static/images/launchpad.webp" alt="Logo Launchpad" width="30" height="30" loading="lazy">
                 </a>
                 <a href="#" aria-label="Kunjungi Bank Sampah Induk Surabaya">
-                    <img src="./static/images/BankSampah.webp" alt="Logo Bank Sampah Induk Surabaya" width="150"
-                        height="40" loading="lazy" decoding="async">
+                    <img src="/static/images/BankSampah.webp" alt="Logo Bank Sampah Induk Surabaya" width="120"
+                        height="30" loading="lazy">
                 </a>
-                <span>and more...</span>
             </div>
+            
             <div class="hero-buttons">
-                <a href="#mission" class="button button-outline" data-translate-key="hero_learn_more">Pelajari Lebih
-                    Lanjut</a>
-                <a href="#contact" class="button button-accent" data-translate-key="hero_get_involved">Bergabung</a>
-            </div>
-            <div class="hero-dots">
-                <button class="dot active" data-index="0" aria-label="Tampilkan slide 1"></button>
-                <button class="dot" data-index="1" aria-label="Tampilkan slide 2"></button>
-                <button class="dot" data-index="2" aria-label="Tampilkan slide 3"></button>
-                <button class="dot" data-index="3" aria-label="Tampilkan slide 4"></button>
-                <button class="dot" data-index="4" aria-label="Tampilkan slide 5"></button>
-                <button class="dot" data-index="5" aria-label="Tampilkan slide 6"></button>
-                <button class="dot" data-index="6" aria-label="Tampilkan slide 7"></button>
-                <button class="dot" data-index="7" aria-label="Tampilkan slide 8"></button>
-                <button class="dot" data-index="8" aria-label="Tampilkan slide 9"></button>
-                <button class="dot" data-index="9" aria-label="Tampilkan slide 10"></button>
+                <a href="#mission" class="button button-outline" data-translate-key="hero_learn_more">Pelajari Lebih Lanjut</a>
+                <a href="/calculator" class="button button-accent" data-translate-key="hero_calculator">Kalkulator Dampak</a>
             </div>
         </div>
-        <div class="scroll-down-arrow">
-            <a href="#mission" aria-label="Gulir ke bagian berikutnya">
-                <i class="fas fa-chevron-down"></i>
+    </div>
+
+    <!-- Right Side: Latest News Preview with Carousel -->
+    <div class="hero-right">
+        <div class="hero-background-container">
+            <img src="/static/images/Beach2.webp" alt="Coastal Cleanup 2024"
+                class="active-slide" id="hero-bg-1" width="1920" height="1080" loading="eager">
+            <img src="/static/images/Beach1.webp" alt="Beach Cleanup Initiative" id="hero-bg-2"
+                width="1920" height="1080" loading="eager">
+            <img src="/static/images/UBS1.webp" alt="Bank Sampah Partnership" id="hero-bg-3" width="1920"
+                height="1080" loading="eager">
+            <img src="/static/images/Background4.webp" alt="Community Workshop" id="hero-bg-4"
+                width="1920" height="1080" loading="eager">
+            <img src="/static/images/background5.webp" alt="Recycling Program" id="hero-bg-5"
+                width="1920" height="1080" loading="eager">
+        </div>
+        <div class="hero-overlay"></div>
+        
+        <div class="news-preview-container">
+            <span class="news-badge" data-translate-key="news_badge">Latest News</span>
+            <h2 class="news-preview-title" data-translate-key="news_preview_title">
+                Coastal Cleanup Initiative 2024
+            </h2>
+            <p class="news-preview-desc" data-translate-key="news_preview_desc">
+                Over 100 volunteers joined us in cleaning Surabaya's beaches, collecting 500kg of plastic waste in a single day.
+            </p>
+            <a href="/news" class="news-preview-link magnetic">
+                <span data-translate-key="news_read_more">Read All News</span>
+                <i class="fas fa-arrow-right"></i>
             </a>
-        </div>
-    </header>
-
-    <main>
-        <!-- Mission Section -->
-        <section id="mission">
-            <div class="container">
-                <div class="section-title">
-                    <h2 data-translate-key="mission_title">Misi Kami untuk Mengubah Surabaya</h2>
-                    <div class="divider"></div>
-                </div>
-                <div class="mission-grid">
-                    <div>
-                        <h3 data-translate-key="mission_crisis_title">Krisis Plastik di Indonesia</h3>
-                        <p data-translate-key="mission_crisis_p1">Tahukah Anda bahwa Indonesia adalah salah satu
-                            penyumbang sampah plastik laut terbesar di dunia, menghasilkan lebih dari <strong
-                                style="color: var(--secondary-color);">3,2 juta ton</strong> setiap tahunnya?</p>
-                        <p data-translate-key="mission_crisis_p2">Di Surabaya sendiri, sampah plastik mencapai <strong
-                                style="color: var(--secondary-color);">15-20%</strong> dari total sampah, namun kurang
-                            dari <strong style="color: var(--secondary-color);">10%</strong> yang didaur ulang. Ke mana
-                            sisanya?</p>
-                        <ul>
-                            <li><i class="fas fa-check-circle"></i><span
-                                    data-translate-key="mission_crisis_l1">Menyumbat sungai dan pantai kita</span></li>
-                            <li><i class="fas fa-check-circle"></i><span
-                                    data-translate-key="mission_crisis_l2">Membahayakan biota laut</span></li>
-                            <li><i class="fas fa-check-circle"></i><span
-                                    data-translate-key="mission_crisis_l3">Menciptakan bahaya kesehatan bagi
-                                    masyarakat</span></li>
-                        </ul>
-                        <p data-translate-key="mission_crisis_p3">Kami percaya krisis ini juga merupakan peluang — untuk
-                            membangun ekonomi sirkular yang bermanfaat bagi semua.</p>
-                    </div>
-                    <div class="mission-process-box">
-                        <h3 style="text-align: center;" data-translate-key="mission_process_title">Proses Dua Langkah
-                            Kami</h3>
-                        <div class="process-item">
-                            <div class="icon-container"><i class="fas fa-minus-circle"></i></div>
-                            <div>
-                                <h4 data-translate-key="mission_process_reduce">Mengurangi</h4>
-                                <p data-translate-key="mission_process_reduce_desc">Mendidik masyarakat tentang
-                                    pencegahan sampah dan alternatif berkelanjutan untuk plastik sekali pakai.</p>
-                            </div>
-                        </div>
-                        <div class="process-item">
-                            <div class="icon-container"><i class="fas fa-recycle"></i></div>
-                            <div>
-                                <h4 data-translate-key="mission_process_recycle">Mendaur Ulang</h4>
-                                <p data-translate-key="mission_process_recycle_desc">Menciptakan titik pengumpulan yang
-                                    mudah diakses dan bermitra dengan fasilitas daur ulang untuk memproses bahan dengan
-                                    benar.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Process Section -->
-        <section id="process">
-            <div class="container">
-                <div class="section-title">
-                    <h2 data-translate-key="process_title">Proses Berkelanjutan Kami</h2>
-                    <p class="process-subtitle" data-translate-key="process_subtitle">Bermitra dengan <strong>Bank
-                            Sampah Induk Surabaya</strong>, kami telah mengembangkan pendekatan inovatif untuk
-                        pengelolaan sampah plastik yang bermanfaat bagi industri mikro kerajinan lokal dan lingkungan.
-                    </p>
-                </div>
-                <div class="process-flow">
-                    <div class="process-step process-step-collection">
-                        <div class="process-icon"><i class="fas fa-hand-holding-medical"></i></div>
-                        <h3 data-translate-key="process_step1_title">Pengumpulan</h3>
-                        <p data-translate-key="process_step1_desc">Sampah plastik dikumpulkan dari masyarakat di seluruh
-                            Surabaya</p>
-                    </div>
-                    <div class="process-step process-step-sorting">
-                        <div class="process-icon"><i class="fas fa-sort"></i></div>
-                        <h3 data-translate-key="process_step2_title">Pemilahan</h3>
-                        <p data-translate-key="process_step2_desc">Pemilahan oleh ahli dari <strong>Bank Sampah Induk
-                                Surabaya</strong> mengidentifikasi bahan berkualitas</p>
-                    </div>
-                    <div class="process-step process-step-distribution">
-                        <div class="process-icon"><i class="fas fa-hands-helping"></i></div>
-                        <h3 data-translate-key="process_step3_title">Distribusi</h3>
-                        <p data-translate-key="process_step3_desc">Plastik berkualitas tinggi disalurkan ke industri
-                            mikro kerajinan</p>
-                    </div>
-                    <div class="process-step process-step-recycling">
-                        <div class="process-icon"><i class="fas fa-recycle"></i></div>
-                        <h3 data-translate-key="process_step4_title">Daur Ulang</h3>
-                        <p data-translate-key="process_step4_desc">Bahan berkualitas lebih rendah dikirim ke fasilitas
-                            daur ulang</p>
-                    </div>
-                </div>
-                <div class="partnership-box">
-                    <div>
-                        <img src="./static/images/BankSampah.webp"
-                            alt="Bank Sampah Induk Surabaya - Mitra pemilahan kami" width="200" height="200"
-                            loading="lazy" decoding="async">
-                    </div>
-                    <div>
-                        <h3 data-translate-key="process_partner_title">Kemitraan dengan Bank Sampah Induk Surabaya</h3>
-                        <p data-translate-key="process_partner_p1">Kami bangga berkolaborasi dengan <strong>Bank Sampah
-                                Induk Surabaya</strong>, yang menyediakan pemilahan ahli untuk semua bahan plastik yang
-                            terkumpul. Keahlian mereka memastikan bahwa:</p>
-                        <ul>
-                            <li><i class="fas fa-check-circle"></i><span data-translate-key="process_partner_l1">Plastik
-                                    berkualitas tinggi diidentifikasi dan disalurkan ke industri mikro kerajinan
-                                    lokal</span></li>
-                            <li><i class="fas fa-check-circle"></i><span data-translate-key="process_partner_l2">Bahan
-                                    berkualitas lebih rendah diproses dengan benar melalui fasilitas daur ulang</span>
-                            </li>
-                            <li><i class="fas fa-check-circle"></i><span
-                                    data-translate-key="process_partner_l3">Pemulung menerima kompensasi yang adil atas
-                                    pekerjaan penting mereka</span></li>
-                        </ul>
-                        <p data-translate-key="process_partner_p2">Kemitraan ini menciptakan ekonomi sirkular yang
-                            berkelanjutan yang bermanfaat bagi pengrajin lokal, mengurangi sampah, dan menciptakan
-                            peluang ekonomi di seluruh Surabaya.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Impact Section -->
-        <section id="impact">
-            <div class="container">
-                <div class="section-title">
-                    <h2 data-translate-key="impact_title" style="color: var(--primary-color);">Dampak Kami dalam Angka
-                    </h2>
-                    <p data-translate-key="impact_subtitle">Sejak didirikan pada tahun 2024, TrackEco telah membuat
-                        kemajuan yang terukur dalam ekosistem pengelolaan sampah di Surabaya.</p>
-                </div>
-                <div class="impact-grid">
-                    <div class="impact-card">
-                        <div class="number">8</div>
-                        <div class="title" data-translate-key="impact_card1_title">Mitra UKM Lokal</div>
-                        <div class="logos">
-                            <img src="./static/images/AquaLogo.webp" alt="Logo Aqua" width="80" height="40"
-                                loading="lazy" decoding="async">
-                            <img src="./static/images/Panji.webp" alt="Logo Panji" width="80" height="40" loading="lazy"
-                                decoding="async">
-                            <img src="./static/images/BankSampah.webp" alt="Logo Bank Sampah Induk Surabaya" width="40"
-                                height="40" loading="lazy" decoding="async">
-                        </div>
-                    </div>
-                    <div class="impact-card">
-                        <div class="number"><span id="impactBottleCounter">3000</span>+ kg</div>
-                        <div class="title" data-translate-key="impact_card2_title">Plastik Terkumpul</div>
-                        <p data-translate-key="impact_card2_desc">Dari wilayah perkotaan</p>
-                    </div>
-                    <div class="impact-card">
-                        <div class="number">74</div>
-                        <div class="title" data-translate-key="impact_card3_title">Anggota Aktif</div>
-                        <p data-translate-key="impact_card3_desc">Memimpin upaya daur ulang komunitas</p>
-                    </div>
-                </div>
-                <div class="environmental-impact">
-                    <h3 data-translate-key="impact_env_title">Dampak Lingkungan</h3>
-                    <div class="env-grid">
-                        <div class="env-item">
-                            <div class="icon-container"><i class="fas fa-tree" style="color:var(--ecoGreen-color);"></i>
-                            </div>
-                            <div>
-                                <h4 data-translate-key="impact_env1_title">Pengurangan Emisi Karbon</h4>
-                                <p data-translate-key="impact_env1_desc">Upaya daur ulang kami telah mencegah sekitar
-                                    <strong>42 ton</strong> emisi CO2.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="env-item">
-                            <div class="icon-container"><i class="fas fa-water" style="color:var(--ecoBlue-color);"></i>
-                            </div>
-                            <div>
-                                <h4 data-translate-key="impact_env2_title">Perlindungan Laut</h4>
-                                <p data-translate-key="impact_env2_desc">Kami telah mencegah <strong>2.000 kg</strong>
-                                    plastik masuk ke laut dan saluran air.</p>
-                            </div>
-                        </div>
-                        <div class="env-item">
-                            <div class="icon-container"><i class="fas fa-industry"
-                                    style="color:var(--secondary-color);"></i></div>
-                            <div>
-                                <h4 data-translate-key="impact_env3_title">Dukungan Industri Kerajinan</h4>
-                                <p data-translate-key="impact_env3_desc"><strong>85%</strong> plastik berkualitas tinggi
-                                    mendukung industri mikro kerajinan lokal.</p>
-                            </div>
-                        </div>
-                        <div class="env-item">
-                            <div class="icon-container"><i class="fas fa-users" style="color:var(--accent-color);"></i>
-                            </div>
-                            <div>
-                                <h4 data-translate-key="impact_env4_title">Keterlibatan Masyarakat</h4>
-                                <p data-translate-key="impact_env4_desc">Kami telah mengedukasi <strong>500+</strong>
-                                    orang tentang pengelolaan sampah yang benar.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Team Section -->
-        <section id="team">
-            <div class="container">
-                <div class="section-title">
-                    <h2 data-translate-key="team_title">Temui Tim Kami</h2>
-                    <p data-translate-key="team_subtitle" style="max-width: 42rem; margin: 0 auto;">Arahkan kursor ke
-                        seorang pemimpin untuk melihat tim mereka.</p>
-                </div>
-                <div class="org-chart-container">
-                    <div class="org-chart">
-                        <ul id="leaders-container">
-                            <!-- Team cards are dynamically generated by JavaScript -->
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer id="contact">
-        <div class="container">
-            <div class="footer-grid">
-                <div>
-                    <div class="footer-logo">
-                        <img src="./static/images/logo.webp" alt="TrackEco Logo" width="40" height="40">
-                        <span>TrackEco</span>
-                    </div>
-                    <p data-translate-key="footer_desc">Memberdayakan Surabaya untuk mengurangi sampah dan berkembang
-                        melalui program daur ulang komunitas.</p>
-                    <p data-translate-key="footer_partner">Bekerja sama dengan Bank Sampah Induk Surabaya</p>
-                </div>
-                <div>
-                    <h3 data-translate-key="footer_links_title">Tautan Cepat</h3>
-                    <ul>
-                        <li><a href="#home" data-translate-key="footer_link_home">Beranda</a></li>
-                        <li><a href="#mission" data-translate-key="footer_link_mission">Misi Kami</a></li>
-                        <li><a href="#process" data-translate-key="footer_link_process">Proses Kami</a></li>
-                        <li><a href="#impact" data-translate-key="footer_link_impact">Dampak</a></li>
-                        <li><a href="#team" data-translate-key="footer_link_team">Tim Kami</a></li>
-                    </ul>
-                </div>
-                <div class="footer-contact">
-                    <h3 data-translate-key="footer_contact_title">Hubungi Kami</h3>
-                    <ul>
-                        <li><i class="fas fa-envelope"></i><a href="mailto:hello@trackeco.org">hello@trackeco.org</a>
-                        </li>
-                        <li><i class="fab fa-instagram"></i><a href="https://www.instagram.com/trackeco_org"
-                                target="_blank" rel="noopener noreferrer">@trackeco_org</a></li>
-                        <li><i class="fas fa-map-marker-alt"></i><span>Surabaya, Indonesia</span></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>© 2024 TrackEco. <span data-translate-key="footer_rights">Hak cipta dilindungi undang-undang.</span>
-                </p>
+            
+            <div class="hero-dots">
+                <button class="dot active" data-index="0" aria-label="Slide 1"></button>
+                <button class="dot" data-index="1" aria-label="Slide 2"></button>
+                <button class="dot" data-index="2" aria-label="Slide 3"></button>
+                <button class="dot" data-index="3" aria-label="Slide 4"></button>
+                <button class="dot" data-index="4" aria-label="Slide 5"></button>
             </div>
         </div>
-    </footer>
+    </div>
+</header>
 
-    <script defer>
-        document.addEventListener('DOMContentLoaded', function () {
+<!-- Mission Section -->
+<section id="mission">
+    <div class="container">
+        <div class="section-title">
+            <h2 data-translate-key="mission_title">Misi Kami untuk Mengubah Surabaya</h2>
+            <div class="divider"></div>
+        </div>
+        <div class="mission-grid">
+            <div>
+                <h3 data-translate-key="mission_crisis_title">Krisis Plastik di Indonesia</h3>
+                <p data-translate-key="mission_crisis_p1">Tahukah Anda bahwa Indonesia adalah salah satu
+                    penyumbang sampah plastik laut terbesar di dunia, menghasilkan lebih dari <strong
+                        style="color: var(--secondary-color);">3,2 juta ton</strong> setiap tahunnya?</p>
+                <p data-translate-key="mission_crisis_p2">Di Surabaya sendiri, sampah plastik mencapai <strong
+                        style="color: var(--secondary-color);">15-20%</strong> dari total sampah, namun kurang
+                    dari <strong style="color: var(--secondary-color);">10%</strong> yang didaur ulang. Ke mana
+                    sisanya?</p>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i><span
+                            data-translate-key="mission_crisis_l1">Menyumbat sungai dan pantai kita</span></li>
+                    <li><i class="fas fa-check-circle"></i><span
+                            data-translate-key="mission_crisis_l2">Membahayakan biota laut</span></li>
+                    <li><i class="fas fa-check-circle"></i><span
+                            data-translate-key="mission_crisis_l3">Menciptakan bahaya kesehatan bagi
+                            masyarakat</span></li>
+                </ul>
+                <p data-translate-key="mission_crisis_p3">Kami percaya krisis ini juga merupakan peluang — untuk
+                    membangun ekonomi sirkular yang bermanfaat bagi semua.</p>
+            </div>
+            <div class="mission-process-box">
+                <h3 style="text-align: center;" data-translate-key="mission_process_title">Proses Dua Langkah
+                    Kami</h3>
+                <div class="process-item">
+                    <div class="icon-container"><i class="fas fa-minus-circle"></i></div>
+                    <div>
+                        <h4 data-translate-key="mission_process_reduce">Mengurangi</h4>
+                        <p data-translate-key="mission_process_reduce_desc">Mendidik masyarakat tentang
+                            pencegahan sampah dan alternatif berkelanjutan untuk plastik sekali pakai.</p>
+                    </div>
+                </div>
+                <div class="process-item">
+                    <div class="icon-container"><i class="fas fa-recycle"></i></div>
+                    <div>
+                        <h4 data-translate-key="mission_process_recycle">Mendaur Ulang</h4>
+                        <p data-translate-key="mission_process_recycle_desc">Menciptakan titik pengumpulan yang
+                            mudah diakses dan bermitra dengan fasilitas daur ulang untuk memproses bahan dengan
+                            benar.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-            const translations = {
-                en: {
-                    // Meta Tags
-                    meta_title: "TrackEco: Plastic Recycling & Waste Management in Surabaya",
-                    meta_description: "TrackEco transforms plastic waste in Surabaya into crafts through collaboration with Bank Sampah Induk Surabaya. Join us to reduce plastic waste.",
-                    og_title: "TrackEco: Plastic Recycling & Waste Management in Surabaya",
-                    og_description: "TrackEco empowers the Surabaya community to recycle plastic waste into valuable products, in partnership with Bank Sampah Induk Surabaya.",
-                    twitter_title: "TrackEco: Plastic Recycling & Waste Management in Surabaya",
-                    twitter_description: "TrackEco empowers the Surabaya community to recycle plastic waste into valuable products.",
-                    // Navigation
-                    nav_brand: "TrackEco", nav_home: "Home", nav_mission: "Mission", nav_process: "Our Process", nav_impact: "Impact", nav_team: "Team", nav_contact: "Contact",
-                    nav_home_mobile: "Home", nav_mission_mobile: "Mission", nav_process_mobile: "Our Process", nav_impact_mobile: "Impact", nav_team_mobile: "Team", nav_contact_mobile: "Contact",
-                    // Hero
-                    hero_title: "Empowering Surabaya Through Recycling",
-                    hero_subtitle_prefix: "Join ",
-                    hero_subtitle_suffix: " members turning plastic waste into community benefit.",
-                    hero_bottles_collected: "Plastic Bottles Collected",
-                    hero_sme_partners: "Local SME Partners",
-                    hero_collaborating: "Collaborating with:",
-                    hero_learn_more: "Learn More",
-                    hero_get_involved: "Get Involved",
-                    // Mission
-                    mission_title: "Our Mission to Transform Surabaya",
-                    mission_crisis_title: "Indonesia's Plastic Crisis",
-                    mission_crisis_p1: "Did you know Indonesia is one of the world's largest contributors to ocean plastic waste, generating over <strong style='color: var(--secondary-color);'>3.2 million tons</strong> annually?",
-                    mission_crisis_p2: "In Surabaya alone, plastic waste accounts for <strong style='color: var(--secondary-color);'>15-20%</strong> of total waste, yet less than <strong style='color: var(--secondary-color);'>10%</strong> gets recycled. Where does the rest go?",
-                    mission_crisis_l1: "Clogging our rivers and beaches",
-                    mission_crisis_l2: "Endangering marine life",
-                    mission_crisis_l3: "Creating health hazards for communities",
-                    mission_crisis_p3: "We believe this crisis is also an opportunity — to build a circular economy that benefits everyone.",
-                    mission_process_title: "Our Two-Step Process",
-                    mission_process_reduce: "Reduce",
-                    mission_process_reduce_desc: "Educate communities on waste prevention and sustainable alternatives to single-use plastics.",
-                    mission_process_recycle: "Recycle",
-                    mission_process_recycle_desc: "Create accessible collection points and partner with recycling facilities to process materials properly.",
-                    // Process
-                    process_title: "Our Sustainable Process",
-                    process_subtitle: "In partnership with <strong>Bank Sampah Induk Surabaya</strong>, we've developed an innovative approach to plastic waste management that benefits local craft microindustries and the environment.",
-                    process_step1_title: "Collection", process_step1_desc: "Plastic waste is collected from communities across Surabaya",
-                    process_step2_title: "Sorting", process_step2_desc: "Expert sorting by <strong>Bank Sampah Induk Surabaya</strong> identifies quality materials",
-                    process_step3_title: "Distribution", process_step3_desc: "High-quality plastics are channeled to craft microindustries",
-                    process_step4_title: "Recycling", process_step4_desc: "Lower quality materials are sent to recycling facilities",
-                    process_partner_title: "Partnership with Bank Sampah Induk Surabaya",
-                    process_partner_p1: "We're proud to collaborate with <strong>Bank Sampah Induk Surabaya</strong>, who provides expert sorting of all collected plastic materials. Their expertise ensures that:",
-                    process_partner_l1: "High-quality plastics are identified and channeled to local craft microindustries",
-                    process_partner_l2: "Lower quality materials are properly processed through recycling facilities",
-                    process_partner_l3: "Waste pickers receive fair compensation for their important work",
-                    process_partner_p2: "This partnership creates a sustainable circular economy that benefits local artisans, reduces waste, and creates economic opportunities throughout Surabaya.",
-                    // Impact
-                    impact_title: "Our Impact in Numbers",
-                    impact_subtitle: "Since our founding in 2024, TrackEco has made measurable progress in Surabaya's waste management ecosystem.",
-                    impact_card1_title: "Local SME Partners",
-                    impact_card2_title: "Plastic Collected", impact_card2_desc: "From urban areas",
-                    impact_card3_title: "Active Members", impact_card3_desc: "Leading community recycling efforts",
-                    impact_env_title: "Environmental Impact",
-                    impact_env1_title: "Carbon Emission Reduction", impact_env1_desc: "Our recycling efforts have prevented an estimated <strong>42 tons</strong> of CO2 emissions.",
-                    impact_env2_title: "Ocean Protection", impact_env2_desc: "We've prevented <strong>2,000 kg</strong> of plastic from entering oceans and waterways.",
-                    impact_env3_title: "Craft Industry Support", impact_env3_desc: "<strong>85%</strong> of high-quality plastic supports local craft microindustries.",
-                    impact_env4_title: "Community Engagement", impact_env4_desc: "We've educated <strong>500+</strong> people on proper waste management.",
-                    // Team
-                    team_title: "Meet Our Team",
-                    team_subtitle: "Hover over a leader to see their team.",
-                    team_stanley_quote: 'Progress begins with what we throw away—or choose not to.',
-                    team_max_quote: 'Every piece of plastic is a small step for systemic change in the world.',
-                    team_javier_quote: 'Recycling isn\'t a cost—it\'s an investment in tomorrow\'s possibilities.',
-                    team_julian_quote: 'Where guidance meets action — building pathways toward a sustainable world.',
-                    team_stanley_title: "Business & Logistics Leaders",
-                    team_max_title: "Eng. & Tech Leaders",
-                    team_javier_title: "Financing & Partnership Leaders",
-                    // Footer
-                    footer_desc: "Empowering Surabaya to reduce waste and thrive through community recycling programs.",
-                    footer_partner: "In partnership with Bank Sampah Induk Surabaya",
-                    footer_links_title: "Quick Links",
-                    footer_link_home: "Home", footer_link_mission: "Our Mission", footer_link_process: "Our Process", footer_link_impact: "Impact", footer_link_team: "Our Team",
-                    footer_contact_title: "Contact Us",
-                    footer_rights: "All rights reserved."
-                },
-                id: {
-                    // Meta Tags
-                    meta_title: "TrackEco: Daur Ulang & Pengelolaan Sampah Plastik di Surabaya",
-                    meta_description: "TrackEco mengubah sampah plastik di Surabaya menjadi kerajinan tangan melalui kerjasama dengan Bank Sampah Induk Surabaya. Bergabunglah dengan kami untuk mengurangi sampah plastik.",
-                    og_title: "TrackEco: Daur Ulang & Pengelolaan Sampah Plastik di Surabaya",
-                    og_description: "TrackEco memberdayakan masyarakat Surabaya untuk mendaur ulang sampah plastik menjadi produk bernilai, bekerja sama dengan Bank Sampah Induk Surabaya.",
-                    twitter_title: "TrackEco: Daur Ulang & Pengelolaan Sampah Plastik di Surabaya",
-                    twitter_description: "TrackEco memberdayakan masyarakat Surabaya untuk mendaur ulang sampah plastik menjadi produk bernilai.",
-                    // Navigation
-                    nav_brand: "TrackEco", nav_home: "Beranda", nav_mission: "Misi", nav_process: "Proses Kami", nav_impact: "Dampak", nav_team: "Tim", nav_contact: "Kontak",
-                    nav_home_mobile: "Beranda", nav_mission_mobile: "Misi", nav_process_mobile: "Proses Kami", nav_impact_mobile: "Dampak", nav_team_mobile: "Tim", nav_contact_mobile: "Kontak",
-                    // Hero
-                    hero_title: "Memberdayakan Surabaya Melalui Daur Ulang",
-                    hero_subtitle_prefix: "Bergabunglah dengan ",
-                    hero_subtitle_suffix: " anggota untuk mengubah sampah plastik menjadi manfaat bagi masyarakat.",
-                    hero_bottles_collected: "Botol Plastik Terkumpul",
-                    hero_sme_partners: "Mitra UKM Lokal",
-                    hero_collaborating: "Bekerja sama dengan:",
-                    hero_learn_more: "Pelajari Lebih Lanjut",
-                    hero_get_involved: "Bergabung",
-                    // Mission
-                    mission_title: "Misi Kami untuk Mengubah Surabaya",
-                    mission_crisis_title: "Krisis Plastik di Indonesia",
-                    mission_crisis_p1: "Tahukah Anda bahwa Indonesia adalah salah satu penyumbang sampah plastik laut terbesar di dunia, menghasilkan lebih dari <strong style='color: var(--secondary-color);'>3,2 juta ton</strong> setiap tahunnya?",
-                    mission_crisis_p2: "Di Surabaya sendiri, sampah plastik mencapai <strong style='color: var(--secondary-color);'>15-20%</strong> dari total sampah, namun kurang dari <strong style='color: var(--secondary-color);'>10%</strong> yang didaur ulang. Ke mana sisanya?",
-                    mission_crisis_l1: "Menyumbat sungai dan pantai kita",
-                    mission_crisis_l2: "Membahayakan biota laut",
-                    mission_crisis_l3: "Menciptakan bahaya kesehatan bagi masyarakat",
-                    mission_crisis_p3: "Kami percaya krisis ini juga merupakan peluang — untuk membangun ekonomi sirkular yang bermanfaat bagi semua.",
-                    mission_process_title: "Proses Dua Langkah Kami",
-                    mission_process_reduce: "Mengurangi",
-                    mission_process_reduce_desc: "Mendidik masyarakat tentang pencegahan sampah dan alternatif berkelanjutan untuk plastik sekali pakai.",
-                    mission_process_recycle: "Mendaur Ulang",
-                    mission_process_recycle_desc: "Menciptakan titik pengumpulan yang mudah diakses dan bermitra dengan fasilitas daur ulang untuk memproses bahan dengan benar.",
-                    // Process
-                    process_title: "Proses Berkelanjutan Kami",
-                    process_subtitle: "Bermitra dengan <strong>Bank Sampah Induk Surabaya</strong>, kami telah mengembangkan pendekatan inovatif untuk pengelolaan sampah plastik yang bermanfaat bagi industri mikro kerajinan lokal dan lingkungan.",
-                    process_step1_title: "Pengumpulan", process_step1_desc: "Sampah plastik dikumpulkan dari masyarakat di seluruh Surabaya",
-                    process_step2_title: "Pemilahan", process_step2_desc: "Pemilahan oleh ahli dari <strong>Bank Sampah Induk Surabaya</strong> mengidentifikasi bahan berkualitas",
-                    process_step3_title: "Distribusi", process_step3_desc: "Plastik berkualitas tinggi disalurkan ke industri mikro kerajinan",
-                    process_step4_title: "Daur Ulang", process_step4_desc: "Bahan berkualitas lebih rendah dikirim ke fasilitas daur ulang",
-                    process_partner_title: "Kemitraan dengan Bank Sampah Induk Surabaya",
-                    process_partner_p1: "Kami bangga berkolaborasi dengan <strong>Bank Sampah Induk Surabaya</strong>, yang menyediakan pemilahan ahli untuk semua bahan plastik yang terkumpul. Keahlian mereka memastikan bahwa:",
-                    process_partner_l1: "Plastik berkualitas tinggi diidentifikasi dan disalurkan ke industri mikro kerajinan lokal",
-                    process_partner_l2: "Bahan berkualitas lebih rendah diproses dengan benar melalui fasilitas daur ulang",
-                    process_partner_l3: "Pemulung menerima kompensasi yang adil atas pekerjaan penting mereka",
-                    process_partner_p2: "Kemitraan ini menciptakan ekonomi sirkular yang berkelanjutan yang bermanfaat bagi pengrajin lokal, mengurangi sampah, dan menciptakan peluang ekonomi di seluruh Surabaya.",
-                    // Impact
-                    impact_title: "Dampak Kami dalam Angka",
-                    impact_subtitle: "Sejak didirikan pada tahun 2024, TrackEco telah membuat kemajuan yang terukur dalam ekosistem pengelolaan sampah di Surabaya.",
-                    impact_card1_title: "Mitra UKM Lokal",
-                    impact_card2_title: "Plastik Terkumpul", impact_card2_desc: "Dari wilayah perkotaan",
-                    impact_card3_title: "Anggota Aktif", impact_card3_desc: "Memimpin upaya daur ulang komunitas",
-                    impact_env_title: "Dampak Lingkungan",
-                    impact_env1_title: "Pengurangan Emisi Karbon", impact_env1_desc: "Upaya daur ulang kami telah mencegah sekitar <strong>42 ton</strong> emisi CO2.",
-                    impact_env2_title: "Perlindungan Laut", impact_env2_desc: "Kami telah mencegah <strong>2.000 kg</strong> plastik masuk ke laut dan saluran air.",
-                    impact_env3_title: "Dukungan Industri Kerajinan", impact_env3_desc: "<strong>85%</strong> plastik berkualitas tinggi mendukung industri mikro kerajinan lokal.",
-                    impact_env4_title: "Keterlibatan Masyarakat", impact_env4_desc: "Kami telah mengedukasi <strong>500+</strong> orang tentang pengelolaan sampah yang benar.",
-                    // Team
-                    team_title: "Temui Tim Kami",
-                    team_subtitle: "Arahkan kursor ke seorang pemimpin untuk melihat tim mereka.",
-                    team_stanley_quote: 'Kemajuan dimulai dari apa yang kita buang—atau pilih untuk tidak dibuang.',
-                    team_max_quote: 'Setiap potongan plastik adalah langkah kecil untuk perubahan sistemik di dunia.',
-                    team_javier_quote: 'Daur ulang bukanlah biaya—ini adalah investasi untuk kemungkinan di hari esok.',
-                    team_julian_quote: 'Di mana bimbingan bertemu aksi — membangun jalan menuju dunia yang berkelanjutan.',
-                    team_stanley_title: "Pemimpin Bisnis & Logistik",
-                    team_max_title: "Pemimpin Tek. & Rekayasa",
-                    team_javier_title: "Pemimpin Keuangan & Kemitraan",
-                    // Footer
-                    footer_desc: "Memberdayakan Surabaya untuk mengurangi sampah dan berkembang melalui program daur ulang komunitas.",
-                    footer_partner: "Bekerja sama dengan Bank Sampah Induk Surabaya",
-                    footer_links_title: "Tautan Cepat",
-                    footer_link_home: "Beranda", footer_link_mission: "Misi Kami", footer_link_process: "Proses Kami", footer_link_impact: "Dampak", footer_link_team: "Tim Kami",
-                    footer_contact_title: "Hubungi Kami",
-                    footer_rights: "Hak cipta dilindungi undang-undang."
-                }
-            };
+<!-- Process Section -->
+<section id="process">
+    <div class="container">
+        <div class="section-title">
+            <h2 data-translate-key="process_title">Proses Berkelanjutan Kami</h2>
+            <p class="process-subtitle" data-translate-key="process_subtitle">Bermitra dengan <strong>Bank
+                    Sampah Induk Surabaya</strong>, kami telah mengembangkan pendekatan inovatif untuk
+                pengelolaan sampah plastik yang bermanfaat bagi industri mikro kerajinan lokal dan lingkungan.
+            </p>
+        </div>
+        <div class="process-flow">
+            <div class="process-step process-step-collection">
+                <div class="process-icon"><i class="fas fa-hand-holding-medical"></i></div>
+                <h3 data-translate-key="process_step1_title">Pengumpulan</h3>
+                <p data-translate-key="process_step1_desc">Sampah plastik dikumpulkan dari masyarakat di seluruh
+                    Surabaya</p>
+            </div>
+            <div class="process-step process-step-sorting">
+                <div class="process-icon"><i class="fas fa-sort"></i></div>
+                <h3 data-translate-key="process_step2_title">Pemilahan</h3>
+                <p data-translate-key="process_step2_desc">Pemilahan oleh ahli dari <strong>Bank Sampah Induk
+                        Surabaya</strong> mengidentifikasi bahan berkualitas</p>
+            </div>
+            <div class="process-step process-step-distribution">
+                <div class="process-icon"><i class="fas fa-hands-helping"></i></div>
+                <h3 data-translate-key="process_step3_title">Distribusi</h3>
+                <p data-translate-key="process_step3_desc">Plastik berkualitas tinggi disalurkan ke industri
+                    mikro kerajinan</p>
+            </div>
+            <div class="process-step process-step-recycling">
+                <div class="process-icon"><i class="fas fa-recycle"></i></div>
+                <h3 data-translate-key="process_step4_title">Daur Ulang</h3>
+                <p data-translate-key="process_step4_desc">Bahan berkualitas lebih rendah dikirim ke fasilitas
+                    daur ulang</p>
+            </div>
+        </div>
+        <div class="partnership-box">
+            <div>
+                <img src="/static/images/BankSampah.webp"
+                    alt="Bank Sampah Induk Surabaya - Mitra pemilahan kami" width="200" height="200"
+                    loading="lazy" decoding="async">
+            </div>
+            <div>
+                <h3 data-translate-key="process_partner_title">Kemitraan dengan Bank Sampah Induk Surabaya</h3>
+                <p data-translate-key="process_partner_p1">Kami bangga berkolaborasi dengan <strong>Bank Sampah
+                        Induk Surabaya</strong>, yang menyediakan pemilahan ahli untuk semua bahan plastik yang
+                    terkumpul. Keahlian mereka memastikan bahwa:</p>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i><span data-translate-key="process_partner_l1">Plastik
+                            berkualitas tinggi diidentifikasi dan disalurkan ke industri mikro kerajinan
+                            lokal</span></li>
+                    <li><i class="fas fa-check-circle"></i><span data-translate-key="process_partner_l2">Bahan
+                            berkualitas lebih rendah diproses dengan benar melalui fasilitas daur ulang</span>
+                    </li>
+                    <li><i class="fas fa-check-circle"></i><span
+                            data-translate-key="process_partner_l3">Pemulung menerima kompensasi yang adil atas
+                            pekerjaan penting mereka</span></li>
+                </ul>
+                <p data-translate-key="process_partner_p2">Kemitraan ini menciptakan ekonomi sirkular yang
+                    berkelanjutan yang bermanfaat bagi pengrajin lokal, mengurangi sampah, dan menciptakan
+                    peluang ekonomi di seluruh Surabaya.</p>
+            </div>
+        </div>
+    </div>
+</section>
 
-            const teamData = [
-                { name: 'Stanley Cahyono', title: 'Executive Director of Business & Logistics', role: 'Chairman', image: `./static/images/Stanley2.webp`, quoteKey: 'team_stanley_quote', teamTitleKey: 'team_stanley_title', team: [{ name: 'Jessica Hakiki', role: 'Head of Social Media' }, { name: 'Jayden Emery', role: 'Head of Logistics' }, { name: 'Thomas Alexander', role: 'Field Operations Team Leader' }] },
-                { name: 'Maximillian Eugene', title: 'Executive Director of Eng. & Tech', role: 'Vice Chairman', image: `./static/images/Max.webp`, quoteKey: 'team_max_quote', teamTitleKey: 'team_max_title', team: [{ name: 'Ashton Suwandi', role: 'Vice Director of Eng. & Tech' }, { name: 'Eucharist Suhargo', role: 'Head of Research & Education' }, { name: 'Louis Gerrard', role: 'Head of Sustainable Planning' }] },
-                { name: 'Javier Ongko', title: 'Executive Director of Financing & Partnerships', image: `./static/images/JavierOngko.webp`, quoteKey: 'team_javier_quote', teamTitleKey: 'team_javier_title', team: [{ name: 'Serafine Susilo', role: 'Head of Strategic Partnerships' }, { name: 'Joseph Dylan', role: 'Head of Sponsorships and Treasury' }, { name: 'Dylan Archer', role: 'Head of Legal & Compliance' }, { name: 'Justin Armando', role: 'Head of Human Resources' }] },
-                { name: 'Julian Prasadja', title: 'Advisor and Commissioner', image: `./static/images/julian.webp`, quoteKey: 'team_julian_quote', team: [] }
-            ];
+<!-- Impact Section -->
+<section id="impact">
+    <div class="container">
+        <div class="section-title">
+            <h2 data-translate-key="impact_title" style="color: var(--primary-color);">Dampak Kami dalam Angka
+            </h2>
+            <p data-translate-key="impact_subtitle">Sejak didirikan pada tahun 2024, TrackEco telah membuat
+                kemajuan yang terukur dalam ekosistem pengelolaan sampah di Surabaya.</p>
+        </div>
+        <div class="impact-grid">
+            <div class="impact-card">
+                <div class="number">8</div>
+                <div class="title" data-translate-key="impact_card1_title">Mitra UKM Lokal</div>
+                <div class="logos">
+                    <img src="/static/images/AquaLogo.webp" alt="Logo Aqua" width="80" height="40"
+                        loading="lazy" decoding="async">
+                    <img src="/static/images/Panji.webp" alt="Logo Panji" width="80" height="40" loading="lazy"
+                        decoding="async">
+                    <img src="/static/images/BankSampah.webp" alt="Logo Bank Sampah Induk Surabaya" width="40"
+                        height="40" loading="lazy" decoding="async">
+                </div>
+            </div>
+            <div class="impact-card">
+                <div class="number"><span id="impactBottleCounter">3000</span>+ kg</div>
+                <div class="title" data-translate-key="impact_card2_title">Plastik Terkumpul</div>
+                <p data-translate-key="impact_card2_desc">Dari wilayah perkotaan</p>
+            </div>
+            <div class="impact-card">
+                <div class="number">74</div>
+                <div class="title" data-translate-key="impact_card3_title">Anggota Aktif</div>
+                <p data-translate-key="impact_card3_desc">Memimpin upaya daur ulang komunitas</p>
+            </div>
+        </div>
+        <div class="environmental-impact">
+            <h3 data-translate-key="impact_env_title">Dampak Lingkungan</h3>
+            <div class="env-grid">
+                <div class="env-item">
+                    <div class="icon-container"><i class="fas fa-tree" style="color:var(--ecoGreen-color);"></i>
+                    </div>
+                    <div>
+                        <h4 data-translate-key="impact_env1_title">Pengurangan Emisi Karbon</h4>
+                        <p data-translate-key="impact_env1_desc">Upaya daur ulang kami telah mencegah sekitar
+                            <strong>42 ton</strong> emisi CO2.
+                        </p>
+                    </div>
+                </div>
+                <div class="env-item">
+                    <div class="icon-container"><i class="fas fa-water" style="color:var(--ecoBlue-color);"></i>
+                    </div>
+                    <div>
+                        <h4 data-translate-key="impact_env2_title">Perlindungan Laut</h4>
+                        <p data-translate-key="impact_env2_desc">Kami telah mencegah <strong>2.000 kg</strong>
+                            plastik masuk ke laut dan saluran air.</p>
+                    </div>
+                </div>
+                <div class="env-item">
+                    <div class="icon-container"><i class="fas fa-industry"
+                            style="color:var(--secondary-color);"></i></div>
+                    <div>
+                        <h4 data-translate-key="impact_env3_title">Dukungan Industri Kerajinan</h4>
+                        <p data-translate-key="impact_env3_desc"><strong>85%</strong> plastik berkualitas tinggi
+                            mendukung industri mikro kerajinan lokal.</p>
+                    </div>
+                </div>
+                <div class="env-item">
+                    <div class="icon-container"><i class="fas fa-users" style="color:var(--accent-color);"></i>
+                    </div>
+                    <div>
+                        <h4 data-translate-key="impact_env4_title">Keterlibatan Masyarakat</h4>
+                        <p data-translate-key="impact_env4_desc">Kami telah mengedukasi <strong>500+</strong>
+                            orang tentang pengelolaan sampah yang benar.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-            function renderTeam(lang) {
-                const container = document.getElementById('leaders-container');
-                if (!container) return;
-                let html = '';
-                teamData.forEach(leader => {
-                    const quote = translations[lang][leader.quoteKey] || '';
-                    const teamTitle = translations[lang][leader.teamTitleKey] || '';
-                    const hasTeam = leader.team && leader.team.length > 0;
+<!-- Team Section -->
+<section id="team">
+    <div class="container">
+        <div class="section-title">
+            <h2 data-translate-key="team_title">Temui Tim Kami</h2>
+            <p data-translate-key="team_subtitle" style="max-width: 42rem; margin: 0 auto;">Arahkan kursor ke
+                seorang pemimpin untuk melihat tim mereka.</p>
+        </div>
+        <div class="org-chart-container">
+            <div class="org-chart">
+                <ul id="leaders-container">
+                    <!-- Team cards are dynamically generated by JavaScript -->
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
 
-                    let subordinatesHtml = leader.team.map(member => `<li><h3>${member.name}</h3><p class="role">${member.role}</p></li>`).join('');
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const translations = {
+            en: {
+                // Meta Tags
+                meta_title: "TrackEco: Plastic Recycling & Waste Management in Surabaya",
+                meta_description: "TrackEco transforms plastic waste in Surabaya into crafts through collaboration with Bank Sampah Induk Surabaya. Join us to reduce plastic waste.",
+                og_title: "TrackEco: Plastic Recycling & Waste Management in Surabaya",
+                og_description: "TrackEco empowers the Surabaya community to recycle plastic waste into valuable products, in partnership with Bank Sampah Induk Surabaya.",
+                twitter_title: "TrackEco: Plastic Recycling & Waste Management in Surabaya",
+                twitter_description: "TrackEco empowers the Surabaya community to recycle plastic waste into valuable products.",
+                // Hero
+                hero_title: "Empowering Surabaya Through Recycling",
+                hero_subtitle: "Join 74 members turning plastic waste into community benefit through sustainable recycling programs.",
+                hero_bottles_collected: "Plastic Bottles Collected",
+                hero_sme_partners: "Local SME Partners",
+                hero_collaborating: "Collaborating with:",
+                hero_learn_more: "Learn More",
+                hero_calculator: "Impact Calculator",
+                news_badge: "Latest News",
+                news_preview_title: "Coastal Cleanup Initiative 2024",
+                news_preview_desc: "Over 100 volunteers joined us in cleaning Surabaya's beaches, collecting 500kg of plastic waste in a single day.",
+                news_read_more: "Read All News",
+                // Mission
+                mission_title: "Our Mission to Transform Surabaya",
+                mission_crisis_title: "Indonesia's Plastic Crisis",
+                mission_crisis_p1: "Did you know Indonesia is one of the world's largest contributors to ocean plastic waste, generating over <strong style='color: var(--secondary-color);'>3.2 million tons</strong> annually?",
+                mission_crisis_p2: "In Surabaya alone, plastic waste accounts for <strong style='color: var(--secondary-color);'>15-20%</strong> of total waste, yet less than <strong style='color: var(--secondary-color);'>10%</strong> gets recycled. Where does the rest go?",
+                mission_crisis_l1: "Clogging our rivers and beaches",
+                mission_crisis_l2: "Endangering marine life",
+                mission_crisis_l3: "Creating health hazards for communities",
+                mission_crisis_p3: "We believe this crisis is also an opportunity — to build a circular economy that benefits everyone.",
+                mission_process_title: "Our Two-Step Process",
+                mission_process_reduce: "Reduce",
+                mission_process_reduce_desc: "Educate communities on waste prevention and sustainable alternatives to single-use plastics.",
+                mission_process_recycle: "Recycle",
+                mission_process_recycle_desc: "Create accessible collection points and partner with recycling facilities to process materials properly.",
+                // Process
+                process_title: "Our Sustainable Process",
+                process_subtitle: "In partnership with <strong>Bank Sampah Induk Surabaya</strong>, we've developed an innovative approach to plastic waste management that benefits local craft microindustries and the environment.",
+                process_step1_title: "Collection", process_step1_desc: "Plastic waste is collected from communities across Surabaya",
+                process_step2_title: "Sorting", process_step2_desc: "Expert sorting by <strong>Bank Sampah Induk Surabaya</strong> identifies quality materials",
+                process_step3_title: "Distribution", process_step3_desc: "High-quality plastics are channeled to craft microindustries",
+                process_step4_title: "Recycling", process_step4_desc: "Lower quality materials are sent to recycling facilities",
+                process_partner_title: "Partnership with Bank Sampah Induk Surabaya",
+                process_partner_p1: "We're proud to collaborate with <strong>Bank Sampah Induk Surabaya</strong>, who provides expert sorting of all collected plastic materials. Their expertise ensures that:",
+                process_partner_l1: "High-quality plastics are identified and channeled to local craft microindustries",
+                process_partner_l2: "Lower quality materials are properly processed through recycling facilities",
+                process_partner_l3: "Waste pickers receive fair compensation for their important work",
+                process_partner_p2: "This partnership creates a sustainable circular economy that benefits local artisans, reduces waste, and creates economic opportunities throughout Surabaya.",
+                // Impact
+                impact_title: "Our Impact in Numbers",
+                impact_subtitle: "Since our founding in 2024, TrackEco has made measurable progress in Surabaya's waste management ecosystem.",
+                impact_card1_title: "Local SME Partners",
+                impact_card2_title: "Plastic Collected", impact_card2_desc: "From urban areas",
+                impact_card3_title: "Active Members", impact_card3_desc: "Leading community recycling efforts",
+                impact_env_title: "Environmental Impact",
+                impact_env1_title: "Carbon Emission Reduction", impact_env1_desc: "Our recycling efforts have prevented an estimated <strong>42 tons</strong> of CO2 emissions.",
+                impact_env2_title: "Ocean Protection", impact_env2_desc: "We've prevented <strong>2,000 kg</strong> of plastic from entering oceans and waterways.",
+                impact_env3_title: "Craft Industry Support", impact_env3_desc: "<strong>85%</strong> of high-quality plastic supports local craft microindustries.",
+                impact_env4_title: "Community Engagement", impact_env4_desc: "We've educated <strong>500+</strong> people on proper waste management.",
+                // Team
+                team_title: "Meet Our Team",
+                team_subtitle: "Hover over a leader to see their team.",
+                team_stanley_quote: 'Progress begins with what we throw away—or choose not to.',
+                team_max_quote: 'Every piece of plastic is a small step for systemic change in the world.',
+                team_javier_quote: 'Recycling isn\'t a cost—it\'s an investment in tomorrow\'s possibilities.',
+                team_julian_quote: 'Where guidance meets action — building pathways toward a sustainable world.',
+                team_stanley_title: "Business & Logistics Leaders",
+                team_max_title: "Eng. & Tech Leaders",
+                team_javier_title: "Financing & Partnership Leaders",
+            },
+            id: {
+                // Meta Tags
+                meta_title: "TrackEco: Daur Ulang & Pengelolaan Sampah Plastik di Surabaya",
+                meta_description: "TrackEco mengubah sampah plastik di Surabaya menjadi kerajinan tangan melalui kerjasama dengan Bank Sampah Induk Surabaya. Bergabunglah dengan kami untuk mengurangi sampah plastik.",
+                og_title: "TrackEco: Daur Ulang & Pengelolaan Sampah Plastik di Surabaya",
+                og_description: "TrackEco memberdayakan masyarakat Surabaya untuk mendaur ulang sampah plastik menjadi produk bernilai, bekerja sama dengan Bank Sampah Induk Surabaya.",
+                twitter_title: "TrackEco: Daur Ulang & Pengelolaan Sampah Plastik di Surabaya",
+                twitter_description: "TrackEco memberdayakan masyarakat Surabaya untuk mendaur ulang sampah plastik menjadi produk bernilai.",
+                // Hero
+                hero_title: "Memberdayakan Surabaya Melalui Daur Ulang",
+                hero_subtitle: "Bergabunglah dengan 74 anggota untuk mengubah sampah plastik menjadi manfaat bagi masyarakat melalui program daur ulang berkelanjutan.",
+                hero_bottles_collected: "Botol Plastik Terkumpul",
+                hero_sme_partners: "Mitra UKM Lokal",
+                hero_collaborating: "Bekerja sama dengan:",
+                hero_learn_more: "Pelajari Lebih Lanjut",
+                hero_calculator: "Kalkulator Dampak",
+                news_badge: "Berita Terbaru",
+                news_preview_title: "Inisiatif Bersih Pantai 2024",
+                news_preview_desc: "Lebih dari 100 sukarelawan bergabung membersihkan pantai Surabaya, mengumpulkan 500kg sampah plastik dalam sehari.",
+                news_read_more: "Baca Semua Berita",
+                // Mission
+                mission_title: "Misi Kami untuk Mengubah Surabaya",
+                mission_crisis_title: "Krisis Plastik di Indonesia",
+                mission_crisis_p1: "Tahukah Anda bahwa Indonesia adalah salah satu penyumbang sampah plastik laut terbesar di dunia, menghasilkan lebih dari <strong style='color: var(--secondary-color);'>3,2 juta ton</strong> setiap tahunnya?",
+                mission_crisis_p2: "Di Surabaya sendiri, sampah plastik mencapai <strong style='color: var(--secondary-color);'>15-20%</strong> dari total sampah, namun kurang dari <strong style='color: var(--secondary-color);'>10%</strong> yang didaur ulang. Ke mana sisanya?",
+                mission_crisis_l1: "Menyumbat sungai dan pantai kita",
+                mission_crisis_l2: "Membahayakan biota laut",
+                mission_crisis_l3: "Menciptakan bahaya kesehatan bagi masyarakat",
+                mission_crisis_p3: "Kami percaya krisis ini juga merupakan peluang — untuk membangun ekonomi sirkular yang bermanfaat bagi semua.",
+                mission_process_title: "Proses Dua Langkah Kami",
+                mission_process_reduce: "Mengurangi",
+                mission_process_reduce_desc: "Mendidik masyarakat tentang pencegahan sampah dan alternatif berkelanjutan untuk plastik sekali pakai.",
+                mission_process_recycle: "Mendaur Ulang",
+                mission_process_recycle_desc: "Menciptakan titik pengumpulan yang mudah diakses dan bermitra dengan fasilitas daur ulang untuk memproses bahan dengan benar.",
+                // Process
+                process_title: "Proses Berkelanjutan Kami",
+                process_subtitle: "Bermitra dengan <strong>Bank Sampah Induk Surabaya</strong>, kami telah mengembangkan pendekatan inovatif untuk pengelolaan sampah plastik yang bermanfaat bagi industri mikro kerajinan lokal dan lingkungan.",
+                process_step1_title: "Pengumpulan", process_step1_desc: "Sampah plastik dikumpulkan dari masyarakat di seluruh Surabaya",
+                process_step2_title: "Pemilahan", process_step2_desc: "Pemilahan oleh ahli dari <strong>Bank Sampah Induk Surabaya</strong> mengidentifikasi bahan berkualitas",
+                process_step3_title: "Distribusi", process_step3_desc: "Plastik berkualitas tinggi disalurkan ke industri mikro kerajinan",
+                process_step4_title: "Daur Ulang", process_step4_desc: "Bahan berkualitas lebih rendah dikirim ke fasilitas daur ulang",
+                process_partner_title: "Kemitraan dengan Bank Sampah Induk Surabaya",
+                process_partner_p1: "Kami bangga berkolaborasi dengan <strong>Bank Sampah Induk Surabaya</strong>, yang menyediakan pemilahan ahli untuk semua bahan plastik yang terkumpul. Keahlian mereka memastikan bahwa:",
+                process_partner_l1: "Plastik berkualitas tinggi diidentifikasi dan disalurkan ke industri mikro kerajinan lokal",
+                process_partner_l2: "Bahan berkualitas lebih rendah diproses dengan benar melalui fasilitas daur ulang",
+                process_partner_l3: "Pemulung menerima kompensasi yang adil atas pekerjaan penting mereka",
+                process_partner_p2: "Kemitraan ini menciptakan ekonomi sirkular yang berkelanjutan yang bermanfaat bagi pengrajin lokal, mengurangi sampah, dan menciptakan peluang ekonomi di seluruh Surabaya.",
+                // Impact
+                impact_title: "Dampak Kami dalam Angka",
+                impact_subtitle: "Sejak didirikan pada tahun 2024, TrackEco telah membuat kemajuan yang terukur dalam ekosistem pengelolaan sampah di Surabaya.",
+                impact_card1_title: "Mitra UKM Lokal",
+                impact_card2_title: "Plastik Terkumpul", impact_card2_desc: "Dari wilayah perkotaan",
+                impact_card3_title: "Anggota Aktif", impact_card3_desc: "Memimpin upaya daur ulang komunitas",
+                impact_env_title: "Dampak Lingkungan",
+                impact_env1_title: "Pengurangan Emisi Karbon", impact_env1_desc: "Upaya daur ulang kami telah mencegah sekitar <strong>42 ton</strong> emisi CO2.",
+                impact_env2_title: "Perlindungan Laut", impact_env2_desc: "Kami telah mencegah <strong>2.000 kg</strong> plastik masuk ke laut dan saluran air.",
+                impact_env3_title: "Dukungan Industri Kerajinan", impact_env3_desc: "<strong>85%</strong> plastik berkualitas tinggi mendukung industri mikro kerajinan lokal.",
+                impact_env4_title: "Keterlibatan Masyarakat", impact_env4_desc: "Kami telah mengedukasi <strong>500+</strong> orang tentang pengelolaan sampah yang benar.",
+                // Team
+                team_title: "Temui Tim Kami",
+                team_subtitle: "Arahkan kursor ke seorang pemimpin untuk melihat tim mereka.",
+                team_stanley_quote: 'Kemajuan dimulai dari apa yang kita buang—atau pilih untuk tidak dibuang.',
+                team_max_quote: 'Setiap potongan plastik adalah langkah kecil untuk perubahan sistemik di dunia.',
+                team_javier_quote: 'Daur ulang bukanlah biaya—ini adalah investasi untuk kemungkinan di hari esok.',
+                team_julian_quote: 'Di mana bimbingan bertemu aksi — membangun jalan menuju dunia yang berkelanjutan.',
+                team_stanley_title: "Pemimpin Bisnis & Logistik",
+                team_max_title: "Pemimpin Tek. & Rekayasa",
+                team_javier_title: "Pemimpin Keuangan & Kemitraan",
+            }
+        };
 
-                    html += `
-                        <li class="leader ${!hasTeam ? 'no-flip' : ''}">
-                            <div class="flip-card-inner">
-                                <div class="flip-card-front">
-                                    <img src="${leader.image}" alt="${leader.name}" class="leader-image" width="70" height="70" loading="lazy" decoding="async">
-                                    <div class="text-center">
-                                        <h3>${leader.name}</h3>
-                                        <p>${leader.title}</p>
-                                        ${leader.role ? `<p class="role">${leader.role}</p>` : ''}
-                                    </div>
-                                    <p class="leader-quote">“${quote}”</p>
+        const teamData = [
+            { name: 'Stanley Cahyono', title: 'Executive Director of Business & Logistics', role: 'Chairman', image: `/static/images/Stanley2.webp`, quoteKey: 'team_stanley_quote', teamTitleKey: 'team_stanley_title', team: [{ name: 'Jessica Hakiki', role: 'Head of Social Media' }, { name: 'Jayden Emery', role: 'Head of Logistics' }, { name: 'Thomas Alexander', role: 'Field Operations Team Leader' }] },
+            { name: 'Maximillian Eugene', title: 'Executive Director of Eng. & Tech', role: 'Vice Chairman', image: `/static/images/Max.webp`, quoteKey: 'team_max_quote', teamTitleKey: 'team_max_title', team: [{ name: 'Ashton Suwandi', role: 'Vice Director of Eng. & Tech' }, { name: 'Eucharist Suhargo', role: 'Head of Research & Education' }, { name: 'Louis Gerrard', role: 'Head of Sustainable Planning' }] },
+            { name: 'Javier Ongko', title: 'Executive Director of Financing & Partnerships', image: `/static/images/JavierOngko.webp`, quoteKey: 'team_javier_quote', teamTitleKey: 'team_javier_title', team: [{ name: 'Serafine Susilo', role: 'Head of Strategic Partnerships' }, { name: 'Joseph Dylan', role: 'Head of Sponsorships and Treasury' }, { name: 'Dylan Archer', role: 'Head of Legal & Compliance' }, { name: 'Justin Armando', role: 'Head of Human Resources' }] },
+            { name: 'Julian Prasadja', title: 'Advisor and Commissioner', image: `/static/images/julian.webp`, quoteKey: 'team_julian_quote', team: [] }
+        ];
+
+        function renderTeam(lang) {
+            const container = document.getElementById('leaders-container');
+            if (!container) return;
+            let html = '';
+            teamData.forEach(leader => {
+                const quote = translations[lang][leader.quoteKey] || '';
+                const teamTitle = translations[lang][leader.teamTitleKey] || '';
+                const hasTeam = leader.team && leader.team.length > 0;
+
+                let subordinatesHtml = leader.team.map(member => `<li><h3>${member.name}</h3><p class="role">${member.role}</p></li>`).join('');
+
+                html += `
+                    <li class="leader ${!hasTeam ? 'no-flip' : ''}">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <img src="${leader.image}" alt="${leader.name}" class="leader-image" width="70" height="70" loading="lazy" decoding="async">
+                                <div class="text-center">
+                                    <h3>${leader.name}</h3>
+                                    <p>${leader.title}</p>
+                                    ${leader.role ? `<p class="role">${leader.role}</p>` : ''}
                                 </div>
-                                ${hasTeam ? `
-                                <div class="flip-card-back">
-                                    <h3>${teamTitle}</h3>
-                                    <ul>${subordinatesHtml}</ul>
-                                </div>` : ''}
+                                <p class="leader-quote">"${quote}"</p>
                             </div>
-                        </li>`;
-                });
-                container.innerHTML = html;
-            }
+                            ${hasTeam ? `
+                            <div class="flip-card-back">
+                                <h3>${teamTitle}</h3>
+                                <ul>${subordinatesHtml}</ul>
+                            </div>` : ''}
+                        </div>
+                    </li>`;
+            });
+            container.innerHTML = html;
+        }
 
-            const setLanguage = (lang) => {
-                document.documentElement.lang = lang;
-                localStorage.setItem('language', lang);
-                document.querySelectorAll('[data-translate-key]').forEach(element => {
-                    const key = element.getAttribute('data-translate-key');
-                    if (translations[lang] && translations[lang][key]) {
-                        const translation = translations[lang][key];
-                        if (element.tagName === 'TITLE') {
-                            element.textContent = translation;
-                        } else if (element.tagName === 'META') {
-                            element.setAttribute('content', translation);
-                        } else {
-                            element.innerHTML = translation;
-                        }
-                    }
-                });
-                renderTeam(lang);
-                document.querySelectorAll('#lang-en, #lang-en-mobile').forEach(el => el.style.color = (lang === 'en' ? 'var(--accent-color)' : 'var(--white-color)'));
-                document.querySelectorAll('#lang-id, #lang-id-mobile').forEach(el => el.style.color = (lang === 'id' ? 'var(--accent-color)' : 'var(--white-color)'));
-            };
-
-            const getInitialLanguage = () => {
-                const savedLang = localStorage.getItem('language');
-                if (savedLang && ['en', 'id'].includes(savedLang)) return savedLang;
-                const browserLang = navigator.language.split('-')[0];
-                return browserLang === 'id' ? 'id' : 'en'; // Default to ID for local context
-            };
-
-            ['lang-en', 'lang-en-mobile'].forEach(id => document.getElementById(id).addEventListener('click', () => setLanguage('en')));
-            ['lang-id', 'lang-id-mobile'].forEach(id => document.getElementById(id).addEventListener('click', () => setLanguage('id')));
-
-            const initialLang = getInitialLanguage();
-            setLanguage(initialLang);
-
-            // --- Hero Background Slideshow ---
-            const backgrounds = Array.from(document.querySelectorAll('.hero-background-container img'));
-            const dots = Array.from(document.querySelectorAll('.hero-dots .dot'));
-            let currentBgIndex = 0;
-            let sliderInterval;
-
-            function showBackground(index) {
-                if (!backgrounds.length) return;
-                backgrounds[currentBgIndex].classList.remove('active-slide');
-                dots[currentBgIndex].classList.remove('active');
-
-                currentBgIndex = index;
-
-                backgrounds[currentBgIndex].classList.add('active-slide');
-                dots[currentBgIndex].classList.add('active');
-            }
-
-            function startSlider() {
-                sliderInterval = setInterval(() => {
-                    const nextIndex = (currentBgIndex + 1) % backgrounds.length;
-                    showBackground(nextIndex);
-                }, 5000);
-            }
-
-            function resetSlider() {
-                clearInterval(sliderInterval);
-                startSlider();
-            }
-
-            dots.forEach((dot, index) => dot.addEventListener('click', () => {
-                showBackground(index);
-                resetSlider();
-            }));
-
-            startSlider();
-
-            // --- Counter Animation ---
-            function animateCounter(element, target, duration = 2000) {
-                if (!element) return;
-                let startValue = 0;
-                let startTime = null;
-
-                function animation(currentTime) {
-                    if (startTime === null) startTime = currentTime;
-                    const elapsedTime = currentTime - startTime;
-                    const progress = Math.min(elapsedTime / duration, 1);
-                    const currentValue = Math.floor(progress * (target - startValue) + startValue);
-                    element.textContent = currentValue.toLocaleString('id-ID');
-                    if (progress < 1) {
-                        window.requestAnimationFrame(animation);
+        const setLanguage = (lang) => {
+            document.documentElement.lang = lang;
+            localStorage.setItem('language', lang);
+            document.querySelectorAll('[data-translate-key]').forEach(element => {
+                const key = element.getAttribute('data-translate-key');
+                if (translations[lang] && translations[lang][key]) {
+                    const translation = translations[lang][key];
+                    if (element.tagName === 'TITLE') {
+                        element.textContent = translation;
+                    } else if (element.tagName === 'META') {
+                        element.setAttribute('content', translation);
+                    } else {
+                        element.innerHTML = translation;
                     }
                 }
-                window.requestAnimationFrame(animation);
-            }
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        animateCounter(document.getElementById('memberCounter'), 74, 1500);
-                        animateCounter(document.getElementById('bottleCounter'), 35000, 2000);
-                        animateCounter(document.getElementById('partnerCounter'), 8, 1500);
-                        const impactCounter = document.getElementById('impactBottleCounter');
-                        if (impactCounter) {
-                            const target = 3000; // Hardcode target since we just need to animate
-                            animateCounter(impactCounter, target, 2000);
-                        }
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.5 });
-
-            const heroSection = document.getElementById('home');
-            if (heroSection) observer.observe(heroSection);
-
-
-            // --- Mobile Menu Toggle ---
-            const mobileMenuButton = document.getElementById('mobile-menu-toggle');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const menuIcon = mobileMenuButton.querySelector('i');
-
-            function closeMenu() {
-                mobileMenu.classList.remove('is-open');
-                menuIcon.classList.remove('fa-times');
-                menuIcon.classList.add('fa-bars');
-                mobileMenuButton.setAttribute('aria-expanded', 'false');
-            }
-
-            function toggleMenu() {
-                const isOpen = mobileMenu.classList.contains('is-open');
-                if (isOpen) {
-                    closeMenu();
-                } else {
-                    mobileMenu.classList.add('is-open');
-                    menuIcon.classList.remove('fa-bars');
-                    menuIcon.classList.add('fa-times');
-                    mobileMenuButton.setAttribute('aria-expanded', 'true');
-                }
-            }
-            mobileMenuButton.addEventListener('click', toggleMenu);
-            document.querySelectorAll('#mobile-menu a, #mobile-menu button').forEach(link => {
-                link.addEventListener('click', closeMenu);
             });
+            renderTeam(lang);
+            document.querySelectorAll('#lang-en, #lang-en-mobile').forEach(el => el.style.color = (lang === 'en' ? 'var(--accent-color)' : 'var(--white-color)'));
+            document.querySelectorAll('#lang-id, #lang-id-mobile').forEach(el => el.style.color = (lang === 'id' ? 'var(--accent-color)' : 'var(--white-color)'));
+        };
 
-            // --- Smooth Scrolling for Anchor Links ---
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        const navbarHeight = document.querySelector('.navbar').offsetHeight;
-                        const offsetTop = targetElement.offsetTop - navbarHeight;
-                        window.scrollTo({
-                            top: offsetTop,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
+        const getInitialLanguage = () => {
+            const savedLang = localStorage.getItem('language');
+            if (savedLang && ['en', 'id'].includes(savedLang)) return savedLang;
+            const browserLang = navigator.language.split('-')[0];
+            return browserLang === 'id' ? 'id' : 'en';
+        };
 
+        ['lang-en', 'lang-en-mobile'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener('click', () => setLanguage('en'));
         });
-    </script>
-</body>
+        ['lang-id', 'lang-id-mobile'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener('click', () => setLanguage('id'));
+        });
 
-</html>
+        const initialLang = getInitialLanguage();
+        setLanguage(initialLang);
+
+        // --- Hero Background Slideshow ---
+        const backgrounds = Array.from(document.querySelectorAll('.hero-background-container img'));
+        const dots = Array.from(document.querySelectorAll('.hero-dots .dot'));
+        let currentBgIndex = 0;
+        let sliderInterval;
+
+        function showBackground(index) {
+            if (!backgrounds.length) return;
+            backgrounds[currentBgIndex].classList.remove('active-slide');
+            dots[currentBgIndex].classList.remove('active');
+
+            currentBgIndex = index;
+
+            backgrounds[currentBgIndex].classList.add('active-slide');
+            dots[currentBgIndex].classList.add('active');
+        }
+
+        function startSlider() {
+            sliderInterval = setInterval(() => {
+                const nextIndex = (currentBgIndex + 1) % backgrounds.length;
+                showBackground(nextIndex);
+            }, 5000);
+        }
+
+        function resetSlider() {
+            clearInterval(sliderInterval);
+            startSlider();
+        }
+
+        dots.forEach((dot, index) => dot.addEventListener('click', () => {
+            showBackground(index);
+            resetSlider();
+        }));
+
+        startSlider();
+
+        // --- Counter Animation ---
+        function animateCounter(element, target, duration = 2000) {
+            if (!element) return;
+            let startValue = 0;
+            let startTime = null;
+
+            function animation(currentTime) {
+                if (startTime === null) startTime = currentTime;
+                const elapsedTime = currentTime - startTime;
+                const progress = Math.min(elapsedTime / duration, 1);
+                const currentValue = Math.floor(progress * (target - startValue) + startValue);
+                element.textContent = currentValue.toLocaleString('id-ID');
+                if (progress < 1) {
+                    window.requestAnimationFrame(animation);
+                }
+            }
+            window.requestAnimationFrame(animation);
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter(document.getElementById('memberCounter'), 74, 1500);
+                    animateCounter(document.getElementById('bottleCounter'), 35000, 2000);
+                    animateCounter(document.getElementById('partnerCounter'), 8, 1500);
+                    const impactCounter = document.getElementById('impactBottleCounter');
+                    if (impactCounter) {
+                        animateCounter(impactCounter, 3000, 2000);
+                    }
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const heroSection = document.getElementById('home');
+        if (heroSection) observer.observe(heroSection);
+    });
+</script>
+{% endblock %}
+

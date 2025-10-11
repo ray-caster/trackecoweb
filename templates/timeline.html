@@ -1,0 +1,633 @@
+{% extends "shared/base.html" %}
+
+{% block title %}Our Journey - Interactive Timeline - TrackEco{% endblock %}
+{% block description %}Explore TrackEco's journey from inception to present day. See our milestones, achievements, and growth in creating a sustainable circular economy.{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Timeline Page Styles with Parallax Effects */
+    .timeline-hero {
+        position: relative;
+        height: 70vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, var(--primary-color), var(--ecoGreen-color));
+        overflow: hidden;
+    }
+
+    .timeline-hero-bg {
+        position: absolute;
+        inset: 0;
+        background-image: url('/static/images/background_1.webp');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.15;
+    }
+
+    .timeline-hero-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        color: white;
+        max-width: 900px;
+        padding: 0 2rem;
+    }
+
+    .timeline-hero h1 {
+        font-size: 4rem;
+        font-weight: 900;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(135deg, #fff, var(--accent-color), var(--ecoGreen-color));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .timeline-hero p {
+        font-size: 1.5rem;
+        opacity: 0.95;
+        line-height: 1.8;
+    }
+
+    /* Timeline Container */
+    .timeline-container {
+        position: relative;
+        max-width: 1200px;
+        margin: 5rem auto;
+        padding: 0 2rem;
+    }
+
+    /* Vertical line in center */
+    .timeline-line {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: linear-gradient(to bottom, var(--accent-color), var(--ecoGreen-color));
+        transform: translateX(-50%);
+    }
+
+    .timeline-progress {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        width: 4px;
+        height: 0%;
+        background: var(--accent-color);
+        transform: translateX(-50%);
+        transition: height 0.3s ease;
+        box-shadow: 0 0 20px var(--accent-color);
+    }
+
+    /* Timeline Items */
+    .timeline-item {
+        position: relative;
+        margin-bottom: 5rem;
+        opacity: 0;
+        transform: translateY(50px);
+        transition: all 0.6s ease;
+    }
+
+    .timeline-item.revealed {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .timeline-item.left {
+        padding-right: 55%;
+        text-align: right;
+    }
+
+    .timeline-item.right {
+        padding-left: 55%;
+        text-align: left;
+    }
+
+    /* Timeline Card with Glassmorphism */
+    .timeline-card {
+        position: relative;
+        padding: 2rem;
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        cursor: pointer;
+    }
+
+    .timeline-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Timeline Dot */
+    .timeline-dot {
+        position: absolute;
+        top: 2rem;
+        width: 24px;
+        height: 24px;
+        background: var(--accent-color);
+        border: 4px solid white;
+        border-radius: 50%;
+        box-shadow: 0 0 0 4px var(--accent-color);
+        z-index: 10;
+        transition: all 0.3s ease;
+    }
+
+    .timeline-item.left .timeline-dot {
+        right: -12px;
+    }
+
+    .timeline-item.right .timeline-dot {
+        left: -12px;
+    }
+
+    .timeline-card:hover .timeline-dot {
+        transform: scale(1.5);
+        box-shadow: 0 0 0 6px var(--accent-color), 0 0 20px var(--accent-color);
+    }
+
+    /* Timeline Content */
+    .timeline-date {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+        color: white;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 0.875rem;
+        margin-bottom: 1rem;
+    }
+
+    .timeline-card h3 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+        line-height: 1.3;
+    }
+
+    .timeline-card p {
+        color: var(--gray-700-color);
+        line-height: 1.8;
+        margin-bottom: 1rem;
+    }
+
+    .timeline-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 16px;
+        margin-top: 1rem;
+        transition: transform 0.5s ease;
+    }
+
+    .timeline-card:hover .timeline-image {
+        transform: scale(1.05);
+    }
+
+    .timeline-stats {
+        display: flex;
+        gap: 2rem;
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .timeline-stat {
+        flex: 1;
+    }
+
+    .timeline-stat-number {
+        font-size: 1.75rem;
+        font-weight: 800;
+        color: var(--accent-color);
+        display: block;
+    }
+
+    .timeline-stat-label {
+        font-size: 0.875rem;
+        color: var(--gray-700-color);
+    }
+
+    /* Floating Elements for Parallax */
+    .floating-shape {
+        position: absolute;
+        opacity: 0.1;
+        pointer-events: none;
+    }
+
+    .shape-1 {
+        top: 10%;
+        right: 10%;
+        width: 100px;
+        height: 100px;
+        background: var(--accent-color);
+        border-radius: 50%;
+    }
+
+    .shape-2 {
+        top: 30%;
+        left: 5%;
+        width: 80px;
+        height: 80px;
+        background: var(--ecoGreen-color);
+        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    }
+
+    .shape-3 {
+        bottom: 20%;
+        right: 15%;
+        width: 120px;
+        height: 120px;
+        background: var(--ecoBlue-color);
+        border-radius: 70% 30% 30% 70% / 60% 40% 60% 40%;
+    }
+
+    /* Stats Overview Section */
+    .stats-overview {
+        background: linear-gradient(135deg, var(--primary-color), var(--ecoBlue-color));
+        color: white;
+        padding: 5rem 2rem;
+        margin: 5rem 0;
+        border-radius: 32px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .stats-overview::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url('/static/images/background3.webp');
+        background-size: cover;
+        opacity: 0.1;
+    }
+
+    .stats-grid {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 3rem;
+        text-align: center;
+    }
+
+    .stat-box {
+        padding: 2rem;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    .stat-box:hover {
+        transform: translateY(-10px);
+        background: rgba(255, 255, 255, 0.2);
+    }
+
+    .stat-box-number {
+        font-size: 3rem;
+        font-weight: 900;
+        color: var(--accent-color);
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+
+    .stat-box-label {
+        font-size: 1rem;
+        opacity: 0.9;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .timeline-hero h1 {
+            font-size: 2.5rem;
+        }
+
+        .timeline-hero p {
+            font-size: 1.125rem;
+        }
+
+        .timeline-line {
+            left: 2rem;
+        }
+
+        .timeline-progress {
+            left: 2rem;
+        }
+
+        .timeline-item.left,
+        .timeline-item.right {
+            padding-left: 4rem;
+            padding-right: 0;
+            text-align: left;
+        }
+
+        .timeline-item.left .timeline-dot,
+        .timeline-item.right .timeline-dot {
+            left: -12px;
+            right: auto;
+        }
+
+        .timeline-stats {
+            flex-direction: column;
+            gap: 1rem;
+        }
+    }
+
+    /* Year Markers */
+    .year-marker {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 1rem 2rem;
+        background: white;
+        border-radius: 50px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--primary-color);
+        z-index: 5;
+        border: 3px solid var(--accent-color);
+    }
+
+    @media (max-width: 768px) {
+        .year-marker {
+            left: 2rem;
+            transform: translateX(0);
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="timeline-hero parallax-container">
+    <div class="timeline-hero-bg parallax-layer" data-parallax="0.4"></div>
+    <div class="timeline-hero-content">
+        <h1 class="animate-fade-in magnetic-text">Our Journey</h1>
+        <p class="animate-fade-in animate-delay-1">From a small initiative to a community-driven movement transforming Surabaya's approach to plastic waste</p>
+    </div>
+</div>
+
+<section>
+    <div class="container">
+        <!-- Floating Parallax Shapes -->
+        <div class="floating-shape shape-1 parallax-layer" data-depth="0.2"></div>
+        <div class="floating-shape shape-2 parallax-layer" data-depth="0.3"></div>
+        <div class="floating-shape shape-3 parallax-layer" data-depth="0.15"></div>
+
+        <!-- Timeline -->
+        <div class="timeline-container parallax-container">
+            <div class="timeline-line"></div>
+            <div class="timeline-progress" id="timelineProgress"></div>
+
+            <!-- 2024 -->
+            <div class="year-marker" style="top: 0;">2024</div>
+
+            <div class="timeline-item left scroll-reveal">
+                <div class="timeline-card glass-card magnetic">
+                    <div class="timeline-dot"></div>
+                    <span class="timeline-date">October 2024</span>
+                    <h3>Expansion to 10 New SME Partners</h3>
+                    <p>Reached a major milestone by partnering with 10 additional local SMEs, expanding our network and creating more opportunities for plastic upcycling across Surabaya.</p>
+                    <img src="/static/images/background6.webp" alt="Partnership Expansion" class="timeline-image">
+                    <div class="timeline-stats">
+                        <div class="timeline-stat">
+                            <span class="timeline-stat-number">10</span>
+                            <span class="timeline-stat-label">New Partners</span>
+                        </div>
+                        <div class="timeline-stat">
+                            <span class="timeline-stat-number">3000kg</span>
+                            <span class="timeline-stat-label">Plastic Processed</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item right scroll-reveal">
+                <div class="timeline-card glass-card magnetic">
+                    <div class="timeline-dot"></div>
+                    <span class="timeline-date">September 2024</span>
+                    <h3>Coastal Cleanup Initiative</h3>
+                    <p>Organized our largest beach cleanup event with over 100 volunteers, removing 500kg of plastic waste from Surabaya's coastline in a single day.</p>
+                    <img src="/static/images/Beach2.webp" alt="Beach Cleanup" class="timeline-image">
+                    <div class="timeline-stats">
+                        <div class="timeline-stat">
+                            <span class="timeline-stat-number">100+</span>
+                            <span class="timeline-stat-label">Volunteers</span>
+                        </div>
+                        <div class="timeline-stat">
+                            <span class="timeline-stat-number">500kg</span>
+                            <span class="timeline-stat-label">Waste Collected</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item left scroll-reveal">
+                <div class="timeline-card glass-card magnetic">
+                    <div class="timeline-dot"></div>
+                    <span class="timeline-date">July 2024</span>
+                    <h3>Bank Sampah Induk Partnership</h3>
+                    <p>Formalized our partnership with Bank Sampah Induk Surabaya, establishing a sustainable sorting and distribution system for collected plastics.</p>
+                    <img src="/static/images/UBS1.webp" alt="Bank Sampah Partnership" class="timeline-image">
+                    <div class="timeline-stats">
+                        <div class="timeline-stat">
+                            <span class="timeline-stat-number">2000kg</span>
+                            <span class="timeline-stat-label">Monthly Capacity</span>
+                        </div>
+                        <div class="timeline-stat">
+                            <span class="timeline-stat-number">85%</span>
+                            <span class="timeline-stat-label">Sorting Efficiency</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item right scroll-reveal">
+                <div class="timeline-card glass-card magnetic">
+                    <div class="timeline-dot"></div>
+                    <span class="timeline-date">May 2024</span>
+                    <h3>Community Education Program Launch</h3>
+                    <p>Launched our community education initiative, conducting workshops on waste management and sustainable practices across 5 districts in Surabaya.</p>
+                    <img src="/static/images/Background4.webp" alt="Education Program" class="timeline-image">
+                    <div class="timeline-stats">
+                        <div class="timeline-stat">
+                            <span class="timeline-stat-number">500+</span>
+                            <span class="timeline-stat-label">People Educated</span>
+                        </div>
+                        <div class="timeline-stat">
+                            <span class="timeline-stat-number">12</span>
+                            <span class="timeline-stat-label">Workshops</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item left scroll-reveal">
+                <div class="timeline-card glass-card magnetic">
+                    <div class="timeline-dot"></div>
+                    <span class="timeline-date">March 2024</span>
+                    <h3>First Collection Drive</h3>
+                    <p>Successfully completed our first major plastic collection drive, gathering 1000kg of recyclable plastic from urban communities.</p>
+                    <img src="/static/images/background5.webp" alt="Collection Drive" class="timeline-image">
+                    <div class="timeline-stats">
+                        <div class="timeline-stat">
+                            <span class="timeline-stat-number">1000kg</span>
+                            <span class="timeline-stat-label">Plastic Collected</span>
+                        </div>
+                        <div class="timeline-stat">
+                            <span class="timeline-stat-number">50</span>
+                            <span class="timeline-stat-label">Collection Points</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item right scroll-reveal">
+                <div class="timeline-card glass-card magnetic">
+                    <div class="timeline-dot"></div>
+                    <span class="timeline-date">January 2024</span>
+                    <h3>TrackEco Foundation</h3>
+                    <p>Official founding of TrackEco with a vision to create a circular economy for plastic waste in Surabaya, starting with a team of passionate environmental advocates.</p>
+                    <img src="/static/images/FirstBackground.webp" alt="Foundation" class="timeline-image">
+                    <div class="timeline-stats">
+                        <div class="timeline-stat">
+                            <span class="timeline-stat-number">74</span>
+                            <span class="timeline-stat-label">Founding Members</span>
+                        </div>
+                        <div class="timeline-stat">
+                            <span class="timeline-stat-number">3</span>
+                            <span class="timeline-stat-label">Initial Partners</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Overview -->
+        <div class="stats-overview glass-card scroll-reveal">
+            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 3rem;">Our Impact So Far</h2>
+            <div class="stats-grid">
+                <div class="stat-box magnetic">
+                    <span class="stat-box-number">3000+</span>
+                    <span class="stat-box-label">kg Plastic Collected</span>
+                </div>
+                <div class="stat-box magnetic">
+                    <span class="stat-box-number">74</span>
+                    <span class="stat-box-label">Active Members</span>
+                </div>
+                <div class="stat-box magnetic">
+                    <span class="stat-box-number">10</span>
+                    <span class="stat-box-label">SME Partners</span>
+                </div>
+                <div class="stat-box magnetic">
+                    <span class="stat-box-number">500+</span>
+                    <span class="stat-box-label">People Educated</span>
+                </div>
+                <div class="stat-box magnetic">
+                    <span class="stat-box-number">42</span>
+                    <span class="stat-box-label">Tons CO2 Prevented</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Timeline progress on scroll
+        const timelineProgress = document.getElementById('timelineProgress');
+        const timelineContainer = document.querySelector('.timeline-container');
+        
+        function updateTimelineProgress() {
+            if (!timelineContainer || !timelineProgress) return;
+            
+            const containerRect = timelineContainer.getBoundingClientRect();
+            const containerHeight = timelineContainer.offsetHeight;
+            const windowHeight = window.innerHeight;
+            
+            // Calculate scroll progress
+            const scrollProgress = Math.max(0, Math.min(1, 
+                (windowHeight - containerRect.top) / (containerHeight + windowHeight)
+            ));
+            
+            timelineProgress.style.height = `${scrollProgress * 100}%`;
+        }
+        
+        window.addEventListener('scroll', updateTimelineProgress);
+        updateTimelineProgress(); // Initial call
+        
+        // Animate timeline items on scroll
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const timelineObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                }
+            });
+        }, observerOptions);
+        
+        timelineItems.forEach(item => timelineObserver.observe(item));
+        
+        // Counter animation for stats
+        function animateCounter(element, target, duration = 2000) {
+            if (!element) return;
+            
+            const start = 0;
+            const startTime = performance.now();
+            
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                const current = Math.floor(progress * target);
+                element.textContent = current;
+                
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+            
+            requestAnimationFrame(update);
+        }
+        
+        // Observe stats section
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const numbers = entry.target.querySelectorAll('.stat-box-number');
+                    numbers.forEach(num => {
+                        const text = num.textContent.replace(/[^0-9]/g, '');
+                        const target = parseInt(text);
+                        if (!isNaN(target)) {
+                            animateCounter(num, target, 2000);
+                        }
+                    });
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        const statsSection = document.querySelector('.stats-overview');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+    });
+</script>
+{% endblock %}
+

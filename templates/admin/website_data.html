@@ -30,7 +30,7 @@
     }
 
     .btn-primary {
-        background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+        background: linear-gradient(135deg, #2e7d32, #4caf50);
         color: white;
         padding: 0.75rem 1.5rem;
         border: none;
@@ -42,8 +42,9 @@
     }
 
     .btn-primary:hover {
+        background: linear-gradient(135deg, #1b5e20, #388e3c);
         transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(242, 193, 78, 0.4);
+        box-shadow: 0 5px 15px rgba(46, 125, 50, 0.4);
     }
 
     .data-form {
@@ -211,7 +212,7 @@
                 
                 <div class="stats-grid">
                     <div class="stat-group">
-                        <label for="plastic_collected">Plastic Collected (kg)</label>
+                        <label for="plastic_collected">Plastic Collected from Oceans (kg)</label>
                         <input type="number" id="plastic_collected" name="plastic_collected" 
                                value="{{ website_data.stats.plastic_collected if website_data.stats else 5000 }}" min="0">
                     </div>
@@ -300,7 +301,7 @@
 
             <div class="form-actions">
                 <a href="{{ url_for('admin_dashboard') }}" class="btn-secondary">Cancel</a>
-                <button type="submit" class="btn-primary">Update Website Data</button>
+                <button type="submit" class="btn-primary" style="background: linear-gradient(135deg, #2e7d32, #4caf50); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">Update Website Data</button>
             </div>
         </form>
     </div>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add News - TrackEco Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .navbar {
+            background: #231842;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar h1 {
+            font-size: 1.5rem;
+        }
+
+        .navbar-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-links a:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-header {
+            margin-bottom: 2rem;
+        }
+
+        .page-header h2 {
+            font-size: 2rem;
+            color: #231842;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-container {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .form-section {
+            margin-bottom: 2rem;
+        }
+
+        .form-section h3 {
+            color: #231842;
+            margin-bottom: 1rem;
+            font-size: 1.125rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #231842;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 0.875rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #F2C14E;
+            box-shadow: 0 0 0 3px rgba(242, 193, 78, 0.1);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 0.875rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #F2C14E, #2e7d32);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(242, 193, 78, 0.4);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .helper-text {
+            font-size: 0.875rem;
+            color: #666;
+            margin-top: 0.25rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <h1>🌿 TrackEco Admin</h1>
+        <div class="navbar-links">
+            <a href="{{ url_for('admin_dashboard') }}">← Back to Dashboard</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h2>Add New News Article</h2>
+        </div>
+
+        <div class="form-container">
+            <form method="POST" action="{{ url_for('admin_add_news') }}">
+                <div class="form-section">
+                    <h3>📝 Content (English)</h3>
+                    
+                    <div class="form-group">
+                        <label for="title_en">Title (English)</label>
+                        <input type="text" id="title_en" name="title_en" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description_en">Description (English)</label>
+                        <textarea id="description_en" name="description_en" required></textarea>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>🇮🇩 Content (Indonesian)</h3>
+                    
+                    <div class="form-group">
+                        <label for="title_id">Title (Indonesian)</label>
+                        <input type="text" id="title_id" name="title_id" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description_id">Description (Indonesian)</label>
+                        <textarea id="description_id" name="description_id" required></textarea>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>⚙️ Settings</h3>
+                    
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <select id="category" name="category" required>
+                            <option value="partnership">Partnership</option>
+                            <option value="event">Event</option>
+                            <option value="impact">Impact</option>
+                            <option value="innovation">Innovation</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="image_url">Image URL</label>
+                        <input type="text" id="image_url" name="image_url" value="/static/images/background3.webp">
+                        <p class="helper-text">Use existing images from /static/images/ or provide external URL</p>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="published" name="published" checked>
+                            <label for="published" style="margin: 0;">Publish immediately</label>
+                        </div>
+                        <p class="helper-text">Uncheck to save as draft</p>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Article
+                    </button>
+                    <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+

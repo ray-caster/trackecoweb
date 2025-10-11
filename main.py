@@ -1,10 +1,51 @@
-from flask import Flask, render_template, request, jsonify, send_from_directory
-
-from threading import Thread
+from flask import Flask, render_template, request, jsonify, send_from_directory, redirect, url_for, flash, session
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from werkzeug.security import check_password_hash, generate_password_hash
+from dotenv import load_dotenv
+from datetime import datetime
 import os
 
-app = Flask(__name__)
+# Load environment variables
+load_dotenv()
 
+# Import Firebase configuration
+try:
+    from firebase_config import (
+        initialize_firebase, 
+        add_news_article, 
+        get_all_news, 
+        get_news_by_id,
+        update_news_article,
+        delete_news_article,
+        get_published_news
+    )
+    FIREBASE_AVAILABLE = True
+    # Initialize Firebase on startup
+    initialize_firebase()
+except Exception as e:
+    print(f"Firebase not available: {e}")
+    FIREBASE_AVAILABLE = False
+
+app = Flask(__name__)
+app.secret_key = os.getenv('SECRET_KEY', 'change-this-to-something-secret')
+
+# Flask-Login setup
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'admin_login'
+
+# Simple User class for admin
+class User(UserMixin):
+    def __init__(self, id):
+        self.id = id
+
+@login_manager.user_loader
+def load_user(user_id):
+    if user_id == 'admin':
+        return User(user_id)
+    return None
+
+# Public routes
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
@@ -16,7 +57,11 @@ def index():
 
 @app.route("/news")
 def news():
-    return render_template("news.html")
+    if FIREBASE_AVAILABLE:
+        news_articles = get_published_news()
+    else:
+        news_articles = []
+    return render_template("news.html", news_articles=news_articles)
 
 @app.route("/timeline")
 def timeline():
@@ -26,5 +71,128 @@ def timeline():
 def calculator():
     return render_template("calculator.html")
 
+# Admin routes
+@app.route("/admin/login", methods=['GET', 'POST'])
+def admin_login():
+    if current_user.is_authenticated:
+        return redirect(url_for('admin_dashboard'))
+    
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+        
+        admin_username = os.getenv('ADMIN_USERNAME', 'admin')
+        admin_password = os.getenv('ADMIN_PASSWORD', 'admin123')
+        
+        if username == admin_username and password == admin_password:
+            user = User('admin')
+            login_user(user)
+            flash('Login successful!', 'success')
+            return redirect(url_for('admin_dashboard'))
+        else:
+            flash('Invalid credentials. Please try again.', 'error')
+    
+    return render_template("admin/login.html")
+
+@app.route("/admin/logout")
+@login_required
+def admin_logout():
+    logout_user()
+    flash('You have been logged out.', 'info')
+    return redirect(url_for('admin_login'))
+
+@app.route("/admin")
+@login_required
+def admin_dashboard():
+    if not FIREBASE_AVAILABLE:
+        flash('Firebase is not configured. Please set up Firebase credentials.', 'error')
+    
+    news_articles = get_all_news() if FIREBASE_AVAILABLE else []
+    return render_template("admin/dashboard.html", news_articles=news_articles)
+
+@app.route("/admin/news/add", methods=['GET', 'POST'])
+@login_required
+def admin_add_news():
+    if request.method == 'POST':
+        if not FIREBASE_AVAILABLE:
+            flash('Firebase is not configured.', 'error')
+            return redirect(url_for('admin_dashboard'))
+        
+        news_data = {
+            'title_en': request.form.get('title_en'),
+            'title_id': request.form.get('title_id'),
+            'description_en': request.form.get('description_en'),
+            'description_id': request.form.get('description_id'),
+            'category': request.form.get('category'),
+            'image_url': request.form.get('image_url', '/static/images/background3.webp'),
+            'published': request.form.get('published') == 'on',
+            'created_at': datetime.now(),
+            'updated_at': datetime.now()
+        }
+        
+        news_id = add_news_article(news_data)
+        if news_id:
+            flash('News article added successfully!', 'success')
+            return redirect(url_for('admin_dashboard'))
+        else:
+            flash('Failed to add news article.', 'error')
+    
+    return render_template("admin/add_news.html")
+
+@app.route("/admin/news/edit/<news_id>", methods=['GET', 'POST'])
+@login_required
+def admin_edit_news(news_id):
+    if not FIREBASE_AVAILABLE:
+        flash('Firebase is not configured.', 'error')
+        return redirect(url_for('admin_dashboard'))
+    
+    if request.method == 'POST':
+        news_data = {
+            'title_en': request.form.get('title_en'),
+            'title_id': request.form.get('title_id'),
+            'description_en': request.form.get('description_en'),
+            'description_id': request.form.get('description_id'),
+            'category': request.form.get('category'),
+            'image_url': request.form.get('image_url'),
+            'published': request.form.get('published') == 'on',
+            'updated_at': datetime.now()
+        }
+        
+        if update_news_article(news_id, news_data):
+            flash('News article updated successfully!', 'success')
+            return redirect(url_for('admin_dashboard'))
+        else:
+            flash('Failed to update news article.', 'error')
+    
+    news_article = get_news_by_id(news_id)
+    if not news_article:
+        flash('News article not found.', 'error')
+        return redirect(url_for('admin_dashboard'))
+    
+    return render_template("admin/edit_news.html", news=news_article)
+
+@app.route("/admin/news/delete/<news_id>", methods=['POST'])
+@login_required
+def admin_delete_news(news_id):
+    if not FIREBASE_AVAILABLE:
+        flash('Firebase is not configured.', 'error')
+        return redirect(url_for('admin_dashboard'))
+    
+    if delete_news_article(news_id):
+        flash('News article deleted successfully!', 'success')
+    else:
+        flash('Failed to delete news article.', 'error')
+    
+    return redirect(url_for('admin_dashboard'))
+
+# API endpoint for getting news (for frontend)
+@app.route("/api/news")
+def api_get_news():
+    if not FIREBASE_AVAILABLE:
+        return jsonify([])
+    
+    news_articles = get_published_news()
+    return jsonify(news_articles)
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000, debug=True)

@@ -20,7 +20,13 @@ try:
         update_news_article,
         delete_news_article,
         get_published_news,
-        update_news_order
+        update_news_order,
+        get_categories,
+        add_category,
+        update_category,
+        delete_category,
+        get_website_data,
+        update_website_data
     )
     FIREBASE_AVAILABLE = True
     # Initialize Firebase on startup

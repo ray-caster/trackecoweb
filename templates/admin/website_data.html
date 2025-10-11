@@ -1,8 +1,14 @@
-{% extends "shared/base.html" %}
-
-{% block title %}Website Data - TrackEco Admin{% endblock %}
-
-{% block extra_css %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Data - TrackEco Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
 <style>
     .admin-container {
         max-width: 1200px;
@@ -155,9 +161,9 @@
         }
     }
 </style>
-{% endblock %}
-
-{% block content %}
+    </style>
+</head>
+<body>
 <div class="admin-container">
     <div class="admin-header">
         <h1 class="admin-title">Website Data & Statistics</h1>
@@ -230,6 +236,37 @@
                 </div>
             </div>
 
+            <!-- Hero Statistics -->
+            <div class="form-section">
+                <h2 class="section-title">Hero Section Statistics</h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-group">
+                        <label for="member_count">Active Members</label>
+                        <input type="number" id="member_count" name="member_count" 
+                               value="{{ website_data.stats.member_count if website_data.stats else 74 }}" min="0">
+                    </div>
+                    
+                    <div class="stat-group">
+                        <label for="bottles_collected">Bottles Collected</label>
+                        <input type="number" id="bottles_collected" name="bottles_collected" 
+                               value="{{ website_data.stats.bottles_collected if website_data.stats else 35000 }}" min="0">
+                    </div>
+                    
+                    <div class="stat-group">
+                        <label for="sme_partners">SME Partners</label>
+                        <input type="number" id="sme_partners" name="sme_partners" 
+                               value="{{ website_data.stats.sme_partners if website_data.stats else 8 }}" min="0">
+                    </div>
+                    
+                    <div class="stat-group">
+                        <label for="impact_plastic_collected">Impact Plastic Collected (kg)</label>
+                        <input type="number" id="impact_plastic_collected" name="impact_plastic_collected" 
+                               value="{{ website_data.stats.impact_plastic_collected if website_data.stats else 3000 }}" min="0">
+                    </div>
+                </div>
+            </div>
+
             <!-- Mission Section -->
             <div class="form-section">
                 <h2 class="section-title">Mission Section</h2>
@@ -268,4 +305,5 @@
         </form>
     </div>
 </div>
-{% endblock %}
+</body>
+</html>

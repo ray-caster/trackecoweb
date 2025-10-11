@@ -874,16 +874,16 @@
         <div class="hero-content">
             <h1 data-translate-key="hero_title">Memberdayakan Surabaya Melalui Daur Ulang</h1>
             <h2 data-translate-key="hero_subtitle">
-                Bergabunglah dengan <span id="memberCounter" style="color: var(--accent-color); font-weight: 800;">74</span> anggota untuk mengubah sampah plastik menjadi manfaat bagi masyarakat.
+                Bergabunglah dengan <span id="memberCounter" style="color: var(--accent-color); font-weight: 800;">{{ website_data.stats.member_count if website_data.stats else 74 }}</span> anggota untuk mengubah sampah plastik menjadi manfaat bagi masyarakat.
             </h2>
             
             <div class="hero-stats">
                 <div class="hero-stat">
-                    <span class="stat-number"><span id="bottleCounter">35,000</span>+</span>
+                    <span class="stat-number"><span id="bottleCounter">{{ website_data.stats.bottles_collected if website_data.stats else 35000 }}</span>+</span>
                     <span class="stat-label" data-translate-key="hero_bottles_collected">Botol Plastik Terkumpul</span>
                 </div>
                 <div class="hero-stat">
-                    <span class="stat-number"><span id="partnerCounter">8</span>+</span>
+                    <span class="stat-number"><span id="partnerCounter">{{ website_data.stats.sme_partners if website_data.stats else 8 }}</span>+</span>
                     <span class="stat-label" data-translate-key="hero_sme_partners">Mitra UKM Lokal</span>
                 </div>
             </div>
@@ -1132,7 +1132,7 @@
         </div>
         <div class="impact-grid">
             <div class="impact-card">
-                <div class="number">8</div>
+                <div class="number">{{ website_data.stats.sme_partners if website_data.stats else 8 }}</div>
                 <div class="title" data-translate-key="impact_card1_title">Mitra UKM Lokal</div>
                 <div class="logos">
                     <img src="/static/images/AquaLogo.webp" alt="Logo Aqua" width="80" height="40"
@@ -1144,12 +1144,12 @@
                 </div>
             </div>
             <div class="impact-card">
-                <div class="number"><span id="impactBottleCounter">3000</span>+ kg</div>
+                <div class="number"><span id="impactBottleCounter">{{ website_data.stats.impact_plastic_collected if website_data.stats else 3000 }}</span>+ kg</div>
                 <div class="title" data-translate-key="impact_card2_title">Plastik Terkumpul</div>
                 <p data-translate-key="impact_card2_desc">Dari wilayah perkotaan</p>
             </div>
             <div class="impact-card">
-                <div class="number">74</div>
+                <div class="number">{{ website_data.stats.member_count if website_data.stats else 74 }}</div>
                 <div class="title" data-translate-key="impact_card3_title">Anggota Aktif</div>
                 <p data-translate-key="impact_card3_desc">Memimpin upaya daur ulang komunitas</p>
             </div>
@@ -1540,12 +1540,12 @@
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    animateCounter(document.getElementById('memberCounter'), 74, 1500);
-                    animateCounter(document.getElementById('bottleCounter'), 35000, 2000);
-                    animateCounter(document.getElementById('partnerCounter'), 8, 1500);
+                    animateCounter(document.getElementById('memberCounter'), {{ website_data.stats.member_count if website_data.stats else 74 }}, 1500);
+                    animateCounter(document.getElementById('bottleCounter'), {{ website_data.stats.bottles_collected if website_data.stats else 35000 }}, 2000);
+                    animateCounter(document.getElementById('partnerCounter'), {{ website_data.stats.sme_partners if website_data.stats else 8 }}, 1500);
                     const impactCounter = document.getElementById('impactBottleCounter');
                     if (impactCounter) {
-                        animateCounter(impactCounter, 3000, 2000);
+                        animateCounter(impactCounter, {{ website_data.stats.impact_plastic_collected if website_data.stats else 3000 }}, 2000);
                     }
                     observer.unobserve(entry.target);
                 }

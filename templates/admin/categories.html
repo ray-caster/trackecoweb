@@ -1,8 +1,14 @@
-{% extends "shared/base.html" %}
-
-{% block title %}Manage Categories - TrackEco Admin{% endblock %}
-
-{% block extra_css %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Categories - TrackEco Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
 <style>
     .admin-container {
         max-width: 1200px;
@@ -162,9 +168,9 @@
         color: var(--primary-color);
     }
 </style>
-{% endblock %}
-
-{% block content %}
+    </style>
+</head>
+<body>
 <div class="admin-container">
     <div class="admin-header">
         <h1 class="admin-title">Manage Categories</h1>
@@ -276,4 +282,5 @@ document.getElementById('editModal').addEventListener('click', function(e) {
     }
 });
 </script>
-{% endblock %}
+</body>
+</html>

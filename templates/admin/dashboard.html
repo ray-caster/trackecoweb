@@ -342,11 +342,6 @@
             {% endif %}
         {% endwith %}
 
-        <div class="actions">
-            <a href="{{ url_for('admin_add_news') }}" class="btn btn-primary">
-                <i class="fas fa-plus"></i> Add New Article
-            </a>
-        </div>
 
         <div class="news-grid" id="news-grid">
             {% if news_articles %}

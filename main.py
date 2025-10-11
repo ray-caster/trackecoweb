@@ -14,6 +14,7 @@ load_dotenv()
 try:
     from firebase_config import (
         initialize_firebase, 
+        get_firestore_client,
         add_news_article, 
         get_all_news, 
         get_news_by_id,
@@ -77,9 +78,11 @@ def index():
     # Get latest 5 news for carousel
     if FIREBASE_AVAILABLE:
         latest_news = get_published_news(limit=5)
+        website_data = get_website_data()
     else:
         latest_news = []
-    return render_template("index.html", latest_news=latest_news)
+        website_data = {}
+    return render_template("index.html", latest_news=latest_news, website_data=website_data)
 
 @app.route("/news")
 def news():
@@ -413,7 +416,11 @@ def admin_update_website_data():
             'plastic_collected': int(request.form.get('plastic_collected', 0)),
             'communities_reached': int(request.form.get('communities_reached', 0)),
             'recycling_rate': int(request.form.get('recycling_rate', 0)),
-            'co2_reduced': int(request.form.get('co2_reduced', 0))
+            'co2_reduced': int(request.form.get('co2_reduced', 0)),
+            'member_count': int(request.form.get('member_count', 0)),
+            'bottles_collected': int(request.form.get('bottles_collected', 0)),
+            'sme_partners': int(request.form.get('sme_partners', 0)),
+            'impact_plastic_collected': int(request.form.get('impact_plastic_collected', 0))
         },
         'mission_title_en': request.form.get('mission_title_en'),
         'mission_title_id': request.form.get('mission_title_id'),

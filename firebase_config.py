@@ -261,7 +261,11 @@ def get_website_data():
                     'plastic_collected': 5000,
                     'communities_reached': 25,
                     'recycling_rate': 85,
-                    'co2_reduced': 1200
+                    'co2_reduced': 1200,
+                    'member_count': 74,
+                    'bottles_collected': 35000,
+                    'sme_partners': 8,
+                    'impact_plastic_collected': 3000
                 },
                 'mission_title_en': 'Our Mission',
                 'mission_title_id': 'Misi Kami',

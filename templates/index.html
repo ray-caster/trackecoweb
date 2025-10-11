@@ -874,16 +874,16 @@
         <div class="hero-content">
             <h1 data-translate-key="hero_title">Memberdayakan Surabaya Melalui Daur Ulang</h1>
             <h2 data-translate-key="hero_subtitle">
-                Bergabunglah dengan <span id="memberCounter" style="color: var(--accent-color); font-weight: 800;">{{ website_data.stats.member_count if website_data.stats else 74 }}</span> anggota untuk mengubah sampah plastik menjadi manfaat bagi masyarakat.
+                Bergabunglah dengan <span id="memberCounter" style="color: #2e7d32; font-weight: 800;">{{ website_data.stats.member_count if website_data.stats else 74 }}</span> anggota untuk mengubah sampah plastik menjadi manfaat bagi masyarakat.
             </h2>
             
             <div class="hero-stats">
                 <div class="hero-stat">
-                    <span class="stat-number"><span id="bottleCounter">{{ website_data.stats.bottles_collected if website_data.stats else 35000 }}</span>+</span>
+                    <span class="stat-number" style="color: #2e7d32;"><span id="bottleCounter">{{ website_data.stats.bottles_collected if website_data.stats else 35000 }}</span>+</span>
                     <span class="stat-label" data-translate-key="hero_bottles_collected">Botol Plastik Terkumpul</span>
                 </div>
                 <div class="hero-stat">
-                    <span class="stat-number"><span id="partnerCounter">{{ website_data.stats.sme_partners if website_data.stats else 8 }}</span>+</span>
+                    <span class="stat-number" style="color: #2e7d32;"><span id="partnerCounter">{{ website_data.stats.sme_partners if website_data.stats else 8 }}</span>+</span>
                     <span class="stat-label" data-translate-key="hero_sme_partners">Mitra UKM Lokal</span>
                 </div>
             </div>
@@ -1132,7 +1132,7 @@
         </div>
         <div class="impact-grid">
             <div class="impact-card">
-                <div class="number">{{ website_data.stats.sme_partners if website_data.stats else 8 }}</div>
+                <div class="number" style="color: #2e7d32;">{{ website_data.stats.sme_partners if website_data.stats else 8 }}</div>
                 <div class="title" data-translate-key="impact_card1_title">Mitra UKM Lokal</div>
                 <div class="logos">
                     <img src="/static/images/AquaLogo.webp" alt="Logo Aqua" width="80" height="40"
@@ -1144,12 +1144,12 @@
                 </div>
             </div>
             <div class="impact-card">
-                <div class="number"><span id="impactBottleCounter">{{ website_data.stats.impact_plastic_collected if website_data.stats else 3000 }}</span>+ kg</div>
+                <div class="number" style="color: #2e7d32;"><span id="impactBottleCounter">{{ website_data.stats.impact_plastic_collected if website_data.stats else 3000 }}</span>+ kg</div>
                 <div class="title" data-translate-key="impact_card2_title">Plastik Terkumpul</div>
                 <p data-translate-key="impact_card2_desc">Dari wilayah perkotaan</p>
             </div>
             <div class="impact-card">
-                <div class="number">{{ website_data.stats.member_count if website_data.stats else 74 }}</div>
+                <div class="number" style="color: #2e7d32;">{{ website_data.stats.member_count if website_data.stats else 74 }}</div>
                 <div class="title" data-translate-key="impact_card3_title">Anggota Aktif</div>
                 <p data-translate-key="impact_card3_desc">Memimpin upaya daur ulang komunitas</p>
             </div>
@@ -1181,7 +1181,7 @@
                             style="color:var(--secondary-color);"></i></div>
                     <div>
                         <h4 data-translate-key="impact_env3_title">Dukungan Industri Kerajinan</h4>
-                        <p data-translate-key="impact_env3_desc"><strong>85%</strong> plastik berkualitas tinggi
+                        <p data-translate-key="impact_env3_desc"><strong style="color: #2e7d32;">{{ website_data.stats.recycling_rate if website_data.stats else 85 }}%</strong> plastik berkualitas tinggi
                             mendukung industri mikro kerajinan lokal.</p>
                     </div>
                 </div>

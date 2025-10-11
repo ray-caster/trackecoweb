@@ -140,11 +140,8 @@ def get_published_news(limit=None):
         return []
     
     try:
-        # Use filter keyword argument to avoid warning
-        query = db.collection('news').where(filter=firestore.FieldFilter('published', '==', True)).order_by('order', direction=firestore.Query.ASCENDING)
-        
-        if limit:
-            query = query.limit(limit)
+        # First get all published articles, then sort in Python
+        query = db.collection('news').where(filter=firestore.FieldFilter('published', '==', True))
         
         docs = query.stream()
         

@@ -249,11 +249,7 @@
                         <p class="helper-text">Use existing images from /static/images/ or provide external URL</p>
                     </div>
 
-                    <div class="form-group">
-                        <label for="order">Display Order</label>
-                        <input type="number" id="order" name="order" value="{{ news.order if news.order is defined else 999 }}" min="0">
-                        <p class="helper-text">Lower numbers appear first (0 = highest priority)</p>
-                    </div>
+                    <input type="hidden" id="order" name="order" value="{{ news.order if news.order is defined else 999 }}">
 
                     <div class="form-group">
                         <div class="checkbox-group">

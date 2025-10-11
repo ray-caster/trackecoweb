@@ -910,7 +910,7 @@
     <!-- Right Side: Latest News Preview with Carousel -->
     <div class="hero-right">
         <div class="hero-background-container">
-            {% if latest_news %}
+            {% if latest_news and latest_news|length > 0 %}
                 {% for article in latest_news %}
                 <img src="{{ article.image_url }}" 
                      alt="{{ article.title_en }}" 
@@ -923,7 +923,7 @@
                      data-desc-en="{{ article.description_en[:150] }}..."
                      data-desc-id="{{ article.description_id[:150] }}...">
                 {% endfor %}
-            {% else %}
+            {% elif latest_news is none %}
                 <!-- Fallback images if no news -->
                 <img src="/static/images/Beach2.webp" alt="Coastal Cleanup 2024"
                     class="active-slide" id="hero-bg-1" width="1920" height="1080" loading="eager"
@@ -960,24 +960,46 @@
         <div class="hero-overlay"></div>
         
         <div class="news-preview-container">
-            <span class="news-badge" data-translate-key="news_badge">Latest News</span>
-            <h2 class="news-preview-title" id="carousel-title" data-translate-key="news_preview_title">
-                Coastal Cleanup Initiative 2024
-            </h2>
-            <p class="news-preview-desc" id="carousel-desc" data-translate-key="news_preview_desc">
-                Over 100 volunteers joined us in cleaning Surabaya's beaches, collecting 500kg of plastic waste in a single day.
-            </p>
-            <a href="/news" class="news-preview-link magnetic">
-                <span data-translate-key="news_read_more">Read All News</span>
-                <i class="fas fa-arrow-right"></i>
-            </a>
+            {% if latest_news is none %}
+                <span class="news-badge" style="background: #e74c3c;">Setup Required</span>
+                <h2 class="news-preview-title">Firebase Not Connected</h2>
+                <p class="news-preview-desc">
+                    Please set up Firebase to enable dynamic news. See FIREBASE_SETUP.md for instructions.
+                </p>
+                <a href="/admin/login" class="news-preview-link magnetic">
+                    <span>Go to Admin</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            {% elif latest_news and latest_news|length > 0 %}
+                <span class="news-badge" data-translate-key="news_badge">Latest News</span>
+                <h2 class="news-preview-title" id="carousel-title">
+                    {{ latest_news[0].title_id if latest_news else 'No News' }}
+                </h2>
+                <p class="news-preview-desc" id="carousel-desc">
+                    {{ latest_news[0].description_id[:150] if latest_news else '' }}...
+                </p>
+                <a href="/news" class="news-preview-link magnetic">
+                    <span data-translate-key="news_read_more">Read All News</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            {% else %}
+                <span class="news-badge">No News Yet</span>
+                <h2 class="news-preview-title">Start Adding News</h2>
+                <p class="news-preview-desc">
+                    Login to the admin panel to add your first news article!
+                </p>
+                <a href="/admin/login" class="news-preview-link magnetic">
+                    <span>Go to Admin</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            {% endif %}
             
             <div class="hero-dots" id="hero-dots">
-                {% if latest_news %}
+                {% if latest_news and latest_news|length > 0 %}
                     {% for article in latest_news %}
                     <button class="dot {% if loop.first %}active{% endif %}" data-index="{{ loop.index0 }}" aria-label="Slide {{ loop.index }}"></button>
                     {% endfor %}
-                {% else %}
+                {% elif latest_news is none %}
                     <button class="dot active" data-index="0" aria-label="Slide 1"></button>
                     <button class="dot" data-index="1" aria-label="Slide 2"></button>
                     <button class="dot" data-index="2" aria-label="Slide 3"></button>

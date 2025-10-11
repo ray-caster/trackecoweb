@@ -162,38 +162,43 @@
             padding: 1.5rem;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             display: grid;
-            grid-template-columns: 120px 1fr auto;
+            grid-template-columns: auto 120px 1fr auto;
             gap: 1.5rem;
             align-items: center;
             transition: all 0.3s ease;
         }
 
-        .news-item.dragging {
-            opacity: 0.5;
-            cursor: move;
+        .order-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
         }
 
-        .news-item.drag-over {
-            border-top: 3px solid #F2C14E;
+        .order-btn {
+            padding: 0.25rem 0.5rem;
+            background: #e0e0e0;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #666;
         }
 
-        .drag-handle {
-            cursor: grab;
-            padding: 0.5rem;
+        .order-btn:hover {
+            background: #F2C14E;
+            color: #231842;
+        }
+
+        .order-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .order-number {
+            font-size: 0.75rem;
             color: #999;
-            display: none;
-        }
-
-        .drag-handle:active {
-            cursor: grabbing;
-        }
-
-        .reorder-mode .drag-handle {
-            display: block;
-        }
-
-        .reorder-mode .news-item {
-            cursor: move;
+            text-align: center;
+            padding: 0.25rem;
         }
 
         .news-image {
@@ -330,23 +335,24 @@
             <a href="{{ url_for('admin_add_news') }}" class="btn btn-primary">
                 <i class="fas fa-plus"></i> Add New Article
             </a>
-            <button id="reorder-btn" class="btn btn-edit reorder-toggle" onclick="toggleReorderMode()">
-                <i class="fas fa-arrows-alt"></i> Reorder Articles
-            </button>
-            <button id="save-order-btn" class="btn btn-primary" onclick="saveOrder()" style="display: none;">
-                <i class="fas fa-save"></i> Save Order
-            </button>
-            <button id="cancel-order-btn" class="btn btn-secondary" onclick="cancelReorder()" style="display: none;">
-                <i class="fas fa-times"></i> Cancel
-            </button>
         </div>
 
         <div class="news-grid" id="news-grid">
             {% if news_articles %}
                 {% for article in news_articles %}
-                <div class="news-item" data-news-id="{{ article.id }}" draggable="false">
-                    <div class="drag-handle">
-                        <i class="fas fa-grip-vertical"></i>
+                <div class="news-item" data-news-id="{{ article.id }}" data-order="{{ article.order if article.order is defined else 999 }}">
+                    <div class="order-controls">
+                        <button class="order-btn" onclick="moveArticle('{{ article.id }}', 'up')" 
+                                {% if loop.first %}disabled{% endif %}
+                                title="Move up">
+                            <i class="fas fa-chevron-up"></i>
+                        </button>
+                        <div class="order-number">#{{ loop.index }}</div>
+                        <button class="order-btn" onclick="moveArticle('{{ article.id }}', 'down')"
+                                {% if loop.last %}disabled{% endif %}
+                                title="Move down">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
                     </div>
                     <img src="{{ article.image_url }}" alt="{{ article.title_en }}" class="news-image">
                     
@@ -392,70 +398,29 @@
     </div>
 
     <script>
-        let isReorderMode = false;
-        let originalOrder = [];
-
-        function toggleReorderMode() {
-            isReorderMode = true;
+        async function moveArticle(articleId, direction) {
             const grid = document.getElementById('news-grid');
-            const items = grid.querySelectorAll('.news-item');
+            const items = Array.from(grid.querySelectorAll('.news-item'));
+            const currentIndex = items.findIndex(item => item.dataset.newsId === articleId);
             
-            // Save original order
-            originalOrder = Array.from(items).map(item => item.dataset.newsId);
+            if (currentIndex === -1) return;
             
-            // Enable drag and drop
-            items.forEach(item => {
-                item.setAttribute('draggable', 'true');
-                item.addEventListener('dragstart', handleDragStart);
-                item.addEventListener('dragover', handleDragOver);
-                item.addEventListener('drop', handleDrop);
-                item.addEventListener('dragend', handleDragEnd);
-            });
+            const targetIndex = direction === 'up' ? currentIndex - 1 : currentIndex + 1;
             
-            // Update UI
-            grid.classList.add('reorder-mode');
-            document.getElementById('reorder-btn').style.display = 'none';
-            document.getElementById('save-order-btn').style.display = 'inline-flex';
-            document.getElementById('cancel-order-btn').style.display = 'inline-flex';
+            if (targetIndex < 0 || targetIndex >= items.length) return;
             
-            // Hide edit/delete buttons
-            document.querySelectorAll('.news-actions').forEach(el => el.style.display = 'none');
-        }
-
-        function cancelReorder() {
-            isReorderMode = false;
-            const grid = document.getElementById('news-grid');
-            const items = grid.querySelectorAll('.news-item');
+            // Swap the items visually
+            const currentItem = items[currentIndex];
+            const targetItem = items[targetIndex];
             
-            // Disable drag and drop
-            items.forEach(item => {
-                item.setAttribute('draggable', 'false');
-                item.removeEventListener('dragstart', handleDragStart);
-                item.removeEventListener('dragover', handleDragOver);
-                item.removeEventListener('drop', handleDrop);
-                item.removeEventListener('dragend', handleDragEnd);
-            });
+            if (direction === 'up') {
+                grid.insertBefore(currentItem, targetItem);
+            } else {
+                grid.insertBefore(targetItem, currentItem);
+            }
             
-            // Restore original order
-            originalOrder.forEach((id, index) => {
-                const item = grid.querySelector(`[data-news-id="${id}"]`);
-                grid.appendChild(item);
-            });
-            
-            // Update UI
-            grid.classList.remove('reorder-mode');
-            document.getElementById('reorder-btn').style.display = 'inline-flex';
-            document.getElementById('save-order-btn').style.display = 'none';
-            document.getElementById('cancel-order-btn').style.display = 'none';
-            
-            // Show edit/delete buttons
-            document.querySelectorAll('.news-actions').forEach(el => el.style.display = 'flex');
-        }
-
-        async function saveOrder() {
-            const grid = document.getElementById('news-grid');
-            const items = grid.querySelectorAll('.news-item');
-            const newOrder = Array.from(items).map(item => item.dataset.newsId);
+            // Save new order to backend
+            const newOrder = Array.from(grid.querySelectorAll('.news-item')).map(item => item.dataset.newsId);
             
             try {
                 const response = await fetch('/api/news/reorder', {
@@ -469,7 +434,7 @@
                 const data = await response.json();
                 
                 if (data.success) {
-                    alert('Order saved successfully!');
+                    // Reload to update button states
                     location.reload();
                 } else {
                     alert('Failed to save order: ' + data.message);
@@ -477,57 +442,6 @@
             } catch (error) {
                 alert('Error saving order: ' + error.message);
             }
-        }
-
-        let draggedItem = null;
-
-        function handleDragStart(e) {
-            draggedItem = this;
-            this.classList.add('dragging');
-            e.dataTransfer.effectAllowed = 'move';
-            e.dataTransfer.setData('text/html', this.innerHTML);
-        }
-
-        function handleDragOver(e) {
-            if (e.preventDefault) {
-                e.preventDefault();
-            }
-            e.dataTransfer.dropEffect = 'move';
-            
-            const afterElement = getDragAfterElement(e.currentTarget.parentNode, e.clientY);
-            if (afterElement == null) {
-                e.currentTarget.parentNode.appendChild(draggedItem);
-            } else {
-                e.currentTarget.parentNode.insertBefore(draggedItem, afterElement);
-            }
-            
-            return false;
-        }
-
-        function handleDrop(e) {
-            if (e.stopPropagation) {
-                e.stopPropagation();
-            }
-            return false;
-        }
-
-        function handleDragEnd(e) {
-            this.classList.remove('dragging');
-        }
-
-        function getDragAfterElement(container, y) {
-            const draggableElements = [...container.querySelectorAll('.news-item:not(.dragging)')];
-            
-            return draggableElements.reduce((closest, child) => {
-                const box = child.getBoundingClientRect();
-                const offset = y - box.top - box.height / 2;
-                
-                if (offset < 0 && offset > closest.offset) {
-                    return { offset: offset, element: child };
-                } else {
-                    return closest;
-                }
-            }, { offset: Number.NEGATIVE_INFINITY }).element;
         }
     </script>
 </body>

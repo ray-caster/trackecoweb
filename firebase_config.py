@@ -106,22 +106,30 @@ def get_published_news(limit=None):
     """Get only published news articles"""
     db = get_firestore_client()
     if not db:
-        return []
+        # Return empty list so template knows there's no data
+        return None
     
-    query = db.collection('news').where('published', '==', True).order_by('order', direction=firestore.Query.ASCENDING).order_by('created_at', direction=firestore.Query.DESCENDING)
-    
-    if limit:
-        query = query.limit(limit)
-    
-    docs = query.stream()
-    
-    news_list = []
-    for doc in docs:
-        news_data = doc.to_dict()
-        news_data['id'] = doc.id
-        news_list.append(news_data)
-    
-    return news_list
+    try:
+        query = db.collection('news').where('published', '==', True).order_by('order', direction=firestore.Query.ASCENDING)
+        
+        if limit:
+            query = query.limit(limit)
+        
+        docs = query.stream()
+        
+        news_list = []
+        for doc in docs:
+            news_data = doc.to_dict()
+            news_data['id'] = doc.id
+            # Ensure order field exists
+            if 'order' not in news_data:
+                news_data['order'] = 999
+            news_list.append(news_data)
+        
+        return news_list
+    except Exception as e:
+        print(f"Error getting published news: {e}")
+        return None
 
 def update_news_order(news_id, new_order):
     """Update the order of a news article"""

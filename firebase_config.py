@@ -154,6 +154,12 @@ def get_published_news(limit=None):
                 news_data['order'] = 999
             news_list.append(news_data)
         
+        # Sort by order field in Python
+        news_list.sort(key=lambda x: x.get('order', 999))
+        
+        if limit:
+            news_list = news_list[:limit]
+        
         return news_list
     except Exception as e:
         print(f"Error getting published news: {e}")

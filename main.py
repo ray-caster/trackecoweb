@@ -157,6 +157,7 @@ def admin_add_news():
             'category': request.form.get('category'),
             'image_url': image_url,
             'published': request.form.get('published') == 'on',
+            'featured': request.form.get('featured') == 'on',
             'order': int(request.form.get('order', 999)),
             'created_at': datetime.now(),
             'updated_at': datetime.now()
@@ -198,6 +199,7 @@ def admin_edit_news(news_id):
             'category': request.form.get('category'),
             'image_url': image_url,
             'published': request.form.get('published') == 'on',
+            'featured': request.form.get('featured') == 'on',
             'order': int(request.form.get('order', 999)),
             'updated_at': datetime.now()
         }

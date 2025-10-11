@@ -360,6 +360,9 @@
                         <h3>{{ article.title_en }}</h3>
                         <div class="news-meta">
                             <span class="news-category category-{{ article.category }}">{{ article.category }}</span>
+                            {% if article.featured %}
+                            <span class="news-status" style="background: #F2C14E; color: #231842;">Featured</span>
+                            {% endif %}
                             <span class="news-status {% if article.published %}status-published{% else %}status-draft{% endif %}">
                                 {% if article.published %}Published{% else %}Draft{% endif %}
                             </span>

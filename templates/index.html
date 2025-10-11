@@ -18,7 +18,7 @@
 
 <!-- Security Meta Tags -->
 <meta http-equiv="Content-Security-Policy"
-    content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data:; object-src 'none';">
+    content="default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; object-src 'none';">
 
 <!-- Structured Data -->
 <script type="application/ld+json">
@@ -1403,7 +1403,7 @@
             container.innerHTML = html;
         }
 
-        const setLanguage = (lang) => {
+        function setLanguage(lang) {
             document.documentElement.lang = lang;
             localStorage.setItem('language', lang);
             document.querySelectorAll('[data-translate-key]').forEach(element => {
@@ -1422,7 +1422,7 @@
             renderTeam(lang);
             document.querySelectorAll('#lang-en, #lang-en-mobile').forEach(el => el.style.color = (lang === 'en' ? 'var(--accent-color)' : 'var(--white-color)'));
             document.querySelectorAll('#lang-id, #lang-id-mobile').forEach(el => el.style.color = (lang === 'id' ? 'var(--accent-color)' : 'var(--white-color)'));
-        };
+        }
 
         const getInitialLanguage = () => {
             const savedLang = localStorage.getItem('language');
@@ -1507,16 +1507,16 @@
             updateCarouselContent(currentBgIndex);
         }
 
-        // Hook into existing language change
+        // Initialize carousel content
+        updateCarouselContent(0);
+        startSlider();
+
+        // Override setLanguage to include carousel updates
         const originalSetLanguage = setLanguage;
         setLanguage = function(lang) {
             originalSetLanguage(lang);
             updateLanguageForCarousel(lang);
         };
-
-        // Initialize carousel content
-        updateCarouselContent(0);
-        startSlider();
 
         // --- Counter Animation ---
         function animateCounter(element, target, duration = 2000) {

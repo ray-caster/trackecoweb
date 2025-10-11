@@ -238,6 +238,16 @@ def api_get_news():
     news_articles = get_published_news()
     return jsonify(news_articles)
 
+# Debug route to check news status
+@app.route("/debug/news")
+def debug_news():
+    debug_info = {
+        "firebase_available": FIREBASE_AVAILABLE,
+        "published_news": get_published_news() if FIREBASE_AVAILABLE else "Firebase not available",
+        "all_news": get_all_news() if FIREBASE_AVAILABLE else "Firebase not available"
+    }
+    return jsonify(debug_info)
+
 @app.route("/api/news/reorder", methods=['POST'])
 @login_required
 def api_reorder_news():

@@ -222,11 +222,20 @@
                     <div class="form-group">
                         <label for="category">Category</label>
                         <select id="category" name="category" required>
-                            <option value="partnership">Partnership</option>
-                            <option value="event">Event</option>
-                            <option value="impact">Impact</option>
-                            <option value="innovation">Innovation</option>
+                            <option value="">Select Category</option>
+                            {% for category in categories %}
+                            <option value="{{ category.name }}" data-color="{{ category.color }}">
+                                {{ category.name|title }}
+                            </option>
+                            {% endfor %}
                         </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="publish_date">Publish Date</label>
+                        <input type="datetime-local" id="publish_date" name="publish_date" 
+                               value="{{ current_date }}">
+                        <p class="helper-text">When should this article be published? (Leave empty for immediate)</p>
                     </div>
 
                     <div class="form-group">

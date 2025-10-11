@@ -319,8 +319,19 @@
 
     <div class="container">
         <div class="page-header">
-            <h2>News Management</h2>
-            <p>Create, edit, and manage news articles</p>
+            <h2>Admin Dashboard</h2>
+            <p>Manage your website content, news, and categories</p>
+            <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                <a href="{{ url_for('admin_categories') }}" class="btn btn-secondary">
+                    <i class="fas fa-tags"></i> Categories
+                </a>
+                <a href="{{ url_for('admin_website_data') }}" class="btn btn-secondary">
+                    <i class="fas fa-cog"></i> Website Data
+                </a>
+                <a href="{{ url_for('admin_add_news') }}" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Add New Article
+                </a>
+            </div>
         </div>
 
         {% with messages = get_flashed_messages(with_categories=true) %}

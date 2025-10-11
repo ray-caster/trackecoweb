@@ -960,17 +960,7 @@
         <div class="hero-overlay"></div>
         
         <div class="news-preview-container">
-            {% if latest_news is none %}
-                <span class="news-badge" style="background: #e74c3c;">Setup Required</span>
-                <h2 class="news-preview-title">Firebase Not Connected</h2>
-                <p class="news-preview-desc">
-                    Please set up Firebase to enable dynamic news. See FIREBASE_SETUP.md for instructions.
-                </p>
-                <a href="/admin/login" class="news-preview-link magnetic">
-                    <span>Go to Admin</span>
-                    <i class="fas fa-arrow-right"></i>
-                </a>
-            {% elif latest_news and latest_news|length > 0 %}
+            {% if latest_news and latest_news|length > 0 %}
                 <span class="news-badge" data-translate-key="news_badge">Latest News</span>
                 <h2 class="news-preview-title" id="carousel-title">
                     {{ latest_news[0].title_id if latest_news else 'No News' }}
@@ -999,7 +989,7 @@
                     {% for article in latest_news %}
                     <button class="dot {% if loop.first %}active{% endif %}" data-index="{{ loop.index0 }}" aria-label="Slide {{ loop.index }}"></button>
                     {% endfor %}
-                {% elif latest_news is none %}
+                {% else %}
                     <button class="dot active" data-index="0" aria-label="Slide 1"></button>
                     <button class="dot" data-index="1" aria-label="Slide 2"></button>
                     <button class="dot" data-index="2" aria-label="Slide 3"></button>

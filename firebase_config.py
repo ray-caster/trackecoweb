@@ -47,9 +47,17 @@ def add_news_article(data):
     if not db:
         return None
     
-    doc_ref = db.collection('news').document()
-    doc_ref.set(data)
-    return doc_ref.id
+    try:
+        # Ensure order field exists
+        if 'order' not in data:
+            data['order'] = 999
+        
+        doc_ref = db.collection('news').document()
+        doc_ref.set(data)
+        return doc_ref.id
+    except Exception as e:
+        print(f"Error adding news article: {e}")
+        return None
 
 def get_all_news():
     """Get all news articles from Firestore"""
@@ -57,16 +65,23 @@ def get_all_news():
     if not db:
         return []
     
-    news_ref = db.collection('news').order_by('created_at', direction=firestore.Query.DESCENDING)
-    docs = news_ref.stream()
-    
-    news_list = []
-    for doc in docs:
-        news_data = doc.to_dict()
-        news_data['id'] = doc.id
-        news_list.append(news_data)
-    
-    return news_list
+    try:
+        news_ref = db.collection('news').order_by('created_at', direction=firestore.Query.DESCENDING)
+        docs = news_ref.stream()
+        
+        news_list = []
+        for doc in docs:
+            news_data = doc.to_dict()
+            news_data['id'] = doc.id
+            # Ensure order field exists
+            if 'order' not in news_data:
+                news_data['order'] = 999
+            news_list.append(news_data)
+        
+        return news_list
+    except Exception as e:
+        print(f"Error getting all news: {e}")
+        return []
 
 def get_news_by_id(news_id):
     """Get a specific news article by ID"""
@@ -74,14 +89,21 @@ def get_news_by_id(news_id):
     if not db:
         return None
     
-    doc_ref = db.collection('news').document(news_id)
-    doc = doc_ref.get()
-    
-    if doc.exists:
-        news_data = doc.to_dict()
-        news_data['id'] = doc.id
-        return news_data
-    return None
+    try:
+        doc_ref = db.collection('news').document(news_id)
+        doc = doc_ref.get()
+        
+        if doc.exists:
+            news_data = doc.to_dict()
+            news_data['id'] = doc.id
+            # Ensure order field exists
+            if 'order' not in news_data:
+                news_data['order'] = 999
+            return news_data
+        return None
+    except Exception as e:
+        print(f"Error getting news by ID: {e}")
+        return None
 
 def update_news_article(news_id, data):
     """Update a news article"""
@@ -89,9 +111,13 @@ def update_news_article(news_id, data):
     if not db:
         return False
     
-    doc_ref = db.collection('news').document(news_id)
-    doc_ref.update(data)
-    return True
+    try:
+        doc_ref = db.collection('news').document(news_id)
+        doc_ref.update(data)
+        return True
+    except Exception as e:
+        print(f"Error updating news article: {e}")
+        return False
 
 def delete_news_article(news_id):
     """Delete a news article"""
@@ -99,18 +125,23 @@ def delete_news_article(news_id):
     if not db:
         return False
     
-    db.collection('news').document(news_id).delete()
-    return True
+    try:
+        db.collection('news').document(news_id).delete()
+        return True
+    except Exception as e:
+        print(f"Error deleting news article: {e}")
+        return False
 
 def get_published_news(limit=None):
     """Get only published news articles"""
     db = get_firestore_client()
     if not db:
         # Return empty list so template knows there's no data
-        return None
+        return []
     
     try:
-        query = db.collection('news').where('published', '==', True).order_by('order', direction=firestore.Query.ASCENDING)
+        # Use filter keyword argument to avoid warning
+        query = db.collection('news').where(filter=firestore.FieldFilter('published', '==', True)).order_by('order', direction=firestore.Query.ASCENDING)
         
         if limit:
             query = query.limit(limit)
@@ -129,7 +160,7 @@ def get_published_news(limit=None):
         return news_list
     except Exception as e:
         print(f"Error getting published news: {e}")
-        return None
+        return []
 
 def update_news_order(news_id, new_order):
     """Update the order of a news article"""
@@ -137,7 +168,11 @@ def update_news_order(news_id, new_order):
     if not db:
         return False
     
-    doc_ref = db.collection('news').document(news_id)
-    doc_ref.update({'order': new_order})
-    return True
+    try:
+        doc_ref = db.collection('news').document(news_id)
+        doc_ref.update({'order': new_order})
+        return True
+    except Exception as e:
+        print(f"Error updating news order: {e}")
+        return False
 

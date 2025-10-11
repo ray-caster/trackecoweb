@@ -1,9 +1,11 @@
 from flask import Flask, render_template, request, jsonify, send_from_directory, redirect, url_for, flash, session
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.utils import secure_filename
 from dotenv import load_dotenv
 from datetime import datetime
 import os
+import uuid
 
 # Load environment variables
 load_dotenv()
@@ -17,7 +19,8 @@ try:
         get_news_by_id,
         update_news_article,
         delete_news_article,
-        get_published_news
+        get_published_news,
+        update_news_order
     )
     FIREBASE_AVAILABLE = True
     # Initialize Firebase on startup
@@ -28,6 +31,18 @@ except Exception as e:
 
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY', 'change-this-to-something-secret')
+
+# Upload configuration
+UPLOAD_FOLDER = 'static/images/uploads'
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
+
+# Create upload directory if it doesn't exist
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 # Flask-Login setup
 login_manager = LoginManager()
@@ -53,7 +68,12 @@ def favicon():
                                
 @app.route("/")
 def index():
-    return render_template("index.html")
+    # Get latest 5 news for carousel
+    if FIREBASE_AVAILABLE:
+        latest_news = get_published_news(limit=5)
+    else:
+        latest_news = []
+    return render_template("index.html", latest_news=latest_news)
 
 @app.route("/news")
 def news():
@@ -118,14 +138,26 @@ def admin_add_news():
             flash('Firebase is not configured.', 'error')
             return redirect(url_for('admin_dashboard'))
         
+        # Handle image upload
+        image_url = request.form.get('image_url', '/static/images/background3.webp')
+        if 'image_file' in request.files:
+            file = request.files['image_file']
+            if file and file.filename and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                unique_filename = f"{uuid.uuid4().hex}_{filename}"
+                filepath = os.path.join(app.config['UPLOAD_FOLDER'], unique_filename)
+                file.save(filepath)
+                image_url = f'/static/images/uploads/{unique_filename}'
+        
         news_data = {
             'title_en': request.form.get('title_en'),
             'title_id': request.form.get('title_id'),
             'description_en': request.form.get('description_en'),
             'description_id': request.form.get('description_id'),
             'category': request.form.get('category'),
-            'image_url': request.form.get('image_url', '/static/images/background3.webp'),
+            'image_url': image_url,
             'published': request.form.get('published') == 'on',
+            'order': int(request.form.get('order', 999)),
             'created_at': datetime.now(),
             'updated_at': datetime.now()
         }
@@ -147,14 +179,26 @@ def admin_edit_news(news_id):
         return redirect(url_for('admin_dashboard'))
     
     if request.method == 'POST':
+        # Handle image upload
+        image_url = request.form.get('image_url')
+        if 'image_file' in request.files:
+            file = request.files['image_file']
+            if file and file.filename and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                unique_filename = f"{uuid.uuid4().hex}_{filename}"
+                filepath = os.path.join(app.config['UPLOAD_FOLDER'], unique_filename)
+                file.save(filepath)
+                image_url = f'/static/images/uploads/{unique_filename}'
+        
         news_data = {
             'title_en': request.form.get('title_en'),
             'title_id': request.form.get('title_id'),
             'description_en': request.form.get('description_en'),
             'description_id': request.form.get('description_id'),
             'category': request.form.get('category'),
-            'image_url': request.form.get('image_url'),
+            'image_url': image_url,
             'published': request.form.get('published') == 'on',
+            'order': int(request.form.get('order', 999)),
             'updated_at': datetime.now()
         }
         
@@ -193,6 +237,22 @@ def api_get_news():
     
     news_articles = get_published_news()
     return jsonify(news_articles)
+
+@app.route("/api/news/reorder", methods=['POST'])
+@login_required
+def api_reorder_news():
+    if not FIREBASE_AVAILABLE:
+        return jsonify({'success': False, 'message': 'Firebase not configured'})
+    
+    data = request.get_json()
+    news_order = data.get('order', [])
+    
+    try:
+        for index, news_id in enumerate(news_order):
+            update_news_order(news_id, index)
+        return jsonify({'success': True})
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)

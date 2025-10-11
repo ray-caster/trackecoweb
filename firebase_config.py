@@ -108,7 +108,7 @@ def get_published_news(limit=None):
     if not db:
         return []
     
-    query = db.collection('news').where('published', '==', True).order_by('created_at', direction=firestore.Query.DESCENDING)
+    query = db.collection('news').where('published', '==', True).order_by('order', direction=firestore.Query.ASCENDING).order_by('created_at', direction=firestore.Query.DESCENDING)
     
     if limit:
         query = query.limit(limit)
@@ -122,4 +122,14 @@ def get_published_news(limit=None):
         news_list.append(news_data)
     
     return news_list
+
+def update_news_order(news_id, new_order):
+    """Update the order of a news article"""
+    db = get_firestore_client()
+    if not db:
+        return False
+    
+    doc_ref = db.collection('news').document(news_id)
+    doc_ref.update({'order': new_order})
+    return True
 

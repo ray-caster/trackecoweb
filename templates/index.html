@@ -910,25 +910,61 @@
     <!-- Right Side: Latest News Preview with Carousel -->
     <div class="hero-right">
         <div class="hero-background-container">
-            <img src="/static/images/Beach2.webp" alt="Coastal Cleanup 2024"
-                class="active-slide" id="hero-bg-1" width="1920" height="1080" loading="eager">
-            <img src="/static/images/Beach1.webp" alt="Beach Cleanup Initiative" id="hero-bg-2"
-                width="1920" height="1080" loading="eager">
-            <img src="/static/images/UBS1.webp" alt="Bank Sampah Partnership" id="hero-bg-3" width="1920"
-                height="1080" loading="eager">
-            <img src="/static/images/Background4.webp" alt="Community Workshop" id="hero-bg-4"
-                width="1920" height="1080" loading="eager">
-            <img src="/static/images/background5.webp" alt="Recycling Program" id="hero-bg-5"
-                width="1920" height="1080" loading="eager">
+            {% if latest_news %}
+                {% for article in latest_news %}
+                <img src="{{ article.image_url }}" 
+                     alt="{{ article.title_en }}" 
+                     class="{% if loop.first %}active-slide{% endif %}" 
+                     id="hero-bg-{{ loop.index }}" 
+                     width="1920" height="1080" 
+                     loading="eager"
+                     data-title-en="{{ article.title_en }}"
+                     data-title-id="{{ article.title_id }}"
+                     data-desc-en="{{ article.description_en[:150] }}..."
+                     data-desc-id="{{ article.description_id[:150] }}...">
+                {% endfor %}
+            {% else %}
+                <!-- Fallback images if no news -->
+                <img src="/static/images/Beach2.webp" alt="Coastal Cleanup 2024"
+                    class="active-slide" id="hero-bg-1" width="1920" height="1080" loading="eager"
+                    data-title-en="Coastal Cleanup Initiative 2024"
+                    data-title-id="Inisiatif Bersih Pantai 2024"
+                    data-desc-en="Over 100 volunteers joined us in cleaning Surabaya's beaches, collecting 500kg of plastic waste in a single day."
+                    data-desc-id="Lebih dari 100 sukarelawan bergabung membersihkan pantai Surabaya, mengumpulkan 500kg sampah plastik dalam sehari.">
+                <img src="/static/images/Beach1.webp" alt="Beach Cleanup Initiative" id="hero-bg-2"
+                    width="1920" height="1080" loading="eager"
+                    data-title-en="Beach Cleanup Initiative"
+                    data-title-id="Inisiatif Bersih Pantai"
+                    data-desc-en="Join our community efforts to make Surabaya's beaches cleaner and healthier for everyone."
+                    data-desc-id="Bergabunglah dengan upaya komunitas kami untuk membuat pantai Surabaya lebih bersih dan sehat untuk semua.">
+                <img src="/static/images/UBS1.webp" alt="Bank Sampah Partnership" id="hero-bg-3" width="1920"
+                    height="1080" loading="eager"
+                    data-title-en="Bank Sampah Partnership"
+                    data-title-id="Kerjasama Bank Sampah"
+                    data-desc-en="Partnering with Bank Sampah Induk Surabaya to create sustainable recycling solutions."
+                    data-desc-id="Bermitra dengan Bank Sampah Induk Surabaya untuk menciptakan solusi daur ulang berkelanjutan.">
+                <img src="/static/images/Background4.webp" alt="Community Workshop" id="hero-bg-4"
+                    width="1920" height="1080" loading="eager"
+                    data-title-en="Community Workshop"
+                    data-title-id="Workshop Komunitas"
+                    data-desc-en="Educational workshops teaching communities how to reduce, reuse, and recycle plastic waste."
+                    data-desc-id="Workshop edukatif mengajarkan komunitas cara mengurangi, menggunakan kembali, dan mendaur ulang sampah plastik.">
+                <img src="/static/images/background5.webp" alt="Recycling Program" id="hero-bg-5"
+                    width="1920" height="1080" loading="eager"
+                    data-title-en="Recycling Program"
+                    data-title-id="Program Daur Ulang"
+                    data-desc-en="Transforming plastic waste into valuable products through our innovative recycling programs."
+                    data-desc-id="Mengubah sampah plastik menjadi produk bernilai melalui program daur ulang inovatif kami.">
+            {% endif %}
         </div>
         <div class="hero-overlay"></div>
         
         <div class="news-preview-container">
             <span class="news-badge" data-translate-key="news_badge">Latest News</span>
-            <h2 class="news-preview-title" data-translate-key="news_preview_title">
+            <h2 class="news-preview-title" id="carousel-title" data-translate-key="news_preview_title">
                 Coastal Cleanup Initiative 2024
             </h2>
-            <p class="news-preview-desc" data-translate-key="news_preview_desc">
+            <p class="news-preview-desc" id="carousel-desc" data-translate-key="news_preview_desc">
                 Over 100 volunteers joined us in cleaning Surabaya's beaches, collecting 500kg of plastic waste in a single day.
             </p>
             <a href="/news" class="news-preview-link magnetic">
@@ -936,12 +972,18 @@
                 <i class="fas fa-arrow-right"></i>
             </a>
             
-            <div class="hero-dots">
-                <button class="dot active" data-index="0" aria-label="Slide 1"></button>
-                <button class="dot" data-index="1" aria-label="Slide 2"></button>
-                <button class="dot" data-index="2" aria-label="Slide 3"></button>
-                <button class="dot" data-index="3" aria-label="Slide 4"></button>
-                <button class="dot" data-index="4" aria-label="Slide 5"></button>
+            <div class="hero-dots" id="hero-dots">
+                {% if latest_news %}
+                    {% for article in latest_news %}
+                    <button class="dot {% if loop.first %}active{% endif %}" data-index="{{ loop.index0 }}" aria-label="Slide {{ loop.index }}"></button>
+                    {% endfor %}
+                {% else %}
+                    <button class="dot active" data-index="0" aria-label="Slide 1"></button>
+                    <button class="dot" data-index="1" aria-label="Slide 2"></button>
+                    <button class="dot" data-index="2" aria-label="Slide 3"></button>
+                    <button class="dot" data-index="3" aria-label="Slide 4"></button>
+                    <button class="dot" data-index="4" aria-label="Slide 5"></button>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -1389,11 +1431,32 @@
         const initialLang = getInitialLanguage();
         setLanguage(initialLang);
 
-        // --- Hero Background Slideshow ---
+        // --- Hero Background Slideshow with Dynamic Content ---
         const backgrounds = Array.from(document.querySelectorAll('.hero-background-container img'));
         const dots = Array.from(document.querySelectorAll('.hero-dots .dot'));
+        const carouselTitle = document.getElementById('carousel-title');
+        const carouselDesc = document.getElementById('carousel-desc');
         let currentBgIndex = 0;
         let sliderInterval;
+        let currentLang = 'id'; // Default language
+
+        function updateCarouselContent(index) {
+            const currentImage = backgrounds[index];
+            if (!currentImage) return;
+
+            const titleKey = currentLang === 'en' ? 'data-title-en' : 'data-title-id';
+            const descKey = currentLang === 'en' ? 'data-desc-en' : 'data-desc-id';
+
+            const title = currentImage.getAttribute(titleKey);
+            const desc = currentImage.getAttribute(descKey);
+
+            if (title && carouselTitle) {
+                carouselTitle.textContent = title;
+            }
+            if (desc && carouselDesc) {
+                carouselDesc.textContent = desc;
+            }
+        }
 
         function showBackground(index) {
             if (!backgrounds.length) return;
@@ -1404,6 +1467,9 @@
 
             backgrounds[currentBgIndex].classList.add('active-slide');
             dots[currentBgIndex].classList.add('active');
+            
+            // Update carousel content
+            updateCarouselContent(currentBgIndex);
         }
 
         function startSlider() {
@@ -1423,6 +1489,21 @@
             resetSlider();
         }));
 
+        // Update carousel content when language changes
+        function updateLanguageForCarousel(lang) {
+            currentLang = lang;
+            updateCarouselContent(currentBgIndex);
+        }
+
+        // Hook into existing language change
+        const originalSetLanguage = setLanguage;
+        setLanguage = function(lang) {
+            originalSetLanguage(lang);
+            updateLanguageForCarousel(lang);
+        };
+
+        // Initialize carousel content
+        updateCarouselContent(0);
         startSlider();
 
         // --- Counter Animation ---

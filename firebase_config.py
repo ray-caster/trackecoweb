@@ -265,7 +265,13 @@ def get_website_data():
                     'member_count': 74,
                     'bottles_collected': 35000,
                     'sme_partners': 8,
-                    'impact_plastic_collected': 3000
+                    'impact_plastic_collected': 3000,
+                    'volunteers_cleanup': 100,
+                    'plastic_cleanup_kg': 500,
+                    'co2_emissions_prevented': 42,
+                    'ocean_plastic_prevented': 2000,
+                    'craft_support_percentage': 85,
+                    'people_educated': 500
                 },
                 'mission_title_en': 'Our Mission',
                 'mission_title_id': 'Misi Kami',

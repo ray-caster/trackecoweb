@@ -4,17 +4,21 @@
 {% block description %}TrackEco mengubah sampah plastik di Surabaya menjadi kerajinan tangan melalui kerjasama dengan Bank Sampah Induk Surabaya. Bergabunglah dengan kami untuk mengurangi sampah plastik.{% endblock %}
 
 {% block extra_css %}
-<!-- Preload ALL carousel images -->
+<!-- Preload carousel images dynamically from database -->
+{% if latest_news and latest_news|length > 0 %}
+    {% for article in latest_news %}
+        {% if article.image_url %}
+<link rel="preload" as="image" href="{{ article.image_url }}">
+        {% endif %}
+    {% endfor %}
+{% else %}
+    <!-- Fallback images if no news -->
 <link rel="preload" as="image" href="/static/images/Beach2.webp">
 <link rel="preload" as="image" href="/static/images/Beach1.webp">
 <link rel="preload" as="image" href="/static/images/UBS1.webp">
-<link rel="preload" as="image" href="/static/images/Ubs2.webp">
-<link rel="preload" as="image" href="/static/images/FirstBackground.webp">
-<link rel="preload" as="image" href="/static/images/background2.webp">
-<link rel="preload" as="image" href="/static/images/background3.webp">
 <link rel="preload" as="image" href="/static/images/Background4.webp">
 <link rel="preload" as="image" href="/static/images/background5.webp">
-<link rel="preload" as="image" href="/static/images/background6.webp">
+{% endif %}
 
 <!-- Security Meta Tags -->
 <meta http-equiv="Content-Security-Policy"
@@ -929,8 +933,8 @@
                     class="active-slide" id="hero-bg-1" width="1920" height="1080" loading="eager"
                     data-title-en="Coastal Cleanup Initiative 2024"
                     data-title-id="Inisiatif Bersih Pantai 2024"
-                    data-desc-en="Over 100 volunteers joined us in cleaning Surabaya's beaches, collecting 500kg of plastic waste in a single day."
-                    data-desc-id="Lebih dari 100 sukarelawan bergabung membersihkan pantai Surabaya, mengumpulkan 500kg sampah plastik dalam sehari.">
+                    data-desc-en="Over {{ website_data.stats.volunteers_cleanup if website_data.stats else 100 }} volunteers joined us in cleaning Surabaya's beaches, collecting {{ website_data.stats.plastic_cleanup_kg if website_data.stats else 500 }}kg of plastic waste in a single day."
+                    data-desc-id="Lebih dari {{ website_data.stats.volunteers_cleanup if website_data.stats else 100 }} sukarelawan bergabung membersihkan pantai Surabaya, mengumpulkan {{ website_data.stats.plastic_cleanup_kg if website_data.stats else 500 }}kg sampah plastik dalam sehari.">
                 <img src="/static/images/Beach1.webp" alt="Beach Cleanup Initiative" id="hero-bg-2"
                     width="1920" height="1080" loading="eager"
                     data-title-en="Beach Cleanup Initiative"
@@ -1172,7 +1176,7 @@
                     </div>
                     <div>
                         <h4 data-translate-key="impact_env2_title">Perlindungan Laut</h4>
-                        <p data-translate-key="impact_env2_desc">Kami telah mencegah <strong>2.000 kg</strong>
+                        <p data-translate-key="impact_env2_desc">Kami telah mencegah <strong>{{ website_data.stats.ocean_plastic_prevented if website_data.stats else 2000 }} kg</strong>
                             plastik masuk ke laut dan saluran air.</p>
                     </div>
                 </div>
@@ -1181,7 +1185,7 @@
                             style="color:var(--secondary-color);"></i></div>
                     <div>
                         <h4 data-translate-key="impact_env3_title">Dukungan Industri Kerajinan</h4>
-                        <p data-translate-key="impact_env3_desc"><strong style="color: #2e7d32;">{{ website_data.stats.recycling_rate if website_data.stats else 85 }}%</strong> plastik berkualitas tinggi
+                        <p data-translate-key="impact_env3_desc"><strong>85%</strong> plastik berkualitas tinggi
                             mendukung industri mikro kerajinan lokal.</p>
                     </div>
                 </div>
@@ -1232,7 +1236,7 @@
                 twitter_description: "TrackEco empowers the Surabaya community to recycle plastic waste into valuable products.",
                 // Hero
                 hero_title: "Empowering Surabaya Through Recycling",
-                hero_subtitle: "Join 74 members turning plastic waste into community benefit through sustainable recycling programs.",
+                hero_subtitle: "Join {{ website_data.stats.member_count if website_data.stats else 74 }} members turning plastic waste into community benefit through sustainable recycling programs.",
                 hero_bottles_collected: "Plastic Bottles Collected",
                 hero_sme_partners: "Local SME Partners",
                 hero_collaborating: "Collaborating with:",
@@ -1240,7 +1244,7 @@
                 hero_calculator: "Impact Calculator",
                 news_badge: "Latest News",
                 news_preview_title: "Coastal Cleanup Initiative 2024",
-                news_preview_desc: "Over 100 volunteers joined us in cleaning Surabaya's beaches, collecting 500kg of plastic waste in a single day.",
+                news_preview_desc: "Over {{ website_data.stats.volunteers_cleanup if website_data.stats else 100 }} volunteers joined us in cleaning Surabaya's beaches, collecting {{ website_data.stats.plastic_cleanup_kg if website_data.stats else 500 }}kg of plastic waste in a single day.",
                 news_read_more: "Read All News",
                 // Mission
                 mission_title: "Our Mission to Transform Surabaya",
@@ -1309,7 +1313,7 @@
                 hero_calculator: "Kalkulator Dampak",
                 news_badge: "Berita Terbaru",
                 news_preview_title: "Inisiatif Bersih Pantai 2024",
-                news_preview_desc: "Lebih dari 100 sukarelawan bergabung membersihkan pantai Surabaya, mengumpulkan 500kg sampah plastik dalam sehari.",
+                news_preview_desc: "Lebih dari {{ website_data.stats.volunteers_cleanup if website_data.stats else 100 }} sukarelawan bergabung membersihkan pantai Surabaya, mengumpulkan {{ website_data.stats.plastic_cleanup_kg if website_data.stats else 500 }}kg sampah plastik dalam sehari.",
                 news_read_more: "Baca Semua Berita",
                 // Mission
                 mission_title: "Misi Kami untuk Mengubah Surabaya",

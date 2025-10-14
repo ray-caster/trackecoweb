@@ -105,10 +105,6 @@ def news_detail(news_id):
     
     return render_template("news_detail.html", article=news_article)
 
-@app.route("/timeline")
-def timeline():
-    return render_template("timeline.html")
-
 @app.route("/calculator")
 def calculator():
     return render_template("calculator.html")

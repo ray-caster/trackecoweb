@@ -1,7 +1,8 @@
 {% extends "shared/base.html" %}
 
 {% block title %}Impact Calculator - TrackEco{% endblock %}
-{% block description %}Calculate the environmental impact of your recycling efforts. See how much CO2, water, and energy you can save by recycling plastic waste.{% endblock %}
+{% block description %}Calculate the environmental impact of your recycling efforts. See how much CO2, water, and energy
+you can save by recycling plastic waste.{% endblock %}
 
 {% block extra_css %}
 <style>
@@ -386,12 +387,17 @@
     @media (max-width: 768px) {
         .calculator-hero {
             height: 50vh;
+            padding-top: 80px;
         }
-        
+
+        .calculator-hero-content {
+            padding: 0 1.5rem;
+        }
+
         .calculator-hero h1 {
             font-size: 2.5rem;
         }
-        
+
         .calculator-hero p {
             font-size: 1.1rem;
         }
@@ -400,7 +406,7 @@
             grid-template-columns: 1fr;
             gap: 2rem;
         }
-        
+
         .calculator-input-section,
         .calculator-results-section {
             padding: 1.5rem;
@@ -410,31 +416,31 @@
             grid-template-columns: 1fr;
             gap: 1rem;
         }
-        
+
         .mode-card {
             padding: 1.5rem;
         }
-        
+
         .mode-card h3 {
             font-size: 1.25rem;
         }
-        
+
         .mode-card p {
             font-size: 0.85rem;
         }
-        
+
         .result-value {
             font-size: 2rem;
         }
-        
+
         .result-label {
             font-size: 0.9rem;
         }
-        
+
         .input-group {
             margin-bottom: 1.5rem;
         }
-        
+
         .calculate-btn {
             padding: 1rem 1.5rem;
             font-size: 1rem;
@@ -444,45 +450,50 @@
     @media (max-width: 480px) {
         .calculator-hero {
             height: 40vh;
+            padding-top: 80px;
         }
-        
+
+        .calculator-hero-content {
+            padding: 0 1rem;
+        }
+
         .calculator-hero h1 {
             font-size: 2rem;
         }
-        
+
         .calculator-hero p {
             font-size: 1rem;
         }
-        
+
         .calculator-input-section,
         .calculator-results-section {
             padding: 1rem;
         }
-        
+
         .mode-card {
             padding: 1rem;
         }
-        
+
         .mode-card h3 {
             font-size: 1.1rem;
         }
-        
+
         .mode-card p {
             font-size: 0.8rem;
         }
-        
+
         .result-value {
             font-size: 1.75rem;
         }
-        
+
         .result-label {
             font-size: 0.85rem;
         }
-        
+
         .input-group {
             margin-bottom: 1rem;
         }
-        
+
         .calculate-btn {
             padding: 0.875rem 1.25rem;
             font-size: 0.95rem;
@@ -504,7 +515,8 @@
         <!-- Mode Selector -->
         <div class="section-title">
             <h2>Choose Calculation Mode</h2>
-            <p style="max-width: 600px; margin: 1rem auto 0;">Select how you want to calculate your environmental impact</p>
+            <p style="max-width: 600px; margin: 1rem auto 0;">Select how you want to calculate your environmental impact
+            </p>
         </div>
 
         <div class="mode-selector">
@@ -535,13 +547,14 @@
             <!-- Input Section -->
             <div class="calculator-input-section glass-card scroll-reveal">
                 <h3 style="margin-bottom: 2rem; color: var(--primary-color); font-size: 1.75rem;">Input Your Data</h3>
-                
+
                 <!-- Plastic Mode -->
                 <div id="plastic-inputs" class="mode-inputs">
                     <div class="input-group">
                         <label class="input-label">Plastic Weight (kg)</label>
                         <div class="input-with-unit">
-                            <input type="number" class="input-field" id="plasticWeight" placeholder="Enter weight" value="10" min="0">
+                            <input type="number" class="input-field" id="plasticWeight" placeholder="Enter weight"
+                                value="10" min="0">
                             <span class="input-unit">kg</span>
                         </div>
                     </div>
@@ -560,7 +573,8 @@
                 <div id="bottles-inputs" class="mode-inputs" style="display: none;">
                     <div class="input-group">
                         <label class="input-label">Number of Bottles</label>
-                        <input type="number" class="input-field" id="bottleCount" placeholder="Enter bottle count" value="100" min="0">
+                        <input type="number" class="input-field" id="bottleCount" placeholder="Enter bottle count"
+                            value="100" min="0">
                     </div>
                     <div class="input-group">
                         <label class="input-label">Bottle Size</label>
@@ -579,7 +593,8 @@
                     <div class="input-group">
                         <label class="input-label">Daily Plastic Recycled (kg)</label>
                         <div class="input-with-unit">
-                            <input type="number" class="input-field" id="dailyPlastic" placeholder="Enter daily amount" value="2" min="0">
+                            <input type="number" class="input-field" id="dailyPlastic" placeholder="Enter daily amount"
+                                value="2" min="0">
                             <span class="input-unit">kg/day</span>
                         </div>
                     </div>
@@ -599,18 +614,21 @@
                 <div id="community-inputs" class="mode-inputs" style="display: none;">
                     <div class="input-group">
                         <label class="input-label">Number of Participants</label>
-                        <input type="number" class="input-field" id="participants" placeholder="Enter number of people" value="50" min="1">
+                        <input type="number" class="input-field" id="participants" placeholder="Enter number of people"
+                            value="50" min="1">
                     </div>
                     <div class="input-group">
                         <label class="input-label">Average Plastic per Person (kg/month)</label>
                         <div class="input-with-unit">
-                            <input type="number" class="input-field" id="avgPerPerson" placeholder="Enter average" value="3" min="0">
+                            <input type="number" class="input-field" id="avgPerPerson" placeholder="Enter average"
+                                value="3" min="0">
                             <span class="input-unit">kg</span>
                         </div>
                     </div>
                     <div class="input-group">
                         <label class="input-label">Duration (months)</label>
-                        <input type="number" class="input-field" id="duration" placeholder="Enter duration" value="6" min="1">
+                        <input type="number" class="input-field" id="duration" placeholder="Enter duration" value="6"
+                            min="1">
                     </div>
                 </div>
 
@@ -636,15 +654,18 @@
         <div class="info-cards">
             <div class="info-card magnetic scroll-reveal">
                 <h4>🌍 CO2 Emissions</h4>
-                <p>Recycling plastic prevents CO2 emissions by avoiding the need to create new plastic from virgin materials. Each kilogram of recycled plastic saves approximately 1.5 kg of CO2.</p>
+                <p>Recycling plastic prevents CO2 emissions by avoiding the need to create new plastic from virgin
+                    materials. Each kilogram of recycled plastic saves approximately 1.5 kg of CO2.</p>
             </div>
             <div class="info-card magnetic scroll-reveal">
                 <h4>💧 Water Conservation</h4>
-                <p>Manufacturing new plastic requires significant water. Recycling saves about 11 liters of water per kilogram of plastic, helping preserve this precious resource.</p>
+                <p>Manufacturing new plastic requires significant water. Recycling saves about 11 liters of water per
+                    kilogram of plastic, helping preserve this precious resource.</p>
             </div>
             <div class="info-card magnetic scroll-reveal">
                 <h4>⚡ Energy Savings</h4>
-                <p>Recycling plastic uses 88% less energy than producing new plastic. This translates to approximately 5.7 kWh saved per kilogram of plastic recycled.</p>
+                <p>Recycling plastic uses 88% less energy than producing new plastic. This translates to approximately
+                    5.7 kWh saved per kilogram of plastic recycled.</p>
             </div>
         </div>
     </div>
@@ -655,7 +676,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         let currentMode = 'plastic';
-        
+
         // Mode Selection
         const modeCards = document.querySelectorAll('.mode-card');
         modeCards.forEach(card => {
@@ -666,30 +687,30 @@
                 showModeInputs(currentMode);
             });
         });
-        
+
         function showModeInputs(mode) {
             document.querySelectorAll('.mode-inputs').forEach(input => {
                 input.style.display = 'none';
             });
             document.getElementById(`${mode}-inputs`).style.display = 'block';
         }
-        
+
         // Quality Slider
         const qualitySlider = document.getElementById('qualitySlider');
         const qualityValue = document.getElementById('qualityValue');
         qualitySlider?.addEventListener('input', () => {
             qualityValue.textContent = qualitySlider.value;
         });
-        
+
         // Calculate Button
         const calculateBtn = document.getElementById('calculateBtn');
         calculateBtn.addEventListener('click', calculateImpact);
-        
+
         function calculateImpact() {
             let plasticKg = 0;
-            
+
             // Calculate based on mode
-            switch(currentMode) {
+            switch (currentMode) {
                 case 'plastic':
                     plasticKg = parseFloat(document.getElementById('plasticWeight').value) || 0;
                     break;
@@ -710,19 +731,19 @@
                     plasticKg = participants * avgPerPerson * duration;
                     break;
             }
-            
+
             if (plasticKg <= 0) {
                 alert('Please enter valid values');
                 return;
             }
-            
+
             // Calculate impacts
             const co2Saved = (plasticKg * 1.5).toFixed(1);
             const waterSaved = (plasticKg * 11).toFixed(0);
             const energySaved = (plasticKg * 5.7).toFixed(1);
             const treesEquivalent = (co2Saved / 21).toFixed(1); // One tree absorbs 21kg CO2/year
             const bottlesEquivalent = Math.floor(plasticKg / 0.03);
-            
+
             displayResults({
                 plasticKg: plasticKg.toFixed(1),
                 co2Saved,
@@ -732,7 +753,7 @@
                 bottlesEquivalent
             });
         }
-        
+
         function displayResults(results) {
             const resultsHTML = `
                 <h3 class="results-title">Your Environmental Impact</h3>
@@ -781,10 +802,9 @@
                     </div>
                 </div>
             `;
-            
+
             document.getElementById('resultsDisplay').innerHTML = resultsHTML;
         }
     });
 </script>
 {% endblock %}
-

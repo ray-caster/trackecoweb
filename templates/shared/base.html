@@ -1,22 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7810920590124307"
         crossorigin="anonymous"></script>
-    
+
     <title>{% block title %}TrackEco: Plastic Waste Recycling & Management in Surabaya{% endblock %}</title>
-    
-    <meta name="description" content="{% block description %}TrackEco transforms plastic waste in Surabaya into handicrafts through partnership with Bank Sampah Induk Surabaya.{% endblock %}">
-    <meta name="keywords" content="daur ulang plastik Surabaya, pengelolaan sampah Surabaya, Bank Sampah Induk Surabaya, kerajinan daur ulang, ekonomi sirkular">
+
+    <meta name="description"
+        content="{% block description %}TrackEco transforms plastic waste in Surabaya into handicrafts through partnership with Bank Sampah Induk Surabaya.{% endblock %}">
+    <meta name="keywords"
+        content="daur ulang plastik Surabaya, pengelolaan sampah Surabaya, Bank Sampah Induk Surabaya, kerajinan daur ulang, ekonomi sirkular">
     <meta name="author" content="TrackEco">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://www.trackeco.org">
 
     <!-- Open Graph / Social Media Meta Tags -->
-    <meta property="og:title" content="{% block og_title %}TrackEco: Plastic Waste Recycling & Management in Surabaya{% endblock %}">
-    <meta property="og:description" content="{% block og_description %}TrackEco empowers Surabaya communities to recycle plastic waste into valuable products.{% endblock %}">
+    <meta property="og:title"
+        content="{% block og_title %}TrackEco: Plastic Waste Recycling & Management in Surabaya{% endblock %}">
+    <meta property="og:description"
+        content="{% block og_description %}TrackEco empowers Surabaya communities to recycle plastic waste into valuable products.{% endblock %}">
     <meta property="og:image" content="./static/images/og-image.webp">
     <meta property="og:url" content="https://www.trackeco.org">
     <meta property="og:type" content="website">
@@ -28,22 +33,24 @@
     <!-- Font Awesome for icons -->
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
-        as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
 
     <!-- Fallback for browsers with JavaScript disabled -->
     <noscript>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
     </noscript>
 
     <link rel="apple-touch-icon" sizes="180x180" href="/static/images/apple-touch-icon.webp">
     <link rel="icon" type="image/png" sizes="32x32" href="/static/images/favicon-32x32.webp">
     <link rel="icon" type="image/png" sizes="16x16" href="/static/images/favicon-16x16.webp">
-    
+
     <!-- Modern Effects CSS -->
     <link rel="stylesheet" href="/static/css/effects.css">
-    
+
     <style>
         /* Base and Reset Styles */
         * {
@@ -142,31 +149,31 @@
             }
         }
     </style>
-    
+
     {% block extra_css %}{% endblock %}
 </head>
+
 <body>
     {% include 'shared/navbar.html' %}
-    
+
     <main>
         {% block content %}{% endblock %}
     </main>
-    
+
     {% include 'shared/footer.html' %}
 
     <!-- Core JavaScript modules -->
     <script src="/static/js/magnetic.js" defer></script>
     <script src="/static/js/parallax.js" defer></script>
-    
+
     {% block extra_js %}{% endblock %}
-    
+
     <script defer>
         // Language management
         const translations = {
             en: {
                 nav_home: "Home",
                 nav_news: "News",
-                nav_timeline: "Timeline",
                 nav_calculator: "Calculator",
                 nav_mission: "Mission",
                 nav_impact: "Impact",
@@ -178,7 +185,6 @@
                 footer_links_title: "Quick Links",
                 footer_link_home: "Home",
                 footer_link_news: "News",
-                footer_link_timeline: "Timeline",
                 footer_link_calculator: "Calculator",
                 footer_link_mission: "Our Mission",
                 footer_link_impact: "Impact",
@@ -192,7 +198,6 @@
             id: {
                 nav_home: "Beranda",
                 nav_news: "Berita",
-                nav_timeline: "Linimasa",
                 nav_calculator: "Kalkulator",
                 nav_mission: "Misi",
                 nav_impact: "Dampak",
@@ -204,7 +209,6 @@
                 footer_links_title: "Tautan Cepat",
                 footer_link_home: "Beranda",
                 footer_link_news: "Berita",
-                footer_link_timeline: "Linimasa",
                 footer_link_calculator: "Kalkulator",
                 footer_link_mission: "Misi Kami",
                 footer_link_impact: "Dampak",
@@ -229,11 +233,11 @@
                     element.textContent = translations[lang][key];
                 }
             });
-            
-            document.querySelectorAll('#lang-en, #lang-en-mobile').forEach(el => 
+
+            document.querySelectorAll('#lang-en, #lang-en-mobile').forEach(el =>
                 el.style.color = (lang === 'en' ? 'var(--accent-color)' : 'var(--white-color)')
             );
-            document.querySelectorAll('#lang-id, #lang-id-mobile').forEach(el => 
+            document.querySelectorAll('#lang-id, #lang-id-mobile').forEach(el =>
                 el.style.color = (lang === 'id' ? 'var(--accent-color)' : 'var(--white-color)')
             );
         };
@@ -297,7 +301,7 @@
                 anchor.addEventListener('click', function (e) {
                     const targetId = this.getAttribute('href');
                     if (targetId === '#') return;
-                    
+
                     e.preventDefault();
                     const targetElement = document.querySelector(targetId);
                     if (targetElement) {
@@ -313,5 +317,5 @@
         });
     </script>
 </body>
-</html>
 
+</html>

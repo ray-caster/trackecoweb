@@ -1,18 +1,19 @@
 {% extends "shared/base.html" %}
 
 {% block title %}TrackEco: Daur Ulang & Pengelolaan Sampah Plastik di Surabaya{% endblock %}
-{% block description %}TrackEco mengubah sampah plastik di Surabaya menjadi kerajinan tangan melalui kerjasama dengan Bank Sampah Induk Surabaya. Bergabunglah dengan kami untuk mengurangi sampah plastik.{% endblock %}
+{% block description %}TrackEco mengubah sampah plastik di Surabaya menjadi kerajinan tangan melalui kerjasama dengan
+Bank Sampah Induk Surabaya. Bergabunglah dengan kami untuk mengurangi sampah plastik.{% endblock %}
 
 {% block extra_css %}
 <!-- Preload carousel images dynamically from database -->
 {% if latest_news and latest_news|length > 0 %}
-    {% for article in latest_news %}
-        {% if article.image_url %}
+{% for article in latest_news %}
+{% if article.image_url %}
 <link rel="preload" as="image" href="{{ article.image_url }}">
-        {% endif %}
-    {% endfor %}
+{% endif %}
+{% endfor %}
 {% else %}
-    <!-- Fallback images if no news -->
+<!-- Fallback images if no news -->
 <link rel="preload" as="image" href="/static/images/Beach2.webp">
 <link rel="preload" as="image" href="/static/images/Beach1.webp">
 <link rel="preload" as="image" href="/static/images/UBS1.webp">
@@ -150,7 +151,7 @@
         height: 100%;
         display: flex;
         flex-direction: column;
-        justify-content: flex-end;
+        justify-content: center;
         padding: 3rem 2rem;
         color: white;
     }
@@ -304,59 +305,59 @@
             padding-top: 0;
             margin-top: 0;
         }
-        
+
         .hero-left {
             padding: 2rem 1rem;
             padding-top: calc(80px + 2rem);
         }
-        
+
         .hero-right {
             min-height: 50vh;
             padding-top: 0;
         }
-        
+
         .hero-content {
             text-align: center;
         }
-        
+
         .hero-content h1 {
             font-size: 2rem;
             line-height: 1.2;
         }
-        
+
         .hero-content h2 {
             font-size: 1rem;
             margin-bottom: 1.5rem;
         }
-        
+
         .hero-stats {
             grid-template-columns: 1fr;
             gap: 1rem;
             margin-bottom: 1.5rem;
         }
-        
+
         .hero-stat {
             text-align: center;
         }
-        
+
         .hero-partners {
             justify-content: center;
             flex-wrap: wrap;
             gap: 0.5rem;
         }
-        
+
         .hero-buttons {
             justify-content: center;
             flex-direction: column;
             gap: 0.75rem;
         }
-        
+
         .button {
             width: 100%;
             justify-content: center;
             padding: 1rem 2rem;
         }
-        
+
         .hero-dots {
             justify-content: center;
         }
@@ -366,23 +367,23 @@
         .hero-content h1 {
             font-size: 1.75rem;
         }
-        
+
         .hero-content h2 {
             font-size: 0.9rem;
         }
-        
+
         .hero-stats {
             gap: 0.75rem;
         }
-        
+
         .hero-stat .stat-number {
             font-size: 2rem;
         }
-        
+
         .hero-stat .stat-label {
             font-size: 0.8rem;
         }
-        
+
         .hero-partners img {
             height: 1.5rem;
         }
@@ -409,11 +410,11 @@
         .mission-grid {
             gap: 2rem;
         }
-        
+
         .mission-grid h3 {
             font-size: 1.25rem;
         }
-        
+
         .mission-grid p {
             font-size: 1rem;
         }
@@ -599,20 +600,20 @@
             gap: 2rem;
             max-width: 300px;
         }
-        
+
         .process-step {
             text-align: center;
         }
-        
+
         .process-step::after,
         .process-step::before {
             display: none;
         }
-        
+
         .process-step h4 {
             font-size: 1.1rem;
         }
-        
+
         .process-step p {
             font-size: 0.9rem;
         }
@@ -722,20 +723,20 @@
             grid-template-columns: 1fr;
             gap: 1.5rem;
         }
-        
+
         .impact-card {
             text-align: center;
             padding: 1.5rem;
         }
-        
+
         .impact-card .number {
             font-size: 2.5rem;
         }
-        
+
         .impact-card .title {
             font-size: 1.1rem;
         }
-        
+
         .impact-card p {
             font-size: 0.9rem;
         }
@@ -991,22 +992,27 @@
         <div class="hero-content">
             <h1 data-translate-key="hero_title">Memberdayakan Surabaya Melalui Daur Ulang</h1>
             <h2 data-translate-key="hero_subtitle">
-                Bergabunglah dengan <span id="memberCounter" style="color: #4caf50; font-weight: 800;">{{ website_data.stats.member_count if website_data.stats else 74 }}</span> anggota untuk mengubah sampah plastik menjadi manfaat bagi masyarakat.
+                Bergabunglah dengan <span id="memberCounter" style="color: #4caf50; font-weight: 800;">{{
+                    website_data.stats.member_count if website_data.stats else 74 }}</span> anggota untuk mengubah
+                sampah plastik menjadi manfaat bagi masyarakat.
             </h2>
-            
+
             <div class="hero-stats">
                 <div class="hero-stat">
-                    <span class="stat-number" style="color: #4caf50;"><span id="bottleCounter">{{ website_data.stats.bottles_collected if website_data.stats else 35000 }}</span>+</span>
+                    <span class="stat-number" style="color: #4caf50;"><span id="bottleCounter">{{
+                            website_data.stats.bottles_collected if website_data.stats else 35000 }}</span>+</span>
                     <span class="stat-label" data-translate-key="hero_bottles_collected">Botol Plastik Terkumpul</span>
                 </div>
                 <div class="hero-stat">
-                    <span class="stat-number" style="color: #4caf50;"><span id="partnerCounter">{{ website_data.stats.sme_partners if website_data.stats else 8 }}</span>+</span>
+                    <span class="stat-number" style="color: #4caf50;"><span id="partnerCounter">{{
+                            website_data.stats.sme_partners if website_data.stats else 8 }}</span>+</span>
                     <span class="stat-label" data-translate-key="hero_sme_partners">Mitra UKM Lokal</span>
                 </div>
             </div>
-            
+
             <div class="hero-partners">
-                <span data-translate-key="hero_collaborating" style="font-size: 0.875rem; opacity: 0.8;">Bekerja sama dengan:</span>
+                <span data-translate-key="hero_collaborating" style="font-size: 0.875rem; opacity: 0.8;">Bekerja sama
+                    dengan:</span>
                 <a href="https://www.launchpd.org" target="_blank" rel="noopener noreferrer"
                     aria-label="Kunjungi Launchpad">
                     <img src="/static/images/launchpad.webp" alt="Logo Launchpad" width="30" height="30" loading="lazy">
@@ -1016,10 +1022,12 @@
                         height="30" loading="lazy">
                 </a>
             </div>
-            
+
             <div class="hero-buttons">
-                <a href="#mission" class="button button-outline" data-translate-key="hero_learn_more">Pelajari Lebih Lanjut</a>
-                <a href="/calculator" class="button button-accent" data-translate-key="hero_calculator">Kalkulator Dampak</a>
+                <a href="#mission" class="button button-outline" data-translate-key="hero_learn_more">Pelajari Lebih
+                    Lanjut</a>
+                <a href="/calculator" class="button button-accent" data-translate-key="hero_calculator">Kalkulator
+                    Dampak</a>
             </div>
         </div>
     </div>
@@ -1028,90 +1036,78 @@
     <div class="hero-right">
         <div class="hero-background-container">
             {% if latest_news and latest_news|length > 0 %}
-                {% for article in latest_news %}
-                <img src="{{ article.image_url }}" 
-                     alt="{{ article.title_en }}" 
-                     class="{% if loop.first %}active-slide{% endif %}" 
-                     id="hero-bg-{{ loop.index }}" 
-                     width="1920" height="1080" 
-                     loading="eager"
-                     data-title-en="{{ article.title_en }}"
-                     data-title-id="{{ article.title_id }}"
-                     data-desc-en="{{ article.description_en[:150] }}..."
-                     data-desc-id="{{ article.description_id[:150] }}...">
-                {% endfor %}
+            {% for article in latest_news %}
+            <img src="{{ article.image_url }}" alt="{{ article.title_en }}"
+                class="{% if loop.first %}active-slide{% endif %}" id="hero-bg-{{ loop.index }}" width="1920"
+                height="1080" loading="eager" data-title-en="{{ article.title_en }}"
+                data-title-id="{{ article.title_id }}" data-desc-en="{{ article.description_en[:150] }}..."
+                data-desc-id="{{ article.description_id[:150] }}...">
+            {% endfor %}
             {% elif latest_news is none %}
-                <!-- Fallback images if no news -->
-                <img src="/static/images/Beach2.webp" alt="Coastal Cleanup 2024"
-                    class="active-slide" id="hero-bg-1" width="1920" height="1080" loading="eager"
-                    data-title-en="Coastal Cleanup Initiative 2024"
-                    data-title-id="Inisiatif Bersih Pantai 2024"
-                    data-desc-en="Over {{ website_data.stats.volunteers_cleanup if website_data.stats else 100 }} volunteers joined us in cleaning Surabaya's beaches, collecting {{ website_data.stats.plastic_cleanup_kg if website_data.stats else 500 }}kg of plastic waste in a single day."
-                    data-desc-id="Lebih dari {{ website_data.stats.volunteers_cleanup if website_data.stats else 100 }} sukarelawan bergabung membersihkan pantai Surabaya, mengumpulkan {{ website_data.stats.plastic_cleanup_kg if website_data.stats else 500 }}kg sampah plastik dalam sehari.">
-                <img src="/static/images/Beach1.webp" alt="Beach Cleanup Initiative" id="hero-bg-2"
-                    width="1920" height="1080" loading="eager"
-                    data-title-en="Beach Cleanup Initiative"
-                    data-title-id="Inisiatif Bersih Pantai"
-                    data-desc-en="Join our community efforts to make Surabaya's beaches cleaner and healthier for everyone."
-                    data-desc-id="Bergabunglah dengan upaya komunitas kami untuk membuat pantai Surabaya lebih bersih dan sehat untuk semua.">
-                <img src="/static/images/UBS1.webp" alt="Bank Sampah Partnership" id="hero-bg-3" width="1920"
-                    height="1080" loading="eager"
-                    data-title-en="Bank Sampah Partnership"
-                    data-title-id="Kerjasama Bank Sampah"
-                    data-desc-en="Partnering with Bank Sampah Induk Surabaya to create sustainable recycling solutions."
-                    data-desc-id="Bermitra dengan Bank Sampah Induk Surabaya untuk menciptakan solusi daur ulang berkelanjutan.">
-                <img src="/static/images/Background4.webp" alt="Community Workshop" id="hero-bg-4"
-                    width="1920" height="1080" loading="eager"
-                    data-title-en="Community Workshop"
-                    data-title-id="Workshop Komunitas"
-                    data-desc-en="Educational workshops teaching communities how to reduce, reuse, and recycle plastic waste."
-                    data-desc-id="Workshop edukatif mengajarkan komunitas cara mengurangi, menggunakan kembali, dan mendaur ulang sampah plastik.">
-                <img src="/static/images/background5.webp" alt="Recycling Program" id="hero-bg-5"
-                    width="1920" height="1080" loading="eager"
-                    data-title-en="Recycling Program"
-                    data-title-id="Program Daur Ulang"
-                    data-desc-en="Transforming plastic waste into valuable products through our innovative recycling programs."
-                    data-desc-id="Mengubah sampah plastik menjadi produk bernilai melalui program daur ulang inovatif kami.">
+            <!-- Fallback images if no news -->
+            <img src="/static/images/Beach2.webp" alt="Coastal Cleanup 2024" class="active-slide" id="hero-bg-1"
+                width="1920" height="1080" loading="eager" data-title-en="Coastal Cleanup Initiative 2024"
+                data-title-id="Inisiatif Bersih Pantai 2024"
+                data-desc-en="Over {{ website_data.stats.volunteers_cleanup if website_data.stats else 100 }} volunteers joined us in cleaning Surabaya's beaches, collecting {{ website_data.stats.plastic_cleanup_kg if website_data.stats else 500 }}kg of plastic waste in a single day."
+                data-desc-id="Lebih dari {{ website_data.stats.volunteers_cleanup if website_data.stats else 100 }} sukarelawan bergabung membersihkan pantai Surabaya, mengumpulkan {{ website_data.stats.plastic_cleanup_kg if website_data.stats else 500 }}kg sampah plastik dalam sehari.">
+            <img src="/static/images/Beach1.webp" alt="Beach Cleanup Initiative" id="hero-bg-2" width="1920"
+                height="1080" loading="eager" data-title-en="Beach Cleanup Initiative"
+                data-title-id="Inisiatif Bersih Pantai"
+                data-desc-en="Join our community efforts to make Surabaya's beaches cleaner and healthier for everyone."
+                data-desc-id="Bergabunglah dengan upaya komunitas kami untuk membuat pantai Surabaya lebih bersih dan sehat untuk semua.">
+            <img src="/static/images/UBS1.webp" alt="Bank Sampah Partnership" id="hero-bg-3" width="1920" height="1080"
+                loading="eager" data-title-en="Bank Sampah Partnership" data-title-id="Kerjasama Bank Sampah"
+                data-desc-en="Partnering with Bank Sampah Induk Surabaya to create sustainable recycling solutions."
+                data-desc-id="Bermitra dengan Bank Sampah Induk Surabaya untuk menciptakan solusi daur ulang berkelanjutan.">
+            <img src="/static/images/Background4.webp" alt="Community Workshop" id="hero-bg-4" width="1920"
+                height="1080" loading="eager" data-title-en="Community Workshop" data-title-id="Workshop Komunitas"
+                data-desc-en="Educational workshops teaching communities how to reduce, reuse, and recycle plastic waste."
+                data-desc-id="Workshop edukatif mengajarkan komunitas cara mengurangi, menggunakan kembali, dan mendaur ulang sampah plastik.">
+            <img src="/static/images/background5.webp" alt="Recycling Program" id="hero-bg-5" width="1920" height="1080"
+                loading="eager" data-title-en="Recycling Program" data-title-id="Program Daur Ulang"
+                data-desc-en="Transforming plastic waste into valuable products through our innovative recycling programs."
+                data-desc-id="Mengubah sampah plastik menjadi produk bernilai melalui program daur ulang inovatif kami.">
             {% endif %}
         </div>
         <div class="hero-overlay"></div>
-        
+
         <div class="news-preview-container">
             {% if latest_news and latest_news|length > 0 %}
-                <span class="news-badge" data-translate-key="news_badge">Latest News</span>
-                <h2 class="news-preview-title" id="carousel-title">
-                    {{ latest_news[0].title_id if latest_news else 'No News' }}
-                </h2>
-                <p class="news-preview-desc" id="carousel-desc">
-                    {{ latest_news[0].description_id[:150] if latest_news else '' }}...
-                </p>
-                <a href="/news" class="news-preview-link magnetic">
-                    <span data-translate-key="news_read_more">Read All News</span>
-                    <i class="fas fa-arrow-right"></i>
-                </a>
+            <span class="news-badge" data-translate-key="news_badge">Latest News</span>
+            <h2 class="news-preview-title" id="carousel-title">
+                {{ latest_news[0].title_id if latest_news else 'No News' }}
+            </h2>
+            <p class="news-preview-desc" id="carousel-desc">
+                {{ latest_news[0].description_id[:150] if latest_news else '' }}...
+            </p>
+            <a href="/news" class="news-preview-link magnetic">
+                <span data-translate-key="news_read_more">Read All News</span>
+                <i class="fas fa-arrow-right"></i>
+            </a>
             {% else %}
-                <span class="news-badge">No News Yet</span>
-                <h2 class="news-preview-title">Start Adding News</h2>
-                <p class="news-preview-desc">
-                    Login to the admin panel to add your first news article!
-                </p>
-                <a href="/admin/login" class="news-preview-link magnetic">
-                    <span>Go to Admin</span>
-                    <i class="fas fa-arrow-right"></i>
-                </a>
+            <span class="news-badge">No News Yet</span>
+            <h2 class="news-preview-title">Start Adding News</h2>
+            <p class="news-preview-desc">
+                Login to the admin panel to add your first news article!
+            </p>
+            <a href="/admin/login" class="news-preview-link magnetic">
+                <span>Go to Admin</span>
+                <i class="fas fa-arrow-right"></i>
+            </a>
             {% endif %}
-            
+
             <div class="hero-dots" id="hero-dots">
                 {% if latest_news and latest_news|length > 0 %}
-                    {% for article in latest_news %}
-                    <button class="dot {% if loop.first %}active{% endif %}" data-index="{{ loop.index0 }}" aria-label="Slide {{ loop.index }}"></button>
-                    {% endfor %}
+                {% for article in latest_news %}
+                <button class="dot {% if loop.first %}active{% endif %}" data-index="{{ loop.index0 }}"
+                    aria-label="Slide {{ loop.index }}"></button>
+                {% endfor %}
                 {% else %}
-                    <button class="dot active" data-index="0" aria-label="Slide 1"></button>
-                    <button class="dot" data-index="1" aria-label="Slide 2"></button>
-                    <button class="dot" data-index="2" aria-label="Slide 3"></button>
-                    <button class="dot" data-index="3" aria-label="Slide 4"></button>
-                    <button class="dot" data-index="4" aria-label="Slide 5"></button>
+                <button class="dot active" data-index="0" aria-label="Slide 1"></button>
+                <button class="dot" data-index="1" aria-label="Slide 2"></button>
+                <button class="dot" data-index="2" aria-label="Slide 3"></button>
+                <button class="dot" data-index="3" aria-label="Slide 4"></button>
+                <button class="dot" data-index="4" aria-label="Slide 5"></button>
                 {% endif %}
             </div>
         </div>
@@ -1136,12 +1132,12 @@
                     dari <strong style="color: var(--secondary-color);">10%</strong> yang didaur ulang. Ke mana
                     sisanya?</p>
                 <ul>
-                    <li><i class="fas fa-check-circle"></i><span
-                            data-translate-key="mission_crisis_l1">Menyumbat sungai dan pantai kita</span></li>
-                    <li><i class="fas fa-check-circle"></i><span
-                            data-translate-key="mission_crisis_l2">Membahayakan biota laut</span></li>
-                    <li><i class="fas fa-check-circle"></i><span
-                            data-translate-key="mission_crisis_l3">Menciptakan bahaya kesehatan bagi
+                    <li><i class="fas fa-check-circle"></i><span data-translate-key="mission_crisis_l1">Menyumbat sungai
+                            dan pantai kita</span></li>
+                    <li><i class="fas fa-check-circle"></i><span data-translate-key="mission_crisis_l2">Membahayakan
+                            biota laut</span></li>
+                    <li><i class="fas fa-check-circle"></i><span data-translate-key="mission_crisis_l3">Menciptakan
+                            bahaya kesehatan bagi
                             masyarakat</span></li>
                 </ul>
                 <p data-translate-key="mission_crisis_p3">Kami percaya krisis ini juga merupakan peluang — untuk
@@ -1210,9 +1206,8 @@
         </div>
         <div class="partnership-box">
             <div>
-                <img src="/static/images/BankSampah.webp"
-                    alt="Bank Sampah Induk Surabaya - Mitra pemilahan kami" width="200" height="200"
-                    loading="lazy" decoding="async">
+                <img src="/static/images/BankSampah.webp" alt="Bank Sampah Induk Surabaya - Mitra pemilahan kami"
+                    width="200" height="200" loading="lazy" decoding="async">
             </div>
             <div>
                 <h3 data-translate-key="process_partner_title">Kemitraan dengan Bank Sampah Induk Surabaya</h3>
@@ -1226,8 +1221,8 @@
                     <li><i class="fas fa-check-circle"></i><span data-translate-key="process_partner_l2">Bahan
                             berkualitas lebih rendah diproses dengan benar melalui fasilitas daur ulang</span>
                     </li>
-                    <li><i class="fas fa-check-circle"></i><span
-                            data-translate-key="process_partner_l3">Pemulung menerima kompensasi yang adil atas
+                    <li><i class="fas fa-check-circle"></i><span data-translate-key="process_partner_l3">Pemulung
+                            menerima kompensasi yang adil atas
                             pekerjaan penting mereka</span></li>
                 </ul>
                 <p data-translate-key="process_partner_p2">Kemitraan ini menciptakan ekonomi sirkular yang
@@ -1249,11 +1244,12 @@
         </div>
         <div class="impact-grid">
             <div class="impact-card">
-                <div class="number" style="color: #4caf50;">{{ website_data.stats.sme_partners if website_data.stats else 8 }}</div>
+                <div class="number" style="color: #4caf50;">{{ website_data.stats.sme_partners if website_data.stats
+                    else 8 }}</div>
                 <div class="title" data-translate-key="impact_card1_title">Mitra UKM Lokal</div>
                 <div class="logos">
-                    <img src="/static/images/AquaLogo.webp" alt="Logo Aqua" width="80" height="40"
-                        loading="lazy" decoding="async">
+                    <img src="/static/images/AquaLogo.webp" alt="Logo Aqua" width="80" height="40" loading="lazy"
+                        decoding="async">
                     <img src="/static/images/Panji.webp" alt="Logo Panji" width="80" height="40" loading="lazy"
                         decoding="async">
                     <img src="/static/images/BankSampah.webp" alt="Logo Bank Sampah Induk Surabaya" width="40"
@@ -1261,12 +1257,14 @@
                 </div>
             </div>
             <div class="impact-card">
-                <div class="number" style="color: #4caf50;"><span id="impactBottleCounter">{{ website_data.stats.impact_plastic_collected if website_data.stats else 3000 }}</span>+ kg</div>
+                <div class="number" style="color: #4caf50;"><span id="impactBottleCounter">{{
+                        website_data.stats.impact_plastic_collected if website_data.stats else 3000 }}</span>+ kg</div>
                 <div class="title" data-translate-key="impact_card2_title">Plastik Terkumpul</div>
                 <p data-translate-key="impact_card2_desc">Dari wilayah perkotaan</p>
             </div>
             <div class="impact-card">
-                <div class="number" style="color: #4caf50;">{{ website_data.stats.member_count if website_data.stats else 74 }}</div>
+                <div class="number" style="color: #4caf50;">{{ website_data.stats.member_count if website_data.stats
+                    else 74 }}</div>
                 <div class="title" data-translate-key="impact_card3_title">Anggota Aktif</div>
                 <p data-translate-key="impact_card3_desc">Memimpin upaya daur ulang komunitas</p>
             </div>
@@ -1289,13 +1287,15 @@
                     </div>
                     <div>
                         <h4 data-translate-key="impact_env2_title">Perlindungan Laut</h4>
-                        <p data-translate-key="impact_env2_desc">Kami telah mencegah <strong>{{ website_data.stats.ocean_plastic_prevented if website_data.stats else 2000 }} kg</strong>
+                        <p data-translate-key="impact_env2_desc">Kami telah mencegah <strong>{{
+                                website_data.stats.ocean_plastic_prevented if website_data.stats else 2000 }}
+                                kg</strong>
                             plastik masuk ke laut dan saluran air.</p>
                     </div>
                 </div>
                 <div class="env-item">
-                    <div class="icon-container"><i class="fas fa-industry"
-                            style="color:var(--secondary-color);"></i></div>
+                    <div class="icon-container"><i class="fas fa-industry" style="color:var(--secondary-color);"></i>
+                    </div>
                     <div>
                         <h4 data-translate-key="impact_env3_title">Dukungan Industri Kerajinan</h4>
                         <p data-translate-key="impact_env3_desc"><strong>85%</strong> plastik berkualitas tinggi
@@ -1596,7 +1596,7 @@
 
             backgrounds[currentBgIndex].classList.add('active-slide');
             dots[currentBgIndex].classList.add('active');
-            
+
             // Update carousel content
             updateCarouselContent(currentBgIndex);
         }
@@ -1630,7 +1630,7 @@
 
         // Override setLanguage to include carousel updates
         const originalSetLanguage = setLanguage;
-        setLanguage = function(lang) {
+        setLanguage = function (lang) {
             originalSetLanguage(lang);
             updateLanguageForCarousel(lang);
         };
@@ -1658,20 +1658,19 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     animateCounter(document.getElementById('memberCounter'), {{ website_data.stats.member_count if website_data.stats else 74 }}, 1500);
-                    animateCounter(document.getElementById('bottleCounter'), {{ website_data.stats.bottles_collected if website_data.stats else 35000 }}, 2000);
-                    animateCounter(document.getElementById('partnerCounter'), {{ website_data.stats.sme_partners if website_data.stats else 8 }}, 1500);
-                    const impactCounter = document.getElementById('impactBottleCounter');
-                    if (impactCounter) {
-                        animateCounter(impactCounter, {{ website_data.stats.impact_plastic_collected if website_data.stats else 3000 }}, 2000);
+            animateCounter(document.getElementById('bottleCounter'), {{ website_data.stats.bottles_collected if website_data.stats else 35000 }}, 2000);
+        animateCounter(document.getElementById('partnerCounter'), {{ website_data.stats.sme_partners if website_data.stats else 8 }}, 1500);
+    const impactCounter = document.getElementById('impactBottleCounter');
+    if (impactCounter) {
+        animateCounter(impactCounter, {{ website_data.stats.impact_plastic_collected if website_data.stats else 3000 }}, 2000);
                     }
-                    observer.unobserve(entry.target);
+    observer.unobserve(entry.target);
                 }
             });
         }, { threshold: 0.5 });
 
-        const heroSection = document.getElementById('home');
-        if (heroSection) observer.observe(heroSection);
+    const heroSection = document.getElementById('home');
+    if (heroSection) observer.observe(heroSection);
     });
 </script>
 {% endblock %}
-

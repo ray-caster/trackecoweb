@@ -12,8 +12,7 @@ const STATIC_FILES = [
     '/static/images/icon-192x192.webp',
     '/static/images/icon-512x512.webp',
     '/news',
-    '/calculator',
-    '/timeline'
+    '/calculator'
 ];
 
 // Install event - cache static files

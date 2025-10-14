@@ -1040,8 +1040,8 @@ Bank Sampah Induk Surabaya. Bergabunglah dengan kami untuk mengurangi sampah pla
             <img src="{{ article.image_url }}" alt="{{ article.title_en }}"
                 class="{% if loop.first %}active-slide{% endif %}" id="hero-bg-{{ loop.index }}" width="1920"
                 height="1080" loading="eager" data-title-en="{{ article.title_en }}"
-                data-title-id="{{ article.title_id }}" data-desc-en="{{ article.description_en[:150] }}..."
-                data-desc-id="{{ article.description_id[:150] }}...">
+                data-title-id="{{ article.title_id }}" data-desc-en="{{ article.description_en }}"
+                data-desc-id="{{ article.description_id }}">
             {% endfor %}
             {% elif latest_news is none %}
             <!-- Fallback images if no news -->
@@ -1078,7 +1078,7 @@ Bank Sampah Induk Surabaya. Bergabunglah dengan kami untuk mengurangi sampah pla
                 {{ latest_news[0].title_id if latest_news else 'No News' }}
             </h2>
             <p class="news-preview-desc" id="carousel-desc">
-                {{ latest_news[0].description_id[:150] if latest_news else '' }}...
+                {{ latest_news[0].description_id if latest_news else '' }}
             </p>
             <a href="/news" class="news-preview-link magnetic">
                 <span data-translate-key="news_read_more">Read All News</span>

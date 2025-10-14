@@ -305,11 +305,11 @@
         }
         
         .hero-left {
-            padding-top: 3rem;
+            padding: 2rem 1rem;
         }
         
         .hero-right {
-            min-height: 60vh;
+            min-height: 50vh;
             padding-top: 0;
         }
         
@@ -319,6 +319,18 @@
         
         .hero-content h1 {
             font-size: 2rem;
+            line-height: 1.2;
+        }
+        
+        .hero-content h2 {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero-stats {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
         }
         
         .hero-stat {
@@ -327,14 +339,50 @@
         
         .hero-partners {
             justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
         }
         
         .hero-buttons {
             justify-content: center;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .button {
+            width: 100%;
+            justify-content: center;
+            padding: 1rem 2rem;
         }
         
         .hero-dots {
             justify-content: center;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .hero-content h1 {
+            font-size: 1.75rem;
+        }
+        
+        .hero-content h2 {
+            font-size: 0.9rem;
+        }
+        
+        .hero-stats {
+            gap: 0.75rem;
+        }
+        
+        .hero-stat .stat-number {
+            font-size: 2rem;
+        }
+        
+        .hero-stat .stat-label {
+            font-size: 0.8rem;
+        }
+        
+        .hero-partners img {
+            height: 1.5rem;
         }
     }
 
@@ -352,6 +400,20 @@
     @media (min-width: 768px) {
         .mission-grid {
             grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .mission-grid {
+            gap: 2rem;
+        }
+        
+        .mission-grid h3 {
+            font-size: 1.25rem;
+        }
+        
+        .mission-grid p {
+            font-size: 1rem;
         }
     }
 
@@ -529,6 +591,31 @@
         }
     }
 
+    @media (max-width: 768px) {
+        .process-flow {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            max-width: 300px;
+        }
+        
+        .process-step {
+            text-align: center;
+        }
+        
+        .process-step::after,
+        .process-step::before {
+            display: none;
+        }
+        
+        .process-step h4 {
+            font-size: 1.1rem;
+        }
+        
+        .process-step p {
+            font-size: 0.9rem;
+        }
+    }
+
     @media (max-width: 500px) {
         .process-flow {
             grid-template-columns: 1fr;
@@ -625,6 +712,30 @@
     @media (min-width: 768px) {
         .impact-grid {
             grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .impact-grid {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        
+        .impact-card {
+            text-align: center;
+            padding: 1.5rem;
+        }
+        
+        .impact-card .number {
+            font-size: 2.5rem;
+        }
+        
+        .impact-card .title {
+            font-size: 1.1rem;
+        }
+        
+        .impact-card p {
+            font-size: 0.9rem;
         }
     }
 

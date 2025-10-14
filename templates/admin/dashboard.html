@@ -298,12 +298,124 @@
         }
 
         @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .navbar {
+                padding: 1rem;
+            }
+            
+            .navbar h1 {
+                font-size: 1.25rem;
+            }
+            
+            .navbar-links {
+                gap: 0.5rem;
+            }
+            
+            .navbar-links a {
+                padding: 0.5rem;
+                font-size: 0.9rem;
+            }
+            
+            .page-header h2 {
+                font-size: 1.5rem;
+            }
+            
+            .actions {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.75rem;
+            }
+            
+            .reorder-toggle {
+                margin-left: 0;
+            }
+            
             .news-item {
                 grid-template-columns: 1fr;
+                gap: 1rem;
+                padding: 1rem;
             }
-
+            
+            .order-controls {
+                order: -1;
+                justify-content: center;
+                margin-bottom: 1rem;
+            }
+            
+            .news-image {
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+            }
+            
+            .news-content {
+                text-align: center;
+            }
+            
             .news-actions {
                 flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .news-actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0.75rem;
+            }
+            
+            .navbar {
+                padding: 0.75rem;
+            }
+            
+            .navbar h1 {
+                font-size: 1.1rem;
+            }
+            
+            .navbar-links a {
+                padding: 0.4rem 0.6rem;
+                font-size: 0.8rem;
+            }
+            
+            .page-header h2 {
+                font-size: 1.25rem;
+            }
+            
+            .news-item {
+                padding: 0.75rem;
+            }
+            
+            .news-image {
+                height: 150px;
+            }
+            
+            .news-title {
+                font-size: 1.1rem;
+            }
+            
+            .news-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .order-controls {
+                gap: 0.5rem;
+            }
+            
+            .order-btn {
+                padding: 0.4rem;
+                font-size: 0.8rem;
+            }
+            
+            .order-number {
+                font-size: 0.9rem;
             }
         }
     </style>

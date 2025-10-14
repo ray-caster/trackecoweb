@@ -1,7 +1,8 @@
 {% extends "shared/base.html" %}
 
 {% block title %}Latest News - TrackEco{% endblock %}
-{% block description %}Stay updated with the latest news and updates from TrackEco's environmental initiatives in Surabaya.{% endblock %}
+{% block description %}Stay updated with the latest news and updates from TrackEco's environmental initiatives in
+Surabaya.{% endblock %}
 
 {% block extra_css %}
 <style>
@@ -168,8 +169,9 @@
     @media (max-width: 768px) {
         .news-hero {
             padding: 3rem 1rem;
+            padding-top: calc(80px + 2rem);
         }
-        
+
         .news-hero h1 {
             font-size: 2rem;
         }
@@ -187,33 +189,33 @@
             grid-column: 1;
             grid-template-columns: 1fr;
         }
-        
+
         .news-card {
             padding: 1.5rem;
             word-wrap: break-word;
             overflow-wrap: break-word;
         }
-        
+
         .news-card h3 {
             font-size: 1.25rem;
             line-height: 1.3;
             word-wrap: break-word;
             overflow-wrap: break-word;
         }
-        
+
         .news-card p {
             font-size: 0.95rem;
             line-height: 1.4;
             word-wrap: break-word;
             overflow-wrap: break-word;
         }
-        
+
         .news-meta {
             flex-direction: column;
             align-items: flex-start;
             gap: 0.5rem;
         }
-        
+
         .news-read-more {
             width: 100%;
             text-align: center;
@@ -224,40 +226,41 @@
     @media (max-width: 480px) {
         .news-hero {
             padding: 2rem 1rem;
+            padding-top: calc(80px + 1.5rem);
         }
-        
+
         .news-hero h1 {
             font-size: 1.75rem;
         }
-        
+
         .news-hero p {
             font-size: 0.9rem;
         }
-        
+
         .news-grid {
             gap: 1rem;
         }
-        
+
         .news-card {
             padding: 1rem;
         }
-        
+
         .news-card h3 {
             font-size: 1.1rem;
         }
-        
+
         .news-card p {
             font-size: 0.9rem;
         }
-        
+
         .news-meta {
             gap: 0.75rem;
         }
-        
+
         .news-date {
             font-size: 0.85rem;
         }
-        
+
         .news-read-more {
             padding: 0.6rem;
             font-size: 0.9rem;
@@ -271,81 +274,84 @@
 <section class="news-hero">
     <div class="container">
         <h1 data-translate-key="news_hero_title">Latest News</h1>
-        <p data-translate-key="news_hero_desc">Stay updated with our latest environmental initiatives and community impact stories.</p>
+        <p data-translate-key="news_hero_desc">Stay updated with our latest environmental initiatives and community
+            impact stories.</p>
     </div>
 </section>
 
 <!-- News Articles -->
 <section class="news-container">
     {% if news_articles and news_articles|length > 0 %}
-        <div class="news-grid">
-            {% for article in news_articles %}
-            <article class="news-card {% if article.featured %}featured{% endif %}">
-                <img src="{{ article.image_url }}" alt="{{ article.title_en }}" class="news-image">
-                <div class="news-content">
-                    <span class="news-category {% if article.featured %}featured{% endif %}">
-                        {{ article.category|title }}
-                        {% if article.featured %} - Featured{% endif %}
-                    </span>
-                    <h3 class="news-title" data-translate-key="news_title_{{ loop.index }}">{{ article.title_en }}</h3>
-                    <p class="news-description" data-translate-key="news_desc_{{ loop.index }}">
-                        {{ article.description_en|safe }}
-                    </p>
-                    <div class="news-meta">
-                        <div class="news-date">
-                            <i class="fas fa-calendar"></i>
-                            <span>{{ article.publish_date.strftime('%B %d, %Y') if article.publish_date else (article.created_at.strftime('%B %d, %Y') if article.created_at else 'Recent') }}</span>
-                        </div>
-                        <a href="/news/{{ article.id }}" class="news-read-more" data-translate-key="news_read_more">Read More</a>
+    <div class="news-grid">
+        {% for article in news_articles %}
+        <article class="news-card {% if article.featured %}featured{% endif %}">
+            <img src="{{ article.image_url }}" alt="{{ article.title_en }}" class="news-image">
+            <div class="news-content">
+                <span class="news-category {% if article.featured %}featured{% endif %}">
+                    {{ article.category|title }}
+                    {% if article.featured %} - Featured{% endif %}
+                </span>
+                <h3 class="news-title" data-translate-key="news_title_{{ loop.index }}">{{ article.title_en }}</h3>
+                <p class="news-description" data-translate-key="news_desc_{{ loop.index }}">
+                    {{ article.description_en|safe }}
+                </p>
+                <div class="news-meta">
+                    <div class="news-date">
+                        <i class="fas fa-calendar"></i>
+                        <span>{{ article.publish_date.strftime('%B %d, %Y') if article.publish_date else
+                            (article.created_at.strftime('%B %d, %Y') if article.created_at else 'Recent') }}</span>
                     </div>
+                    <a href="/news/{{ article.id }}" class="news-read-more" data-translate-key="news_read_more">Read
+                        More</a>
                 </div>
-            </article>
-            {% endfor %}
-        </div>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
     {% else %}
-        <div class="empty-state">
-            <h3 data-translate-key="news_empty_title">No News Yet</h3>
-            <p data-translate-key="news_empty_desc">Check back soon for the latest updates from TrackEco!</p>
-            <a href="/admin/login" class="btn-primary" data-translate-key="news_admin_link">Admin Login</a>
-        </div>
+    <div class="empty-state">
+        <h3 data-translate-key="news_empty_title">No News Yet</h3>
+        <p data-translate-key="news_empty_desc">Check back soon for the latest updates from TrackEco!</p>
+        <a href="/admin/login" class="btn-primary" data-translate-key="news_admin_link">Admin Login</a>
+    </div>
     {% endif %}
 </section>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Get initial language
-    const getInitialLanguage = () => {
-        const savedLang = localStorage.getItem('language');
-        if (savedLang && ['en', 'id'].includes(savedLang)) return savedLang;
-        const browserLang = navigator.language.split('-')[0];
-        return browserLang === 'id' ? 'id' : 'en';
-    };
+    document.addEventListener('DOMContentLoaded', function () {
+        // Get initial language
+        const getInitialLanguage = () => {
+            const savedLang = localStorage.getItem('language');
+            if (savedLang && ['en', 'id'].includes(savedLang)) return savedLang;
+            const browserLang = navigator.language.split('-')[0];
+            return browserLang === 'id' ? 'id' : 'en';
+        };
 
-    const currentLang = getInitialLanguage();
-    
-    // Update news content based on language
-    function updateNewsContent(lang) {
-        // Update all elements with data-translate-key attributes
-        document.querySelectorAll('[data-translate-key]').forEach(element => {
-            const key = element.getAttribute('data-translate-key');
-            if (translations[lang] && translations[lang][key]) {
-                element.textContent = translations[lang][key];
-            }
+        const currentLang = getInitialLanguage();
+
+        // Update news content based on language
+        function updateNewsContent(lang) {
+            // Update all elements with data-translate-key attributes
+            document.querySelectorAll('[data-translate-key]').forEach(element => {
+                const key = element.getAttribute('data-translate-key');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+        }
+
+        // Initialize content
+        updateNewsContent(currentLang);
+
+        // Language switchers
+        ['lang-en', 'lang-en-mobile'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener('click', () => updateNewsContent('en'));
         });
-    }
-
-    // Initialize content
-    updateNewsContent(currentLang);
-
-    // Language switchers
-    ['lang-en', 'lang-en-mobile'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.addEventListener('click', () => updateNewsContent('en'));
+        ['lang-id', 'lang-id-mobile'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener('click', () => updateNewsContent('id'));
+        });
     });
-    ['lang-id', 'lang-id-mobile'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.addEventListener('click', () => updateNewsContent('id'));
-    });
-});
 </script>
 {% endblock %}

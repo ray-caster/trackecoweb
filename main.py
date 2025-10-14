@@ -96,7 +96,7 @@ def news():
 def news_detail(news_id):
     if FIREBASE_AVAILABLE:
         news_article = get_news_by_id(news_id)
-        if not news_article or not news_article.published:
+        if not news_article or not news_article.get('published', False):
             flash('News article not found.', 'error')
             return redirect(url_for('news'))
     else:
@@ -219,6 +219,12 @@ def admin_edit_news(news_id):
         return redirect(url_for('admin_dashboard'))
     
     if request.method == 'POST':
+        # Get existing news article for reference
+        existing_news = get_news_by_id(news_id)
+        if not existing_news:
+            flash('News article not found.', 'error')
+            return redirect(url_for('admin_dashboard'))
+        
         # Handle image upload
         image_url = request.form.get('image_url')
         if 'image_file' in request.files:
@@ -237,9 +243,9 @@ def admin_edit_news(news_id):
             try:
                 publish_date = datetime.fromisoformat(publish_date_str.replace('T', ' '))
             except:
-                publish_date = news.publish_date if hasattr(news, 'publish_date') else datetime.now()
+                publish_date = existing_news.get('publish_date') if existing_news else datetime.now()
         else:
-            publish_date = news.publish_date if hasattr(news, 'publish_date') else datetime.now()
+            publish_date = existing_news.get('publish_date') if existing_news else datetime.now()
 
         news_data = {
             'title_en': request.form.get('title_en'),

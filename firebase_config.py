@@ -66,7 +66,8 @@ def get_all_news():
         return []
     
     try:
-        news_ref = db.collection('news').order_by('created_at', direction=firestore.Query.DESCENDING)
+        # Get all news articles first, then sort by order in Python
+        news_ref = db.collection('news')
         docs = news_ref.stream()
         
         news_list = []
@@ -77,6 +78,9 @@ def get_all_news():
             if 'order' not in news_data:
                 news_data['order'] = 999
             news_list.append(news_data)
+        
+        # Sort by order field (lower numbers first)
+        news_list.sort(key=lambda x: x.get('order', 999))
         
         return news_list
     except Exception as e:

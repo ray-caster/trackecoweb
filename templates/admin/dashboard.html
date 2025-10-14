@@ -427,6 +427,10 @@
             
             if (targetIndex < 0 || targetIndex >= items.length) return;
             
+            // Disable all order buttons during processing
+            const allOrderButtons = document.querySelectorAll('.order-btn');
+            allOrderButtons.forEach(btn => btn.disabled = true);
+            
             // Swap the items visually
             const currentItem = items[currentIndex];
             const targetItem = items[targetIndex];
@@ -465,6 +469,8 @@
                 }
             } catch (error) {
                 alert('Error saving order: ' + error.message);
+                // Re-enable buttons on error
+                updateButtonStates();
             }
         }
 

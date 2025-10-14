@@ -1,6 +1,6 @@
 {% extends "shared/base.html" %}
 
-{% block title %}{{ article.title_en if current_lang == 'en' else article.title_id }} - TrackEco News{% endblock %}
+{% block title %}{{ article.title_en }} - TrackEco News{% endblock %}
 
 {% block extra_css %}
 <style>
@@ -192,8 +192,8 @@
 <div class="news-detail-container">
     <div class="news-detail-header">
         <span class="news-detail-category">{{ article.category|title }}</span>
-        <h1 class="news-detail-title">
-            {{ article.title_en if current_lang == 'en' else article.title_id }}
+        <h1 class="news-detail-title" id="news-title">
+            {{ article.title_en }}
         </h1>
         <div class="news-detail-meta">
             <span>
@@ -219,12 +219,12 @@
     <img src="{{ article.image_url }}" alt="{{ article.title_en }}" class="news-detail-image">
     {% endif %}
 
-    <div class="news-detail-description">
-        {{ (article.description_id if current_lang == 'id' else article.description_en)|safe }}
+    <div class="news-detail-description" id="news-description">
+        {{ article.description_en|safe }}
     </div>
 
-    <div class="news-detail-content">
-        {{ (article.content_id if current_lang == 'id' else article.content_en)|safe }}
+    <div class="news-detail-content" id="news-content">
+        {{ article.content_en|safe }}
     </div>
 
     <div class="news-detail-actions">
@@ -253,9 +253,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Update content based on language
     function updateContent(lang) {
-        const titleElement = document.querySelector('.news-detail-title');
-        const descriptionElement = document.querySelector('.news-detail-description');
-        const contentElement = document.querySelector('.news-detail-content');
+        const titleElement = document.getElementById('news-title');
+        const descriptionElement = document.getElementById('news-description');
+        const contentElement = document.getElementById('news-content');
         
         if (titleElement) {
             titleElement.textContent = lang === 'en' ? '{{ article.title_en }}' : '{{ article.title_id }}';

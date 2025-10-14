@@ -271,11 +271,11 @@
     </div>
 
     <div class="news-detail-actions">
-        <a href="/news" class="btn btn-secondary">
+        <a href="/news" class="btn btn-secondary" data-translate-key="news_back_to_news">
             <i class="fas fa-arrow-left"></i>
             Back to News
         </a>
-        <a href="/" class="btn btn-primary">
+        <a href="/" class="btn btn-primary" data-translate-key="news_home">
             <i class="fas fa-home"></i>
             Home
         </a>
@@ -311,19 +311,37 @@ document.addEventListener('DOMContentLoaded', function() {
         if (contentElement) {
             contentElement.innerHTML = lang === 'en' ? '{{ article.content_en|safe }}' : '{{ article.content_id|safe }}';
         }
+        
+        // Also update any other translatable elements
+        document.querySelectorAll('[data-translate-key]').forEach(element => {
+            const key = element.getAttribute('data-translate-key');
+            if (window.translations && window.translations[lang] && window.translations[lang][key]) {
+                element.textContent = window.translations[lang][key];
+            }
+        });
     }
 
     // Initialize content
     updateContent(currentLang);
 
-    // Language switchers
+    // Language switchers - use global setLanguage function if available
     ['lang-en', 'lang-en-mobile'].forEach(id => {
         const el = document.getElementById(id);
-        if (el) el.addEventListener('click', () => updateContent('en'));
+        if (el) el.addEventListener('click', () => {
+            if (window.setLanguage) {
+                window.setLanguage('en');
+            }
+            updateContent('en');
+        });
     });
     ['lang-id', 'lang-id-mobile'].forEach(id => {
         const el = document.getElementById(id);
-        if (el) el.addEventListener('click', () => updateContent('id'));
+        if (el) el.addEventListener('click', () => {
+            if (window.setLanguage) {
+                window.setLanguage('id');
+            }
+            updateContent('id');
+        });
     });
 });
 </script>

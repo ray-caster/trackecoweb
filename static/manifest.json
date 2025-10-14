@@ -1,0 +1,72 @@
+{
+  "name": "TrackEco - Plastic Waste Recycling",
+  "short_name": "TrackEco",
+  "description": "Empowering Surabaya to reduce waste and thrive through community recycling programs",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#231842",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["environment", "recycling", "sustainability"],
+  "icons": [
+    {
+      "src": "/static/images/icon-192x192.webp",
+      "sizes": "192x192",
+      "type": "image/webp",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/static/images/icon-512x512.webp",
+      "sizes": "512x512",
+      "type": "image/webp",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/static/images/screenshot-mobile.webp",
+      "sizes": "390x844",
+      "type": "image/webp",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "/static/images/screenshot-desktop.webp",
+      "sizes": "1280x720",
+      "type": "image/webp",
+      "form_factor": "wide"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Latest News",
+      "short_name": "News",
+      "description": "View latest environmental news",
+      "url": "/news",
+      "icons": [
+        {
+          "src": "/static/images/shortcut-news.webp",
+          "sizes": "96x96",
+          "type": "image/webp"
+        }
+      ]
+    },
+    {
+      "name": "Impact Calculator",
+      "short_name": "Calculator",
+      "description": "Calculate your environmental impact",
+      "url": "/calculator",
+      "icons": [
+        {
+          "src": "/static/images/shortcut-calculator.webp",
+          "sizes": "96x96",
+          "type": "image/webp"
+        }
+      ]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}

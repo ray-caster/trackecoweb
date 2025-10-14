@@ -190,14 +190,22 @@
         
         .news-card {
             padding: 1.5rem;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
         
         .news-card h3 {
             font-size: 1.25rem;
+            line-height: 1.3;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
         
         .news-card p {
             font-size: 0.95rem;
+            line-height: 1.4;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
         
         .news-meta {
@@ -279,9 +287,9 @@
                         {{ article.category|title }}
                         {% if article.featured %} - Featured{% endif %}
                     </span>
-                    <h3 class="news-title">{{ article.title_id if current_lang == 'id' else article.title_en }}</h3>
-                    <p class="news-description">
-                        {{ (article.description_id if current_lang == 'id' else article.description_en)|safe }}
+                    <h3 class="news-title" data-translate-key="news_title_{{ loop.index }}">{{ article.title_en }}</h3>
+                    <p class="news-description" data-translate-key="news_desc_{{ loop.index }}">
+                        {{ article.description_en|safe }}
                     </p>
                     <div class="news-meta">
                         <div class="news-date">
@@ -302,4 +310,42 @@
         </div>
     {% endif %}
 </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Get initial language
+    const getInitialLanguage = () => {
+        const savedLang = localStorage.getItem('language');
+        if (savedLang && ['en', 'id'].includes(savedLang)) return savedLang;
+        const browserLang = navigator.language.split('-')[0];
+        return browserLang === 'id' ? 'id' : 'en';
+    };
+
+    const currentLang = getInitialLanguage();
+    
+    // Update news content based on language
+    function updateNewsContent(lang) {
+        // Update all elements with data-translate-key attributes
+        document.querySelectorAll('[data-translate-key]').forEach(element => {
+            const key = element.getAttribute('data-translate-key');
+            if (translations[lang] && translations[lang][key]) {
+                element.textContent = translations[lang][key];
+            }
+        });
+    }
+
+    // Initialize content
+    updateNewsContent(currentLang);
+
+    // Language switchers
+    ['lang-en', 'lang-en-mobile'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('click', () => updateNewsContent('en'));
+    });
+    ['lang-id', 'lang-id-mobile'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('click', () => updateNewsContent('id'));
+    });
+});
+</script>
 {% endblock %}

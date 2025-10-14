@@ -184,7 +184,10 @@
                 footer_link_impact: "Impact",
                 footer_link_team: "Our Team",
                 footer_contact_title: "Contact Us",
-                footer_rights: "All rights reserved."
+                footer_rights: "All rights reserved.",
+                news_read_more: "Read More",
+                news_back_to_news: "Back to News",
+                news_home: "Home"
             },
             id: {
                 nav_home: "Beranda",
@@ -207,9 +210,15 @@
                 footer_link_impact: "Dampak",
                 footer_link_team: "Tim Kami",
                 footer_contact_title: "Hubungi Kami",
-                footer_rights: "Hak cipta dilindungi undang-undang."
+                footer_rights: "Hak cipta dilindungi undang-undang.",
+                news_read_more: "Baca Selengkapnya",
+                news_back_to_news: "Kembali ke Berita",
+                news_home: "Beranda"
             }
         };
+
+        // Make translations globally accessible
+        window.translations = translations;
 
         const setLanguage = (lang) => {
             document.documentElement.lang = lang;
@@ -228,6 +237,9 @@
                 el.style.color = (lang === 'id' ? 'var(--accent-color)' : 'var(--white-color)')
             );
         };
+
+        // Make setLanguage globally accessible
+        window.setLanguage = setLanguage;
 
         const getInitialLanguage = () => {
             const savedLang = localStorage.getItem('language');

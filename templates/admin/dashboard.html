@@ -452,14 +452,88 @@
                 const data = await response.json();
                 
                 if (data.success) {
-                    // Reload to update button states
-                    location.reload();
+                    // Update order numbers and button states without reloading
+                    updateOrderNumbers();
+                    updateButtonStates();
+                    
+                    // Show success feedback
+                    showSuccessMessage('Article order updated successfully!');
                 } else {
                     alert('Failed to save order: ' + data.message);
+                    // Revert the visual changes
+                    location.reload();
                 }
             } catch (error) {
                 alert('Error saving order: ' + error.message);
             }
+        }
+
+        // Update order numbers after reordering
+        function updateOrderNumbers() {
+            const items = Array.from(document.querySelectorAll('.news-item'));
+            items.forEach((item, index) => {
+                const orderNumber = item.querySelector('.order-number');
+                if (orderNumber) {
+                    orderNumber.textContent = `#${index + 1}`;
+                }
+            });
+        }
+
+        // Update button states after reordering
+        function updateButtonStates() {
+            const items = Array.from(document.querySelectorAll('.news-item'));
+            items.forEach((item, index) => {
+                const upButton = item.querySelector('.order-btn[onclick*="up"]');
+                const downButton = item.querySelector('.order-btn[onclick*="down"]');
+                
+                if (upButton) {
+                    upButton.disabled = index === 0;
+                }
+                if (downButton) {
+                    downButton.disabled = index === items.length - 1;
+                }
+            });
+        }
+
+        // Show success message
+        function showSuccessMessage(message) {
+            // Create a temporary success message
+            const successDiv = document.createElement('div');
+            successDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #4caf50;
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 1000;
+                font-weight: 500;
+                animation: slideInRight 0.3s ease;
+            `;
+            successDiv.textContent = message;
+            
+            // Add animation keyframes if not already present
+            if (!document.querySelector('#success-animation-styles')) {
+                const style = document.createElement('style');
+                style.id = 'success-animation-styles';
+                style.textContent = `
+                    @keyframes slideInRight {
+                        from { transform: translateX(100%); opacity: 0; }
+                        to { transform: translateX(0); opacity: 1; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+            
+            document.body.appendChild(successDiv);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                successDiv.style.animation = 'slideInRight 0.3s ease reverse';
+                setTimeout(() => successDiv.remove(), 300);
+            }, 3000);
         }
 
         // Handle featured toggle

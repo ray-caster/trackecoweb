@@ -1,0 +1,215 @@
+{% extends "shared/base.html" %}
+
+{% block title %}{{ article.title_en if current_lang == 'en' else article.title_id }} - TrackEco News{% endblock %}
+
+{% block extra_css %}
+<style>
+    .news-detail-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .news-detail-header {
+        margin-bottom: 2rem;
+    }
+
+    .news-detail-category {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        background: var(--accent-color);
+        color: var(--primary-color);
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 0.875rem;
+        margin-bottom: 1rem;
+    }
+
+    .news-detail-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+        line-height: 1.2;
+    }
+
+    .news-detail-meta {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        margin-bottom: 2rem;
+        color: #666;
+        font-size: 0.875rem;
+    }
+
+    .news-detail-meta i {
+        margin-right: 0.5rem;
+        color: var(--accent-color);
+    }
+
+    .news-detail-image {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+        border-radius: 12px;
+        margin-bottom: 2rem;
+    }
+
+    .news-detail-description {
+        font-size: 1.25rem;
+        color: #666;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+        font-style: italic;
+    }
+
+    .news-detail-content {
+        font-size: 1.125rem;
+        line-height: 1.8;
+        color: #333;
+    }
+
+    .news-detail-content h1,
+    .news-detail-content h2,
+    .news-detail-content h3,
+    .news-detail-content h4,
+    .news-detail-content h5,
+    .news-detail-content h6 {
+        color: var(--primary-color);
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .news-detail-content p {
+        margin-bottom: 1.5rem;
+    }
+
+    .news-detail-content strong {
+        color: var(--primary-color);
+        font-weight: 700;
+    }
+
+    .news-detail-content em {
+        color: var(--accent-color);
+        font-style: italic;
+    }
+
+    .news-detail-content u {
+        text-decoration: underline;
+        text-decoration-color: var(--accent-color);
+    }
+
+    .news-detail-actions {
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid #e0e0e0;
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #F2C14E, #2e7d32);
+        color: white;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(242, 193, 78, 0.4);
+    }
+
+    .btn-secondary {
+        background: #6c757d;
+        color: white;
+    }
+
+    .btn-secondary:hover {
+        background: #5a6268;
+    }
+
+    @media (max-width: 768px) {
+        .news-detail-container {
+            margin: 1rem;
+            padding: 1.5rem;
+        }
+
+        .news-detail-title {
+            font-size: 2rem;
+        }
+
+        .news-detail-meta {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .news-detail-image {
+            height: 250px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="news-detail-container">
+    <div class="news-detail-header">
+        <span class="news-detail-category">{{ article.category|title }}</span>
+        <h1 class="news-detail-title">
+            {{ article.title_en if current_lang == 'en' else article.title_id }}
+        </h1>
+        <div class="news-detail-meta">
+            <span>
+                <i class="fas fa-calendar"></i>
+                {{ article.publish_date.strftime('%B %d, %Y') if article.publish_date else (article.created_at.strftime('%B %d, %Y') if article.created_at else 'Recent') }}
+            </span>
+            {% if article.featured %}
+            <span>
+                <i class="fas fa-star"></i>
+                Featured Story
+            </span>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if article.image_url %}
+    <img src="{{ article.image_url }}" alt="{{ article.title_en }}" class="news-detail-image">
+    {% endif %}
+
+    <div class="news-detail-description">
+        {{ (article.description_id if current_lang == 'id' else article.description_en)|safe }}
+    </div>
+
+    <div class="news-detail-content">
+        {{ (article.content_id if current_lang == 'id' else article.content_en)|safe }}
+    </div>
+
+    <div class="news-detail-actions">
+        <a href="/news" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i>
+            Back to News
+        </a>
+        <a href="/" class="btn btn-primary">
+            <i class="fas fa-home"></i>
+            Home
+        </a>
+    </div>
+</div>
+{% endblock %}

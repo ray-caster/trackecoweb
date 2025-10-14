@@ -209,14 +209,14 @@
                     </span>
                     <h3 class="news-title">{{ article.title_id if current_lang == 'id' else article.title_en }}</h3>
                     <p class="news-description">
-                        {{ article.description_id if current_lang == 'id' else article.description_en }}
+                        {{ (article.description_id if current_lang == 'id' else article.description_en)|safe }}
                     </p>
                     <div class="news-meta">
                         <div class="news-date">
                             <i class="fas fa-calendar"></i>
-                            <span>{{ article.created_at.strftime('%B %d, %Y') if article.created_at else 'Recent' }}</span>
+                            <span>{{ article.publish_date.strftime('%B %d, %Y') if article.publish_date else (article.created_at.strftime('%B %d, %Y') if article.created_at else 'Recent') }}</span>
                         </div>
-                        <a href="#" class="news-read-more" data-translate-key="news_read_more">Read More</a>
+                        <a href="/news/{{ article.id }}" class="news-read-more" data-translate-key="news_read_more">Read More</a>
                     </div>
                 </div>
             </article>

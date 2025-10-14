@@ -378,10 +378,15 @@
                             </span>
                             <span>
                                 <i class="far fa-clock"></i> 
-                                {{ article.created_at.strftime('%B %d, %Y') if article.created_at else 'N/A' }}
+                                {{ article.publish_date.strftime('%B %d, %Y') if article.publish_date else (article.created_at.strftime('%B %d, %Y') if article.created_at else 'N/A') }}
                             </span>
                         </div>
                         <p style="color: #666; font-size: 0.875rem;">{{ article.description_en[:100] }}...</p>
+                        {% if article.content_en %}
+                        <p style="color: #999; font-size: 0.75rem; margin-top: 0.5rem;">
+                            <i class="fas fa-file-text"></i> Full content available
+                        </p>
+                        {% endif %}
                     </div>
                     
                     <div class="news-actions">

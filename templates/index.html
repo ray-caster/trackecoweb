@@ -1454,7 +1454,7 @@
         const carouselDesc = document.getElementById('carousel-desc');
         let currentBgIndex = 0;
         let sliderInterval;
-        let currentLang = 'id'; // Default language
+        let currentLang = getInitialLanguage(); // Use the same language detection
 
         function updateCarouselContent(index) {
             const currentImage = backgrounds[index];

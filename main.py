@@ -92,6 +92,19 @@ def news():
         news_articles = []
     return render_template("news.html", news_articles=news_articles)
 
+@app.route("/news/<news_id>")
+def news_detail(news_id):
+    if FIREBASE_AVAILABLE:
+        news_article = get_news_by_id(news_id)
+        if not news_article or not news_article.published:
+            flash('News article not found.', 'error')
+            return redirect(url_for('news'))
+    else:
+        flash('News system is not available.', 'error')
+        return redirect(url_for('index'))
+    
+    return render_template("news_detail.html", article=news_article)
+
 @app.route("/timeline")
 def timeline():
     return render_template("timeline.html")
@@ -175,6 +188,8 @@ def admin_add_news():
             'title_id': request.form.get('title_id'),
             'description_en': request.form.get('description_en'),
             'description_id': request.form.get('description_id'),
+            'content_en': request.form.get('content_en'),
+            'content_id': request.form.get('content_id'),
             'category': request.form.get('category'),
             'image_url': image_url,
             'published': request.form.get('published') == 'on',
@@ -231,6 +246,8 @@ def admin_edit_news(news_id):
             'title_id': request.form.get('title_id'),
             'description_en': request.form.get('description_en'),
             'description_id': request.form.get('description_id'),
+            'content_en': request.form.get('content_en'),
+            'content_id': request.form.get('content_id'),
             'category': request.form.get('category'),
             'image_url': image_url,
             'published': request.form.get('published') == 'on',
@@ -251,7 +268,10 @@ def admin_edit_news(news_id):
         flash('News article not found.', 'error')
         return redirect(url_for('admin_dashboard'))
     
-    return render_template("admin/edit_news.html", news=news_article)
+    # Get categories for the dropdown
+    categories = get_categories() if FIREBASE_AVAILABLE else []
+    
+    return render_template("admin/edit_news.html", news=news_article, categories=categories)
 
 @app.route("/admin/news/delete/<news_id>", methods=['POST'])
 @login_required
